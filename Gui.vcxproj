@@ -19,11 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ch12\example_01.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="_add_libs\PPP2Code\Graph.cpp" />
+    <ClCompile Include="_add_libs\PPP2Code\GUI.cpp" />
+    <ClCompile Include="_add_libs\PPP2Code\Window.cpp" />
     <ClCompile Include="_Appendix_D_test\test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ch12\ch12.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="_add_libs\PPP2Code\Graph.h" />
+    <ClInclude Include="_add_libs\PPP2Code\Gui.h" />
+    <ClInclude Include="_add_libs\PPP2Code\Point.h" />
+    <ClInclude Include="_add_libs\PPP2Code\Simple_window.h" />
+    <ClInclude Include="_add_libs\PPP2Code\std_lib_facilities.h" />
+    <ClInclude Include="_add_libs\PPP2Code\Window.h" />
     <ClInclude Include="_Appendix_D_test\test.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

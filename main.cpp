@@ -2,6 +2,6 @@
 
 int main()
 {
-	int result {test()};
-	return result;
+	exc01();
+	return 0;
 }

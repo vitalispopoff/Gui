@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\_add_libs">
+      <UniqueIdentifier>{3d596bf9-35e2-444f-99a3-561631dba76a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\_add_libs">
+      <UniqueIdentifier>{936a096f-ce0c-4fef-bcc4-11a1e57a2d9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Appendix_D_test\test.cpp">
@@ -21,6 +27,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ch12\example_01.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_add_libs\PPP2Code\Graph.cpp">
+      <Filter>Source Files\_add_libs</Filter>
+    </ClCompile>
+    <ClCompile Include="_add_libs\PPP2Code\Window.cpp">
+      <Filter>Source Files\_add_libs</Filter>
+    </ClCompile>
+    <ClCompile Include="_add_libs\PPP2Code\GUI.cpp">
+      <Filter>Source Files\_add_libs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -28,6 +46,27 @@
     </ClInclude>
     <ClInclude Include="_Appendix_D_test\test.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ch12\ch12.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_add_libs\PPP2Code\Graph.h">
+      <Filter>Header Files\_add_libs</Filter>
+    </ClInclude>
+    <ClInclude Include="_add_libs\PPP2Code\Window.h">
+      <Filter>Header Files\_add_libs</Filter>
+    </ClInclude>
+    <ClInclude Include="_add_libs\PPP2Code\Gui.h">
+      <Filter>Header Files\_add_libs</Filter>
+    </ClInclude>
+    <ClInclude Include="_add_libs\PPP2Code\Simple_window.h">
+      <Filter>Header Files\_add_libs</Filter>
+    </ClInclude>
+    <ClInclude Include="_add_libs\PPP2Code\std_lib_facilities.h">
+      <Filter>Header Files\_add_libs</Filter>
+    </ClInclude>
+    <ClInclude Include="_add_libs\PPP2Code\Point.h">
+      <Filter>Header Files\_add_libs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
