@@ -19,15 +19,15 @@
     <Filter Include="Source Files\_add_libs">
       <UniqueIdentifier>{936a096f-ce0c-4fef-bcc4-11a1e57a2d9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ch12">
+      <UniqueIdentifier>{b7962742-e968-4156-8442-6d4bf1627688}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Appendix_D_test\test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_01.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_add_libs\PPP2Code\Graph.cpp">
@@ -38,6 +38,12 @@
     </ClCompile>
     <ClCompile Include="_add_libs\PPP2Code\GUI.cpp">
       <Filter>Source Files\_add_libs</Filter>
+    </ClCompile>
+    <ClCompile Include="ch12\example_01.cpp">
+      <Filter>Source Files\ch12</Filter>
+    </ClCompile>
+    <ClCompile Include="example_02.cpp">
+      <Filter>Source Files\ch12</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

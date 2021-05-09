@@ -1,5 +1,4 @@
 #include "../_add_libs/PPP2Code/Simple_window.h"
-//#include "../_add_libs/PPP2Code/Graph.h"
 #include "../_add_libs/PPP2Code/Point.h"
 
 void exc01()
@@ -12,13 +11,17 @@ void exc01()
 		win {tl, 600, 400, "Canvas"};
 	Graph_lib::Polygon
 		poly;
-	poly.add(Point{300, 200});
-	poly.add(Point{350, 100});
-	poly.add(Point{400, 200});
+	Point
+		a {300, 200},
+		b {350, 100},
+		c {400, 200};
+	poly.add(a);
+	poly.add(b);
+	poly.add(c);
 
 	Color 
-		c {Color::Color_type::red};
-	poly.set_color(c);
+		red {Color::Color_type::red};
+	poly.set_color(red);
 	win.attach(poly);
 	win.wait_for_button();
 

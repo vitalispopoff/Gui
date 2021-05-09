@@ -16,17 +16,17 @@ namespace Graph_lib
 	class Window : public Fl_Window 
 	{ 
 		public: 
-			Window(int, int, const string &);			/// let the system pick the location
+			Window(int, int, const string &);					/// let the system pick the location
 			
-			Window(Point, int, int, const string &);	/// top left corner in xy
+			Window(Point, int, int, const string &);			/// top left corner in xy
 
 			virtual ~Window() {}
 
 			void	attach		(Shape	& s);
 			void	attach		(Widget & w);
-			void	detach		(Shape	& s);				/// remove s from shapes 
-			void	detach		(Widget & w);				/// remove w from window (deactivate callbacks)
-			void	put_on_top	(Shape	& p);				/// put p on top of other shapes
+			void	detach		(Shape	& s);					/// remove s from shapes 
+			void	detach		(Widget & w);					/// remove w from window (deactivate callbacks)
+			void	put_on_top	(Shape	& p);					/// put p on top of other shapes
 
 			int		x_max		() const 
 			{
