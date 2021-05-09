@@ -94,8 +94,8 @@ namespace Graph_lib
 	struct Out_box : Widget 
 	{
 		//Out_box(Point xy, int w, int h, const string &s, Window& win)
-		Out_box(Point xy, int w, int h, const string &s)
-			: Widget(xy, w, h, s, 0)
+		Out_box(Point xy, int w, int h, const string &s) : 
+			Widget(xy, w, h, s, 0)
 		{}
 		
 		void	put		(int);

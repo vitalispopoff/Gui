@@ -60,7 +60,10 @@
     <ClCompile Include="example_07.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
-    <ClCompile Include="example08.cpp">
+    <ClCompile Include="example_08.cpp">
+      <Filter>Source Files\ch12</Filter>
+    </ClCompile>
+    <ClCompile Include="example_09.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
   </ItemGroup>

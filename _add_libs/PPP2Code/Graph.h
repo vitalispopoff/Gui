@@ -684,8 +684,8 @@ namespace Graph_lib
 				delete p; 
 			}
 		
-			void	draw_lines			() const;
-			void	set_mask			(Point xy, int ww, int hh) 
+			void	draw_lines	() const;
+			void	set_mask	(Point xy, int ww, int hh) 
 			{ 
 				w = ww; 
 				h = hh; 
@@ -693,7 +693,7 @@ namespace Graph_lib
 				cy = xy.y; 
 			}
 
-			void move(int dx,int dy) 
+			void	move		(int dx,int dy) 
 			{ 
 				Shape::move(dx, dy); 
 				p -> draw(point(0).x, point(0).y); 
