@@ -11,11 +11,12 @@ int main()
 		//test();
 		
 		//using namespace ch12::example;
-		using namespace ch12::drill;
+		//using namespace ch12::drill;
+		using namespace ch12::excercise;
 
-		//_01();
+		_01();
 		//_02();
-		_03();
+		//_03();
 		//_04();
 		//_05();
 		//_06();
@@ -25,6 +26,7 @@ int main()
 		//_10();
 		//_11();
 		//_12();
+		//_13();
 
 	
 
