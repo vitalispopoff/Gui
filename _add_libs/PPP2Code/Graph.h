@@ -35,7 +35,7 @@ namespace Graph_lib
 			dark_yellow	= FL_DARK_YELLOW, 
 			dark_blue	= FL_DARK_BLUE,
 			dark_magenta= FL_DARK_MAGENTA, 
-			dark_cyan	= FL_DARK_CYAN
+			dark_cyan	= FL_DARK_CYAN,
 		};
 
 		enum Transparency 
@@ -44,17 +44,21 @@ namespace Graph_lib
 			visible = 255
 		};
 
-		Color(Color_type cc) 
-			: c(Fl_Color(cc)), v(visible) 
+		Color(Color_type cc) : 
+			c(Fl_Color(cc)), 
+			v(visible) 
 		{}
-		Color(Color_type cc, Transparency vv) 
-			: c(Fl_Color(cc)), v(vv) 
+		Color(Color_type cc, Transparency vv) : 
+			c(Fl_Color(cc)), 
+			v(vv) 
 		{}
-		Color(int cc) 
-			: c(Fl_Color(cc)), v(visible) 
+		Color(int cc) : 
+			c(Fl_Color(cc)), 
+			v(visible) 
 		{}
-		Color(Transparency vv) 
-			: c(Fl_Color()), v(vv) 
+		Color(Transparency vv) : 
+			c(Fl_Color()), 
+			v(vv) 
 		{}
 
 		int as_int() const 

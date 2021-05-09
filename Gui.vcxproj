@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="ch12\example_01.cpp" />
     <ClCompile Include="example_02.cpp" />
+    <ClCompile Include="example_03.cpp" />
+    <ClCompile Include="example_04.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Graph.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\GUI.cpp" />

@@ -45,6 +45,12 @@
     <ClCompile Include="example_02.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
+    <ClCompile Include="example_03.cpp">
+      <Filter>Source Files\ch12</Filter>
+    </ClCompile>
+    <ClCompile Include="example_04.cpp">
+      <Filter>Source Files\ch12</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

@@ -1,5 +1,4 @@
-
-#include "GUI.h"												/// for Simple_window only (doesn't really belong in Window.h)
+#include "Gui.h"												/// for Simple_window only (doesn't really belong in Window.h)
 
 using namespace Graph_lib;
 																/// Simple_window is basic scaffolding for ultra-simple interaction with graphics																
@@ -36,6 +35,8 @@ struct Simple_window : Window									/// it provides one window with one "next"
 		//	reference_to<Simple_window>(addr).next(); 
 		//}
 
-		void next() { button_pushed = true; }
-
+		void next() 
+		{ 
+			button_pushed = true; 
+		}
 };
