@@ -20,17 +20,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch12\example_01.cpp" />
-    <ClCompile Include="example_08.cpp" />
-    <ClCompile Include="example_02.cpp" />
-    <ClCompile Include="example_03.cpp" />
-    <ClCompile Include="example_04.cpp" />
-    <ClCompile Include="example_05.cpp" />
-    <ClCompile Include="example_06.cpp" />
-    <ClCompile Include="example_07.cpp" />
-    <ClCompile Include="example_09.cpp" />
-    <ClCompile Include="example_10.cpp" />
-    <ClCompile Include="example_11.cpp" />
-    <ClCompile Include="example_12.cpp" />
+    <ClCompile Include="ch12\example_02.cpp" />
+    <ClCompile Include="ch12\example_03.cpp" />
+    <ClCompile Include="ch12\example_04.cpp" />
+    <ClCompile Include="ch12\example_05.cpp" />
+    <ClCompile Include="ch12\example_06.cpp" />
+    <ClCompile Include="ch12\example_07.cpp" />
+    <ClCompile Include="ch12\example_08.cpp" />
+    <ClCompile Include="ch12\example_09.cpp" />
+    <ClCompile Include="ch12\example_10.cpp" />
+    <ClCompile Include="ch12\example_11.cpp" />
+    <ClCompile Include="ch12\example_12.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Graph.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\GUI.cpp" />

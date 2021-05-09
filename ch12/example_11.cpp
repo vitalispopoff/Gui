@@ -1,6 +1,6 @@
 #include <sstream>
 
-#include "_add_libs/PPP2Code/Simple_window.h"
+#include "../_add_libs/PPP2Code/Simple_window.h"
 
 using namespace std;
 using namespace Graph_lib;
