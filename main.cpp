@@ -13,9 +13,9 @@ int main()
 		//using namespace ch12::example;
 		using namespace ch12::drill;
 
-		_01();
+		//_01();
 		//_02();
-		//_03();
+		_03();
 		//_04();
 		//_05();
 		//_06();

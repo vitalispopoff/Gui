@@ -179,22 +179,22 @@ namespace Graph_lib
 	/// x coordinates are scaled by xscale and y coordinates scaled by yscale
 	Function::Function(Fct f, double r1, double r2, Point xy, int count, double xscale, double yscale)
 	{
-		if (r2 - r1 <= 0)
+		if (r2 - r1 <= 0)										//v/ an actual raw distance to be stepped through
 			error("bad graphing range");
-		if (count <= 0)
+		if (count <= 0)											//v/ count is a number of steps
 			error("non-positive graphing count");
 		double 
-			dist = (r2-r1)/count;
+			dist = (r2-r1)/count;								//v/ length of the step between following points (polygon joints)
 		double 
-			r = r1;
-		for (int i = 0; i < count; ++i) 
+			r = r1;												//v/ location for the 0th step (will be modified by xscale anyways)
+		for (int i = 0; i < count; ++i)
 		{
 			add(
 				Point(
-					xy.x + int(r * xscale),
-					xy.y - int(f(r) * yscale)
+					xy.x + int(r * xscale),						//v/ step along the xAxis
+					xy.y - int(f(r) * yscale)					//v/ step along the yAxis
 			));
-			r += dist;
+			r += dist;											//v/ next step
 		}
 	}
 
