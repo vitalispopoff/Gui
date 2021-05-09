@@ -17,7 +17,7 @@ namespace ch12
 		Point
 			center	{width >> 1, height >> 1};
 		int
-			rad		{50};
+			rad		{100};
 		double
 			dist	{2.};
 		Circle

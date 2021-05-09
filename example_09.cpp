@@ -8,8 +8,8 @@ namespace ch12
 	{
 		string
 			imgAdd	{"E:\\_LAB\\_C\\Gui\\_other\\"},
-			//imgName	{"kuvaton-kuka_jatti_ikkunan_auki2.jpg"};
-			imgName	{"dog_9.gif"};
+			imgName	{"kuvaton-kuka_jatti_ikkunan_auki2.jpg"};
+			//imgName	{"dog_9.gif"};
 		Point
 			tl		{100, 100};
 		int

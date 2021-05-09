@@ -29,6 +29,8 @@
     <ClCompile Include="example_07.cpp" />
     <ClCompile Include="example_09.cpp" />
     <ClCompile Include="example_10.cpp" />
+    <ClCompile Include="example_11.cpp" />
+    <ClCompile Include="example_12.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Graph.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\GUI.cpp" />
