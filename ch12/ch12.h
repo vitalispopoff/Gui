@@ -11,4 +11,5 @@ namespace ch12
 	void	_07	();
 	void	_08	();
 	void	_09	();
+	void	_10	();
 }

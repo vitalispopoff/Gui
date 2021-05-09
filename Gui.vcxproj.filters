@@ -66,6 +66,9 @@
     <ClCompile Include="example_09.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
+    <ClCompile Include="example_10.cpp">
+      <Filter>Source Files\ch12</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
