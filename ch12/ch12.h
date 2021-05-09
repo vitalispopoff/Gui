@@ -2,10 +2,10 @@
 
 namespace ch12
 {
-	int	_01	();
-	int	_02	();
-	int	_03 ();
-	int	_04	();
-	int _05 ();
-	int _06 ();
+	void	_01	();
+	void	_02	();
+	void	_03 ();
+	void	_04	();
+	void	_05 ();
+	void	_06 ();
 }

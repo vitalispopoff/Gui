@@ -1,12 +1,27 @@
+#include <stdexcept>
 #include "main.h"
+
+using namespace std;
 
 int main()
 {	
-	//return 0;
-	//return test();
-	//return ch12::_01();
-	//return ch12::_02();
-	//return ch12::_03();
-	//return ch12::_04();
-	return ch12::_05();
+	try
+	{
+		//0;
+		//test();
+		//ch12::_01();
+		//ch12::_02();
+		//ch12::_03();
+		//ch12::_04();
+		ch12::_05();
+		return 0;
+	}
+	catch (exception & e)
+	{
+		return 1;
+	}
+	catch (...)
+	{
+		return 2;
+	}
 }

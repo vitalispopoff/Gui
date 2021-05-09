@@ -3,7 +3,7 @@
 
 namespace ch12
 {
-	int _01()
+	void _01()
 	{
 		using namespace Graph_lib;
 
@@ -26,7 +26,5 @@ namespace ch12
 		poly.set_color(red);
 		win.attach(poly);
 		win.wait_for_button();
-
-		return 0;
 	}
 }
