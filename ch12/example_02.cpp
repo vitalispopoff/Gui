@@ -4,12 +4,15 @@ using namespace Graph_lib;
 
 namespace ch12
 {
-	void _02()
+	namespace example
 	{
-		Point
-			tl {100, 100};
-		Simple_window
-			win {tl, 600, 400, "Canvas"};
-		win.wait_for_button();
+		void _02()
+		{
+			Point
+				tl {100, 100};
+			Simple_window
+				win {tl, 600, 400, "Canvas"};
+			win.wait_for_button();
+		}
 	}
 }

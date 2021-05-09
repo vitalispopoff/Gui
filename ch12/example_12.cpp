@@ -4,35 +4,38 @@ using namespace Graph_lib;
 
 namespace ch12
 {
-	void _12()
+	namespace example
 	{
-		int
-			dispX	{x_max()},
-			dispY	{y_max()},
-			winX	{dispX >> 1},
-			winY	{dispY >> 1},
-			anchX	{dispX >> 2},
-			anchY	{dispY >> 2};
-		Point
-			winAnch	{anchX, anchY};
-		Simple_window
-			win		{winAnch, winX, winY, ""};
+		void _12()
+		{
+			int
+				dispX	{x_max()},
+				dispY	{y_max()},
+				winX	{dispX >> 1},
+				winY	{dispY >> 1},
+				anchX	{dispX >> 2},
+				anchY	{dispY >> 2};
+			Point
+				winAnch	{anchX, anchY};
+			Simple_window
+				win		{winAnch, winX, winY, ""};
 
-		int
-			imgX	{320},
-			imgY	{240};
-		Point
-			imgAnch	{(winX - imgX) >> 1,(winY - imgY) >> 1},
-			crop	{120, 60};
-		string
-			imgAdd	{"E:\\_LAB\\_C\\Gui\\_other\\"},
-			imgName	{"kuvaton-kuka_jatti_ikkunan_auki2.jpg"};
-		Image
-			img		{imgAnch, imgAdd + imgName};
+			int
+				imgX	{320},
+				imgY	{240};
+			Point
+				imgAnch	{(winX - imgX) >> 1,(winY - imgY) >> 1},
+				crop	{120, 60};
+			string
+				imgAdd	{"E:\\_LAB\\_C\\Gui\\_other\\"},
+				imgName	{"kuvaton-kuka_jatti_ikkunan_auki2.jpg"};
+			Image
+				img		{imgAnch, imgAdd + imgName};
 
-		img.set_mask(crop, imgX, imgY);
+			img.set_mask(crop, imgX, imgY);
 		
-		win.attach	(img);
-		win.wait_for_button();
+			win.attach	(img);
+			win.wait_for_button();
+		}
 	}
 }

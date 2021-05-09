@@ -7,10 +7,13 @@ int main()
 {	
 	try
 	{
-		using namespace ch12;
 		//0;
 		//test();
-		//_01();
+		
+		//using namespace ch12::example;
+		using namespace ch12::drill;
+
+		_01();
 		//_02();
 		//_03();
 		//_04();
@@ -21,7 +24,10 @@ int main()
 		//_09();
 		//_10();
 		//_11();
-		_12();
+		//_12();
+
+	
+
 
 		return 0;
 	}

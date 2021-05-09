@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ch12\drill_01.cpp" />
+    <ClCompile Include="ch12\drill_02.cpp" />
+    <ClCompile Include="ch12\drill_03.cpp" />
     <ClCompile Include="ch12\example_01.cpp" />
     <ClCompile Include="ch12\example_02.cpp" />
     <ClCompile Include="ch12\example_03.cpp" />

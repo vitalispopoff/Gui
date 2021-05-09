@@ -75,6 +75,15 @@
     <ClCompile Include="ch12\example_12.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
+    <ClCompile Include="ch12\drill_01.cpp">
+      <Filter>Source Files\ch12</Filter>
+    </ClCompile>
+    <ClCompile Include="ch12\drill_02.cpp">
+      <Filter>Source Files\ch12</Filter>
+    </ClCompile>
+    <ClCompile Include="ch12\drill_03.cpp">
+      <Filter>Source Files\ch12</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
