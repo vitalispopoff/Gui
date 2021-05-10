@@ -1,10 +1,9 @@
 #ifndef GUI_GUARD
 #define GUI_GUARD
 
-#include "fltk.h"
-#include "Point.h"
+//#include "fltk.h"				//v/ contrary to 12.8 this seems unnecessary
 #include "Window.h"
-#include "Graph.h"
+#include "Graph.h"			
 
 namespace Graph_lib 
 {	
@@ -137,7 +136,7 @@ namespace Graph_lib
 				selection[i].move(dx,dy); 
 		}
 
-		Vector_ref<Button> 
+		Vector_ref<Button>				//v/ begs for Graph.h
 			selection;
 		Kind 
 			k;

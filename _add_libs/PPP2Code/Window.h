@@ -3,9 +3,9 @@
 
 #include <string>
 #include <vector>
+
 #include "fltk.h"
 #include "Point.h"
-//#include "GUI.h"
 
 using namespace std;
 
@@ -53,7 +53,6 @@ namespace Graph_lib
 		private:
 			  void init			();
 
-			//vector<Shape *> 
 			vector<Shape * >
 				shapes;											/// shapes attached to window
 			int													/// window size

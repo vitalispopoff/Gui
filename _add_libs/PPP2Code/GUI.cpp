@@ -1,6 +1,6 @@
 #include <sstream>
 #include <string>
-#include "GUI.h"
+#include "Gui.h"
 
 using namespace Graph_lib;
 using namespace std;

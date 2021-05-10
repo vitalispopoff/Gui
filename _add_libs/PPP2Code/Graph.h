@@ -1,13 +1,11 @@
 #ifndef GRAPH_GUARD
 #define GRAPH_GUARD 1
 
-//#include<string>
-//#include<cmath>
 #include<vector>
 #include<stdexcept>
+
 #include "fltk.h"
 #include "Point.h"												//v/ needed for the Graph.cpp
-//# include "Window.h"
 
 using namespace std;
 

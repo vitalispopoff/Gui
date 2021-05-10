@@ -1,7 +1,8 @@
 #include<vector>
-#include "Window.h"
+//#include "Window.h"				//v/ contrary to the 12.8 assumption this one seems unnecessary
 #include "Graph.h"
 #include "Gui.h"
+
 
 using namespace std;
 
@@ -29,19 +30,19 @@ namespace Graph_lib
 	{
 		Fl_Window::draw();
 		for (unsigned int i = 0; i < shapes.size(); ++i) 
-			shapes[i] -> draw();
+			shapes[i] -> draw();		//v/ begs for Graph.h
 	}
 
 	void Window::attach(Widget & w)
 	{
 		begin();												/// FTLK: begin attaching new Fl_Wigets to this window
-		w.attach(* this);										/// let the Widget create its Fl_Wigits
+		w.attach(* this);				//v/ begs for Gui.h		/// let the Widget create its Fl_Wigits			
 		end();													/// FTLK: stop attaching new Fl_Wigets to this window
 	}
 
 	void Window::detach(Widget & b)
 	{
-		b.hide();
+		b.hide();						//v/ begs for Gui.h
 	}
 
 	void Window::attach(Shape &s)
