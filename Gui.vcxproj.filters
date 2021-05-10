@@ -39,88 +39,13 @@
     <ClCompile Include="_add_libs\PPP2Code\Gui.cpp">
       <Filter>Source Files\_add_libs</Filter>
     </ClCompile>
-    <ClCompile Include="ch12\example_01.cpp">
+    <ClCompile Include="ch12\example.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
-    <ClCompile Include="ch12\example_02.cpp">
+    <ClCompile Include="ch12\drill.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
-    <ClCompile Include="ch12\example_03.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_04.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_05.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_06.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_07.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_08.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_09.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_10.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_11.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_12.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\drill_01.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\drill_02.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\drill_03.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_01.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_02.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_03.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_04.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_05.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_06.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_07.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_08.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_09.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_10.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_11.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_12.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_13.cpp">
+    <ClCompile Include="ch12\excercise.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
   </ItemGroup>
