@@ -1,5 +1,6 @@
 #include "../_add_libs/PPP2Code/Graph.h"
 #include "../_add_libs/PPP2Code/Simple_window.h"
+#include <sstream>
 
 namespace ch12
 {

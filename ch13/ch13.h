@@ -160,6 +160,27 @@ namespace ch13
 		{
 			void s09_main();
 		}
+
+		namespace s10
+		{
+			//template<class T> class Vector_ref
+			//{
+			//	public:
+			//		
+			//		void push_back (T &);
+			//		void push_back (T *);
+			//
+			//		T & operator [] (int i);
+			//		const T & operator [] (int i) const;
+			//
+			//		int size () const;
+			//};
+		}
+
+		namespace s11
+		{
+			void s11_main();
+		}
 	}
 
 	namespace drill
