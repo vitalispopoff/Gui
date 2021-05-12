@@ -7,27 +7,8 @@ int main()
 {	
 	try
 	{
-		//0;
-		//test();
+		//ch13::sample::s01();
 		
-		//using namespace ch12::example;
-		//using namespace ch12::drill;
-		using namespace ch12::excercise;
-
-		//_01();
-		//_02();
-		//_03();
-		//_04();
-		//_05();
-		//_06();
-		_07();
-		//_08();
-		//_09();
-		//_10();
-		//_11();
-		//_12();
-		//_13();
-
 		return 0;
 	}
 	catch (exception & e)
