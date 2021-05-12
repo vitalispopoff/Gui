@@ -8,6 +8,7 @@ int main()
 	try
 	{
 		//ch13::sample::s01();
+		ch13::sample::s09::s09_main();
 		
 		return 0;
 	}

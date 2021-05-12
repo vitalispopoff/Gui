@@ -69,10 +69,88 @@ namespace ch13
 			}
 		}
 
-		namespace s03
+		//
+
+		namespace s06
 		{
+			void Closed_polyline::draw_lines() const
+			{
+				Open_polyline::draw_lines();
+				if (number_of_points() > 2 && color().visibility())
+				{	
+					int													/// reformated to make it a bit more readable
+						lastIndex	{number_of_points() - 1},
+						lastX		{point(lastIndex).x},
+						lastY		{point(lastIndex).y};
+					fl_line (lastX, lastY, point(0).x, point(0).y);
+				}
+			}
+		}
 
+		namespace s07
+		{
+			void Polygon::add(Point p)
+			{
+				Closed_polyline::add(p);
+			}
+		}
 
+		namespace s08
+		{
+			Rectangle::Rectangle(Point xy, int ww, int hh) :
+				w {ww}, h{hh}
+			{
+				if (h <= 0 || w <= 0)
+					error ("Bad rectangle: non-positive side");
+				add(xy);										/// this adds anchor to the object
+			}
+			Rectangle::Rectangle(Point x, Point y) :
+				w {y.x - x.x}, h {y.y - x.y}
+			{
+				if (h <= 0 || w <= 0)
+					error("Bad rectangle: first point is not tope left");
+				add(x);
+			}
+
+			void Rectangle::draw_lines() const					/// added to clean the error list
+			{}
+		}
+
+		namespace s09
+		{
+			
+			void s09_main()
+			{
+				/// these need to be inside the function, as they were outside, the verby red error report window appeared.
+				Simple_window
+					window	{Point {2200, 500}, 600, 400, ""};
+				Graph_lib::Rectangle
+					rect00	{Point {150, 100}, 200, 100},
+					rect11	{Point {50, 50}, Point {250, 150}},
+					rect12	{Point {50, 150}, Point {250, 250}},
+					rect21	{Point {250, 50}, 200, 100},
+					rect22	{Point {250, 150}, 200, 100};
+
+				rect00.set_color (Color::Color_type::yellow);
+				rect11.set_color (Color::Color_type::blue);
+				rect12.set_color (Color::Color_type::red);
+				rect21.set_color (Color::Color_type::green);
+
+				rect22.set_color (Color(Color::Color_type::white));
+
+				rect00.set_fill_color (Color::Color_type::yellow);
+				rect11.set_fill_color (Color::Color_type::blue);
+				rect12.set_fill_color (Color::Color_type::red);
+				rect21.set_fill_color (Color::Color_type::green);
+
+				window.attach (rect00);
+				window.attach (rect11);
+				window.attach (rect12);
+				window.attach (rect21);
+				window.attach (rect22);
+
+				window.wait_for_button();
+			}
 
 		}
 	}
