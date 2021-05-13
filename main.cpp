@@ -7,12 +7,8 @@ int main()
 {	
 	try
 	{
-		//ch13::sample::s01();
 		//ch13::sample::s09::s09_main();
 		
-		ch13::sample::s11::s11_main();
-
-
 		return 0;
 	}
 	catch (exception & e)

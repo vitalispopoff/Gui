@@ -36,7 +36,7 @@ namespace Graph_lib
 			dark_cyan	= FL_DARK_CYAN,
 		};
 
-		enum Transparency 
+		enum class Transparency									//v/ made enum to enum class
 		{ 
 			invisible = 0, 
 			visible = 255
@@ -44,19 +44,19 @@ namespace Graph_lib
 
 		Color(Color_type cc) : 
 			c(Fl_Color(cc)), 
-			v(visible) 
+			v(unsigned char(Transparency::visible))				//v/ casted
 		{}
 		Color(Color_type cc, Transparency vv) : 
 			c(Fl_Color(cc)), 
-			v(vv) 
+			v(unsigned char(vv))								//v/ casted
 		{}
 		Color(int cc) : 
 			c(Fl_Color(cc)), 
-			v(visible) 
+			v(unsigned char(Transparency::visible))				//v/ casted
 		{}
 		Color(Transparency vv) : 
 			c(Fl_Color()), 
-			v(vv) 
+			v(unsigned char(vv))								//v/ casted
 		{}
 
 		int as_int() const 
@@ -71,7 +71,7 @@ namespace Graph_lib
 
 		void set_visibility(Transparency vv) 
 		{ 
-			v = vv;
+			v = unsigned char (vv);								//v/ casted
 		}
 
 	private:
@@ -295,7 +295,7 @@ namespace Graph_lib
 			Line_style 
 				ls {0};
 			Color 
-				fcolor {Color::invisible};
+				fcolor {Color::Transparency::invisible};
 
 		//	Shape(const Shape&);
 		//	Shape& operator=(const Shape&);
@@ -621,7 +621,7 @@ namespace Graph_lib
 		Marks(const string &m) 
 			: Marked_polyline(m)
 		{ 
-			set_color(Color(Color::invisible)); 
+			set_color(Color(Color::Transparency::invisible)); 
 		}
 	};
 

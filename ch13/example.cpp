@@ -188,7 +188,6 @@ namespace ch13
 
 		namespace s11
 		{
-
 			void s11_main()
 			{
 				using Graph_lib::Rectangle;
@@ -236,6 +235,77 @@ namespace ch13
 				window.wait_for_button();
 			}
 		}
+
+		namespace s12
+		{
+			void Text::draw_lines() const
+			{
+				fl_draw (
+					lab.c_str(),								///provides a 'char[] * ' ended with a null char
+					point(0).x,									/// anchor x coord
+					point(0).y									/// anchor y coord
+				);
+			}
+		}
+
+		namespace s13
+		{
+			Circle::Circle (Point p, int rr) :
+				r {rr}
+			{
+				add (Point { p.x - r, p.y - r});
+			}
+
+			Point Circle::center() const
+			{
+				return {point(0).x + r, point(0).y + r};
+			}
+
+			void Circle::draw_lines() const
+			{
+				if (color().visibility())
+					fl_arc (
+						point (0).x, 
+						point (0).y, 
+						r + r, 
+						r + r, 
+						0, 
+						360
+					);
+			}
+		}
+
+		namespace s14
+		{
+			Point Ellipse::focus1() const						/// rewritten to branchless and cut into smaller steps
+			{
+				int
+					centerX			{center().x},
+					centerY			{center().y};
+				double	
+					cache1			{abs(w * w - h * h)},		/// long semi-axis (w) is equal to focal-periphery line, which is a hypotenuse for a square triangle: focal-center-periphery.
+					eccentricity	{sqrt (cache1)};			/// center-focal distance, taken from the pithagorean above
+				int
+					focalDistX		{(h <= w) * int (eccentricity)},	/// zeroes out for a vertically oriented ellipse
+					focalDistY		{(h > w) * int (eccentricity)};		/// zeroes out for a horizontally oriented ellipse
+				
+				return {centerX + focalDistX, centerY + focalDistY};
+
+				//if (h <= w)
+				//	return
+				//		{centerX + int (sqrt (double (w * w - h * h))), center().y};
+				//else
+				//	return
+				//		{centerX, center().y + int (sqrt (double (h * h - w * w)))};
+			}
+
+		}
+
+		namespace s15
+		{
+
+		}
+			
 
 
 	}

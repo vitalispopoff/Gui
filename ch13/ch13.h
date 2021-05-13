@@ -1,5 +1,6 @@
 #pragma once
 #include "../_add_libs/PPP2Code/Simple_window.h"
+#include <algorithm>
 
 namespace ch13
 {
@@ -180,6 +181,135 @@ namespace ch13
 		namespace s11
 		{
 			void s11_main();
+		}
+
+		namespace s12
+		{			
+			struct Text : Shape 
+			{				
+				Text (Point x, const string & s) :
+					lab {s}
+				{
+					add (x);		// anchor - defines the bottom left corner of a text area
+				}
+				
+				void	draw_lines	() const;
+				void	set_label	(const string & s)	{lab = s;}
+				string	label		() const			{return lab;}
+				void	set_font	(Font f)			{fnt = f;}
+				Font	font		() const			{return fnt;}
+				void	set_font_size (int s)			{fnt_sz = s;}
+				int		font_size	() const			{return fnt_sz;}
+
+				private:				
+					string	lab;
+					Font	fnt		{fl_font()};
+					//int		fnt_sz	{(fl_size() < 14) ? 14 : fl_size()};
+					int		fnt_sz	{max (fl_size (), 14)};		/// a bit cleaner than ternary operator
+			};
+
+			class Font											/// could be struct probably if not for the Font_type
+			{
+				public:
+					
+					enum class Font_type						/// writing enum class instead of enum - sparing the wrn message
+					{
+						helvetica	= FL_HELVETICA,
+						hevletica_bold	= FL_HELVETICA_BOLD
+						/// ...
+					};
+					
+					Font (Font_type ff) :
+						f {int (ff)}
+					{}
+					Font (int ff) :
+						f {ff}
+					{}
+					int as_int() const {return f;}
+
+				private:
+					int f;
+			};
+		}
+
+		namespace s13
+		{
+			struct Circle : Shape
+			{
+					Circle (Point p, int rr);
+
+					void	draw_lines	() const;
+					Point	center		() const;
+					int		radius		() const	{return r;}
+				
+					void set_radius (int rr)
+					{
+						set_point (
+							0, 
+							Point {								// this is a top left conrner of a rectangle containing the circle:	
+								center().x - rr,				// towards  circle left border
+								center().y - rr					// towards circle top border
+							}
+						);
+					}
+
+				private:
+					int r;
+			};
+		}
+
+		namespace s14
+		{
+			struct Ellipse : Shape
+			{
+					Ellipse (Point p, int w, int h);
+
+					void draw_lines () const;
+
+					Point	center		() const;
+					Point	focus1		() const;
+					Point	focus2		() const;
+
+					void	set_major	(int ww)
+					{
+						set_point (
+							0, 
+							Point {
+								center().x - ww,				/// to the left 
+								center().y - h					/// to the top corner
+							}
+						);
+						w = ww;
+					}
+					int		major		() const 
+					{
+						return w;
+					}
+					void	set_minor	(int hh)
+					{
+						set_point (
+							0, 
+							Point {
+								center().x - w,					/// to the left corner
+								center().y - hh					/// upwards
+							}
+						);
+						h = hh;
+					}
+					int		minor		() const 
+					{
+						return h;
+					}
+
+				private:
+					int
+						w,										/// horizontal radius
+						h;										/// vertical radius
+			};
+		}
+
+		namespace s15
+		{
 		}
 	}
 
