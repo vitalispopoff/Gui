@@ -211,10 +211,8 @@ namespace Graph_lib
 	class Shape													/// deals with color and style, and holds sequence of lines
 	{	
 		protected:
-			Shape() { }			
-			
+			Shape() {}								
 			Shape(initializer_list<Point> lst);					/// add() the Points to this Shape
-
 
 			//	Shape() 
 			//	: lcolor(fl_color()), ls(0), fcolor(Color::invisible) 
@@ -292,7 +290,7 @@ namespace Graph_lib
 			vector<Point>										/// not used by all shapes
 				points;	
 			Color 
-				lcolor {fl_color()};
+				lcolor {false ? fl_color() : FL_BLACK};			/// gotta force default to black
 			Line_style 
 				ls {0};
 			Color 
@@ -673,7 +671,7 @@ namespace Graph_lib
 
 	struct Suffix 
 	{
-		enum Encoding 
+		enum class Encoding 
 		{ 
 			none, 
 			jpg, 
@@ -682,11 +680,11 @@ namespace Graph_lib
 		};
 	};
 
-	Suffix::Encoding get_encoding(const string &s);
+	Suffix::Encoding get_encoding(const string &s);				/// nice: declaring an enum inner function from outside of the enum declaration
 
 	struct Image : Shape 
 	{
-			Image(Point xy, string s, Suffix::Encoding e = Suffix::none);
+			Image(Point xy, string s, Suffix::Encoding e = Suffix::Encoding::none);
 
 			~Image() 
 			{ 

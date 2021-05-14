@@ -394,14 +394,15 @@ namespace Graph_lib
 
 	int init_suffix_map()
 	{
-		suffix_map["jpg"] = Suffix::jpg;
-		suffix_map["JPG"] = Suffix::jpg;
-		suffix_map["jpeg"] = Suffix::jpg;
-		suffix_map["JPEG"] = Suffix::jpg;
-		suffix_map["gif"] = Suffix::gif;
-		suffix_map["GIF"] = Suffix::gif;
-		suffix_map["bmp"] = Suffix::bmp;
-		suffix_map["BMP"] = Suffix::bmp;
+
+		suffix_map["jpg"] = Suffix::Encoding::jpg;
+		suffix_map["JPG"] = Suffix::Encoding::jpg;
+		suffix_map["jpeg"] = Suffix::Encoding::jpg;
+		suffix_map["JPEG"] = Suffix::Encoding::jpg;
+		suffix_map["gif"] = Suffix::Encoding::gif;
+		suffix_map["GIF"] = Suffix::Encoding::gif;
+		suffix_map["bmp"] = Suffix::Encoding::bmp;
+		suffix_map["BMP"] = Suffix::Encoding::bmp;
 		return 0;
 	}
 
@@ -439,15 +440,15 @@ namespace Graph_lib
 			p = new Bad_image(30, 20);							/// the "error image"
 			return;
 		}
-		if (e == Suffix::none) 
+		if (e == Suffix::Encoding::none) 
 			e = get_encoding(s);
 		switch(e) 
 		{
-			case Suffix::jpg :
+			case Suffix::Encoding::jpg :
 				p = new Fl_JPEG_Image(s.c_str());
 				break;
 
-			case Suffix::gif:
+			case Suffix::Encoding::gif:
 				p = new Fl_GIF_Image(s.c_str());
 				break;
 

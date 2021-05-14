@@ -15,18 +15,14 @@ namespace ch13
 			Simple_window
 				window	{Point {2200, 500}, x_size, y_size, ""};
 			Lines
-				grid;
-			
+				grid;			
 			for (int x = x_grid; x < x_size; x += x_grid)
 				grid.add(Point {x, 0}, Point{x, y_size});
 			for (int y = y_grid; y < y_size; y += y_grid)
-				grid.add(Point {0, y}, Point {x_size, y});
-		 
+				grid.add(Point {0, y}, Point {x_size, y});		 
 			Color
-				color {Color::Color_type::black};
-		 
-			grid.set_color (color);
-			
+				color {Color::Color_type::black};		 
+			grid.set_color (color);			
 			window.attach (grid);
 			window.wait_for_button();
 		}
@@ -45,8 +41,7 @@ namespace ch13
 			{
 				for (auto p : lst)
 					add (p.first, p.second);
-			}
-		 
+			}		 
 			void Lines::draw_lines() const
 			{
 				if (
@@ -67,8 +62,6 @@ namespace ch13
 				}
 			}
 		}
-
-		//
 
 		namespace s06
 		{
@@ -269,6 +262,25 @@ namespace ch13
 			{
 				return {point(0).x + r, point(0).y + r};
 			}
+
+			void main()
+			{
+				Simple_window
+					window {Point {2200, 500}, 800, 600, ""};
+				Point
+					p1	{100, 200},
+					p2	{150, 200},
+					p3	{200, 200};
+
+				Circle
+					c1 {p1, 50},
+					c2 {p2, 100},
+					c3 {p3, 150};				
+				window.attach (c1);
+				window.attach (c2);
+				window.attach (c3);
+				window.wait_for_button();
+			}
 		}
 
 		namespace s14
@@ -337,11 +349,11 @@ namespace ch13
 					xy.y + dy									/// centering the mark on the point in y axis - keep in mynd the txt anchor is bottom left corner
 				);
 			}		
-			void s15_main()
+			void main()
 			{
 				Simple_window
 					window	{ Point {2200, 500}, 800, 600 , ""};						
-				s15::Marked_polyline								// gotta call this implementation to prevent the Graph_lib one.
+				s15::Marked_polyline							/// gotta call this implementation to prevent the Graph_lib one.
 					mp	{ 
 						"1234", 
 						{
@@ -353,9 +365,96 @@ namespace ch13
 					};
 				window.attach (mp);
 			
+				window.wait_for_button();						/// this is the one to cause troubles !
+			}
+		}
+
+		namespace s16
+		{		
+			void main()
+			{
+				Simple_window
+					window {
+						Point {2200, 500},
+						800, 
+						600,
+						""
+					};
+				Marks 
+					pp {
+						"x", 
+						{
+							{100, 100},
+							{150, 200},
+							{250, 250},
+							{300, 200}
+					}};
+				window.attach(pp);
 				window.wait_for_button();
+			}
+		}
+
+		namespace s17
+		{		
+			void main()
+			{
+				Simple_window
+					window {Point {2200, 500}, 800, 600, ""};
+				Point
+					p1	{100, 200},
+					p2	{150, 200},
+					p3	{200, 200};
+				Mark
+					m1 {p1, 'x'},
+					m2 {p2, 'y'},
+					m3 {p3, 'z'};
+				Circle
+					c1 {p1, 50},
+					c2 {p2, 100},
+					c3 {p3, 150};
+				c1.set_color (Color::Color_type::blue);
+				c2.set_color (Color::Color_type::red);
+				c3.set_color (Color::Color_type::green);
+
+				window.attach (m1);
+				window.attach (m2);
+				window.attach (m3);
+				window.attach (c1);
+				window.attach (c2);
+				window.attach (c3);
+				window.wait_for_button();
+			}
+		}
+
+		namespace s18
+		{
+			Image::Image (Point xy, string s, Suffix e) :
+				w {0}, h {0}, fn {xy, ""}
+			{
+				add (xy);
+				if (!can_open (s))
+				{
+					fn.set_label ("cannot open \""+s+'"');					
+					p = new Bad_image (30,20);
+					return;
+				}
+				if (e == Suffix::none)
+					e = Suffix (get_encoding (s));
+				switch (e)
+				{
+					case Suffix::jpg :
+						p = new Fl_JPEG_Image {s.c_str ()};
+						break;
+
+					case Suffix::gif :
+						p = new Fl_GIF_Image {s.c_str ()};
+						break;
+
+					default :
+						fn.set_label ("unsupported file type \""+s+'"');
+						p = new Bad_image {30, 20};
+				}
 			}
 		}
 	}
 }
-

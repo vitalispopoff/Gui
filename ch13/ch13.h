@@ -1,6 +1,7 @@
 #pragma once
 #include "../_add_libs/PPP2Code/Simple_window.h"
 #include <algorithm>
+#include <fstream>
 
 namespace ch13
 {
@@ -15,7 +16,7 @@ namespace ch13
 			{
 				Lines() {} 
 		
-				/// use of initializer_list will need an explanation
+								/// use of initializer_list will need an explanation
 				Lines(initializer_list<Point> lst);
 		
 				/// there seems to be mental shortcut in the cours, 
@@ -269,6 +270,8 @@ namespace ch13
 				private:
 					int r;
 			};
+
+			void main();
 		}
 
 		namespace s14
@@ -348,12 +351,112 @@ namespace ch13
 						return (m == "" ? "*" : m);
 					}		
 			};		
-			void s15_main();
+			void main();
+		}
+
+		namespace s16
+		{
+			struct Marks : s15::Marked_polyline
+			{
+					Marks (const string & m) :
+						Marked_polyline {m}
+					{
+						make_invisible();
+					}
+					Marks (const string & m, initializer_list<Point> lst) :
+						Marked_polyline {m, lst}
+					{
+						make_invisible();
+					}
+				private:
+					void make_invisible()
+					{
+						set_color (Color {Color::Transparency::invisible});
+					}
+			};
+			
+			void main();
+		}
+
+		namespace s17
+		{
+			struct Mark : s16::Marks
+			{
+				Mark (Point xy, char c) : 
+					Marks {string { 1, c}}
+				{
+					add (xy);
+				}
+			};
+
+			void main();
+		}
+
+		namespace s18
+		{
+			enum class Suffix
+			{
+				none,
+				jpg,
+				gif
+			};
+			struct Image : Shape
+			{
+					Image (Point xy, string file_name, Suffix e = Suffix::none);
+					~Image ()
+					{
+						delete p;
+					}
+					void draw_lines() const;
+					void set_mask (Point xy, int ww, int hh)
+					{
+						w = ww;
+						h = hh;
+						cx = xy.x;
+						cy = xy.y;
+					}				
+				private:
+					int
+						w,
+						h,
+						cx,
+						cy;
+					Fl_Image 
+						* p;
+					Text 
+						fn;
+
+					bool can_open (const string & s)
+					{
+						ifstream 
+							ff (s);
+						return bool (ff);						/// this would probably yield wrong type, so preventing by casting to bool
+					}
+			};
+
+			struct Bad_image : Fl_Image 
+			{
+				Bad_image (int h, int w) :
+					Fl_Image {h, w, 0}
+				{}
+				void draw (int x, int y, int, int, int, int)
+				{
+					draw_empty (x, y);
+				}
+			};
 		}
 	}
 
-	//namespace drill
-	//{}
+	namespace drill
+	{
+		namespace d01
+		{
+
+
+
+		}
+	
+	}
 
 	//namespace excercise
 	//{}

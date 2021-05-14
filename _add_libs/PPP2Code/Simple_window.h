@@ -15,9 +15,9 @@ struct Simple_window : Window									/// it provides one window with one "next"
 																/// modified event loop; handle all events (as per default), but quit when button_pushed becomes true
 		void wait_for_button()									/// this allows graphics without control inversion
 		{
-			while (!button_pushed) 
+			while (!button_pushed)								//v/ this loops until the next() sets next_button to false 
 				Fl::wait();
-			button_pushed = false;
+			button_pushed = false;								//v/ why is it after the while loop ?
 			Fl::redraw();
 		}
 
