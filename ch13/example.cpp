@@ -303,10 +303,30 @@ namespace ch13
 
 		namespace s15
 		{
+			void Marked_polyline::draw_lines () const
+			{
+				Open_polyline::draw_lines ();
 
-		}
-			
+				for (int i = 0; i < number_of_points (); ++i)
+					draw_mark (
+						point (i), 
+						mark [i % mark.size ()]
+					);
+			}
 
-
+			void draw_mark (Point xy, char c)
+			{
+				constexpr int 
+					dx {4},										/// txt size seems fixed, but the value may need further explanation
+					dy {4};
+				string 
+					m {1, c};									/// "fill constructor: fills the string with n consecutive copies of char c" https://www.cplusplus.com/reference/string/string/string/
+				fl_draw (
+					m.c_str (),									/// as somewhere earlier: string returned as char[] with null character added at end
+					xy.x - dx,									/// centering the mark on the point in x axis - keep in mynd the txt anchor is bottom left corner
+					xy.y + dy									/// centering the mark on the point in y axis - keep in mynd the txt anchor is bottom left corner
+				);
+			}
+		}		
 	}
 }

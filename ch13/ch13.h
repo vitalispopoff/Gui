@@ -310,6 +310,28 @@ namespace ch13
 
 		namespace s15
 		{
+			struct Marked_polyline : Open_polyline
+			{
+					Marked_polyline (const string & m) :
+						mark {m}
+					{
+						if (m == "")
+							mark = "*";
+					}
+
+					Marked_polyline (const string & m, initializer_list<Point> lst) :
+						Open_polyline {lst}, 
+						mark {m}
+					{
+						if (m == "")
+							mark = "*";
+					}
+
+					void draw_lines() const;
+
+				private:
+					string mark;
+			};
 		}
 	}
 
