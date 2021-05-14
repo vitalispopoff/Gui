@@ -15,11 +15,9 @@ namespace Graph_lib
 			x {i1}, 
 			y{i2} 
 		{}
-
 		int 
 			x,
 			y;
-
 		//Point & operator += (Point d) 
 		//{ 
 		//	x += d.x; 
@@ -28,7 +26,7 @@ namespace Graph_lib
 		//}
 	};
 
-	inline bool operator == (Point a, Point b)
+	inline bool operator == (Point a, Point b)					//v/ inline calls for overwriting the function call with the implementation at compile time (the same stuff as direct implementation in the class header declaration i guess
 	{ 
 		return a.x == b.x && a.y == b.y; 
 	}

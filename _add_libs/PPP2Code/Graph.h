@@ -215,6 +215,7 @@ namespace Graph_lib
 			
 			Shape(initializer_list<Point> lst);					/// add() the Points to this Shape
 
+
 			//	Shape() 
 			//	: lcolor(fl_color()), ls(0), fcolor(Color::invisible) 
 			//{}
@@ -610,6 +611,16 @@ namespace Graph_lib
 			Marked_polyline(const string &m) 
 			: mark(m) 
 			{}
+
+			Marked_polyline (const string & m, initializer_list<Point> lst) :
+				Open_polyline {lst}
+			{
+				if (m == "")
+					mark = "*";
+				else
+					mark = m;
+			}
+
 			void draw_lines() const;
 	
 		private:

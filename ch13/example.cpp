@@ -21,10 +21,10 @@ namespace ch13
 				grid.add(Point {x, 0}, Point{x, y_size});
 			for (int y = y_grid; y < y_size; y += y_grid)
 				grid.add(Point {0, y}, Point {x_size, y});
-
+		 
 			Color
 				color {Color::Color_type::black};
-
+		 
 			grid.set_color (color);
 			
 			window.attach (grid);
@@ -46,8 +46,7 @@ namespace ch13
 				for (auto p : lst)
 					add (p.first, p.second);
 			}
-
-
+		 
 			void Lines::draw_lines() const
 			{
 				if (
@@ -111,7 +110,7 @@ namespace ch13
 					error("Bad rectangle: first point is not tope left");
 				add(x);
 			}
-
+		
 			void Rectangle::draw_lines() const
 			{
 				if (fill_color().visibility())
@@ -140,19 +139,19 @@ namespace ch13
 					rect12	{Point {50, 150}, Point {250, 250}},
 					rect21	{Point {250, 50}, 200, 100},
 					rect22	{Point {250, 150}, 200, 100};
-
+		
 				rect00.set_color (Color::Color_type::yellow);
 				rect11.set_color (Color::Color_type::blue);
 				rect12.set_color (Color::Color_type::red);
 				rect21.set_color (Color::Color_type::green);
-
+			
 				rect22.set_color (Color(Color::Color_type::white));
-
+		
 				rect00.set_fill_color (Color::Color_type::yellow);
 				rect11.set_fill_color (Color::Color_type::blue);
 				rect12.set_fill_color (Color::Color_type::red);
 				rect21.set_fill_color (Color::Color_type::green);
-
+		
 				window.attach (rect00);
 				window.attach (rect11);
 				window.attach (rect12);
@@ -163,15 +162,14 @@ namespace ch13
 				window.resize (700, 300);						/// that's out of curiosity
 				rect11.move(400, 0);
 				rect11.set_fill_color(Color::Color_type::cyan);
-
+		
 				window.wait_for_button();
 				window.put_on_top(rect00);
-
-
+		
 				window.wait_for_button();
 				Line_style
 					style {Line_style::Line_style_type::solid, 3};
-
+		
 				rect00.set_fill_color (Color::Transparency::invisible);
 				rect11.set_fill_color (Color::Transparency::invisible);
 				rect12.set_fill_color (Color::Transparency::invisible);
@@ -181,7 +179,7 @@ namespace ch13
 				rect11.set_style (style);
 				rect12.set_style (style);
 				rect21.set_style (style);
-
+		
 				window.wait_for_button();
 			}
 		}
@@ -191,7 +189,7 @@ namespace ch13
 			void s11_main()
 			{
 				using Graph_lib::Rectangle;
-
+		
 				Simple_window
 					window {Point {2200, 500}, 800, 600, ""};
 				Vector_ref<Rectangle> 
@@ -200,7 +198,7 @@ namespace ch13
 					size {20};
 				Color
 					none {Color::Transparency::invisible};
-
+		
 				if (false)
 					for (int i = 0; i < 16; ++i)
 						for (int j = 0; j < 16; ++j)
@@ -217,7 +215,7 @@ namespace ch13
 							index2	{i & 15};					/// increases from 0 to 15 every tick
 						Point
 							anchor	{index1 * size, index2 * size};
-
+		
 						vr.push_back (new Rectangle {anchor, size, size});					
 						Rectangle
 							& rect = vr [vr.size() - 1];
@@ -227,7 +225,7 @@ namespace ch13
 							color {(i & 0xF0) + index2};			/// as above but using hexadecimal
 							//color {(i ^ index2) + index2};		/// as above, but we change only the 1s : XORing the last 4 bits by themselves
 							//color {(i ^ index1) + index2};		/// this is mad.
-
+		
 						rect.set_fill_color (color);
 						rect.set_color (none);
 						window.attach (rect);
@@ -254,13 +252,7 @@ namespace ch13
 				r {rr}
 			{
 				add (Point { p.x - r, p.y - r});
-			}
-
-			Point Circle::center() const
-			{
-				return {point(0).x + r, point(0).y + r};
-			}
-
+			}		
 			void Circle::draw_lines() const
 			{
 				if (color().visibility())
@@ -272,6 +264,10 @@ namespace ch13
 						0, 
 						360
 					);
+			}		
+			Point Circle::center() const
+			{
+				return {point(0).x + r, point(0).y + r};
 			}
 		}
 
@@ -283,22 +279,38 @@ namespace ch13
 					centerX			{center().x},
 					centerY			{center().y};
 				double	
-					cache1			{abs(w * w - h * h)},		/// long semi-axis (w) is equal to focal-periphery line, which is a hypotenuse for a square triangle: focal-center-periphery.
+					cache1			{double( abs(w * w - h * h))},		/// long semi-axis (w) is equal to focal-periphery line, which is a hypotenuse for a square triangle: focal-center-periphery.
 					eccentricity	{sqrt (cache1)};			/// center-focal distance, taken from the pithagorean above
 				int
 					focalDistX		{(h <= w) * int (eccentricity)},	/// zeroes out for a vertically oriented ellipse
-					focalDistY		{(h > w) * int (eccentricity)};		/// zeroes out for a horizontally oriented ellipse
-				
-				return {centerX + focalDistX, centerY + focalDistY};
-
+					focalDistY		{(h > w) * int (eccentricity)};		/// zeroes out for a horizontally oriented ellipse				
+				return {centerX - focalDistX, centerY - focalDistY};		
 				//if (h <= w)
 				//	return
 				//		{centerX + int (sqrt (double (w * w - h * h))), center().y};
 				//else
 				//	return
 				//		{centerX, center().y + int (sqrt (double (h * h - w * w)))};
-			}
-
+			}		
+			Point Ellipse::focus2() const						/// rewritten to branchless and cut into smaller steps
+			{
+				int
+					centerX			{center().x},
+					centerY			{center().y};
+				double	
+					cache1			{double( abs(w * w - h * h))},		/// long semi-axis (w) is equal to focal-periphery line, which is a hypotenuse for a square triangle: focal-center-periphery.
+					eccentricity	{sqrt (cache1)};			/// center-focal distance, taken from the pithagorean above
+				int
+					focalDistX		{(h <= w) * int (eccentricity)},	/// zeroes out for a vertically oriented ellipse
+					focalDistY		{(h > w) * int (eccentricity)};		/// zeroes out for a horizontally oriented ellipse				
+				return {centerX + focalDistX, centerY + focalDistY};		
+				//if (h <= w)
+				//	return
+				//		{centerX + int (sqrt (double (w * w - h * h))), center().y};
+				//else
+				//	return
+				//		{centerX, center().y + int (sqrt (double (h * h - w * w)))};
+			}	
 		}
 
 		namespace s15
@@ -306,15 +318,13 @@ namespace ch13
 			void Marked_polyline::draw_lines () const
 			{
 				Open_polyline::draw_lines ();
-
 				for (int i = 0; i < number_of_points (); ++i)
 					draw_mark (
 						point (i), 
 						mark [i % mark.size ()]
 					);
-			}
-
-			void draw_mark (Point xy, char c)
+			}		
+			void Marked_polyline::draw_mark (Point xy, char c) const /// const declaration seems to propagate along the pipeline
 			{
 				constexpr int 
 					dx {4},										/// txt size seems fixed, but the value may need further explanation
@@ -326,7 +336,26 @@ namespace ch13
 					xy.x - dx,									/// centering the mark on the point in x axis - keep in mynd the txt anchor is bottom left corner
 					xy.y + dy									/// centering the mark on the point in y axis - keep in mynd the txt anchor is bottom left corner
 				);
+			}		
+			void s15_main()
+			{
+				Simple_window
+					window	{ Point {2200, 500}, 800, 600 , ""};						
+				s15::Marked_polyline								// gotta call this implementation to prevent the Graph_lib one.
+					mp	{ 
+						"1234", 
+						{
+							{100, 100}, 
+							{150, 200}, 
+							{250, 250}, 
+							{300, 200}
+						}
+					};
+				window.attach (mp);
+			
+				window.wait_for_button();
 			}
-		}		
+		}
 	}
 }
+

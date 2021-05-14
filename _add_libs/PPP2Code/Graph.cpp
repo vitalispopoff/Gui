@@ -13,6 +13,12 @@ namespace Graph_lib
 		throw runtime_error(name);
 	}
 
+	Shape::Shape (initializer_list<Point> lst)
+	{
+		for (auto p : lst)
+			add (p);
+	}
+
 	void Shape::draw() const
 	{
 		Fl_Color 
