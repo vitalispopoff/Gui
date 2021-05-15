@@ -449,13 +449,31 @@ namespace ch13
 
 	namespace drill
 	{
+
 		namespace d01
 		{
-
-
-
+			void main();
 		}
-	
+
+		namespace d02
+		{
+			void main();
+		}
+
+		namespace d03
+		{
+			void main();
+		}
+
+		namespace d04
+		{
+			void main();
+		}
+
+		namespace d05
+		{
+			void main();
+		}	
 	}
 
 	//namespace excercise

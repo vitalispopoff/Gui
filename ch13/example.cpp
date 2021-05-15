@@ -455,6 +455,10 @@ namespace ch13
 						p = new Bad_image {30, 20};
 				}
 			}
+			void Image::draw_lines() const
+			{
+				Shape::draw_lines();
+			}
 		}
 	}
 }
