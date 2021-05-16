@@ -7,7 +7,8 @@ int main()
 {	
 	try
 	{
-		ch13::drill::d05::main();
+		//ch13::drill::d05::main();
+		ch13::excercise::e02::main();
 
 		return 0;
 	}

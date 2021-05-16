@@ -209,18 +209,24 @@ namespace Graph_lib
 		if (fill_color().visibility()) 								/// fill
 		{
 			fl_color(fill_color().as_int());
-			fl_rectf(point(0).x,point(0).y,w,h);
+			fl_rectf (
+				point(0).x,
+				point(0).y,
+				w,
+				h
+			);
 			fl_color(color().as_int());								/// reset color
 		}
 
 		if (color().visibility()) 									/// edge on top of fill
 		{
 			fl_color(color().as_int());
-			fl_rect(
+			fl_rect (
 				point(0).x,
 				point(0).y,
 				w,
-				h);
+				h
+			);
 		}
 	}
 
@@ -324,9 +330,9 @@ namespace Graph_lib
 
 	void Ellipse::draw_lines() const
 	{
-		if (fill_color().visibility())							/// fill
+		if (fill_color().visibility())							/// if fill is visible
 		{
-			fl_color(fill_color().as_int());
+			fl_color(fill_color().as_int());					
 			fl_pie
 			(
 				point(0).x,
@@ -338,7 +344,7 @@ namespace Graph_lib
 			);
 			fl_color(color().as_int());							/// reset color
 		}
-		if (color().visibility()) 
+		if (color().visibility())							
 		{
 			fl_color(color().as_int());
 			fl_arc
@@ -348,7 +354,7 @@ namespace Graph_lib
 				w + w,
 				h + h,
 				0,
-				360
+				180 //360 
 			);
 		}
 	}

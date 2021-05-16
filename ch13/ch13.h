@@ -449,7 +449,6 @@ namespace ch13
 
 	namespace drill
 	{
-
 		namespace d01
 		{
 			void main();
@@ -476,6 +475,41 @@ namespace ch13
 		}	
 	}
 
-	//namespace excercise
-	//{}
+	namespace excercise
+	{
+		namespace e01
+		{
+			struct Arc : Graph_lib::Ellipse
+			{
+					Arc (Point p, int ww, int hh, double a1, double a2) :
+						start {a1}, end {a2}, Ellipse {p, ww, hh}
+					{}
+
+					void draw_lines() const;
+				private:
+
+					double
+						start,
+						end;
+			};
+
+			void main();
+		}
+
+		namespace e02
+		{
+			struct Arc : Graph_lib::Circle
+			{
+				Arc (Point p, int r, int s) :
+					start {double ( 90 * s)}, Circle {p, r}
+					{}
+					void draw_lines() const;
+				private:
+					double
+						start;
+			};
+
+			void main();
+		}
+	}
 }
