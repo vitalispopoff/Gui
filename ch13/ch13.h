@@ -535,17 +535,17 @@ namespace ch13
 
 		namespace e04
 		{
-			//Point n (Graph_lib::Rectangle);	
-			//Point s (Graph_lib::Rectangle);	
-			//Point e (Graph_lib::Rectangle);	
-			//Point w (Graph_lib::Rectangle);	
-			//Point nw (Graph_lib::Rectangle);	
-			//Point ne (Graph_lib::Rectangle);	
-			//Point se (Graph_lib::Rectangle);	
-			//Point sw (Graph_lib::Rectangle);	
-
-
 			void main();
+		}
+
+		namespace e05
+		{
+			void main();
+		}
+
+		namespace e06
+		{
+
 		}
 	}
 }

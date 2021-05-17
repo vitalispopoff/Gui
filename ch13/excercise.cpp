@@ -405,5 +405,105 @@ namespace ch13
 				window.wait_for_button();		
 			}
 		}
+
+		namespace e05
+		{
+			int arc_dist (int r)
+			{
+				double
+					result =  double(r);
+					result -= (result * 1.41421356 * 0.5);
+				return int(result);				
+			}
+			// 1.41421356
+					using namespace Graph_lib;
+			Point & n	(Graph_lib::Circle & r)
+			{
+				Point
+					p  {r.point(0).x + (r.radius() >> 1), r.point(0).y},
+					& result = p;
+				return result;
+			}
+			Point & s (Graph_lib::Circle & r)
+			{
+				Point 
+					p {r.point(0).x + (r.radius() >> 1),r.point(0).y + r.radius()},
+					& result = p;
+				return result;
+			}
+			Point & e (Graph_lib::Circle & r)
+			{
+				Point 
+					p	{r.point(0).x + r.radius(),r.point(0).y + (r.radius() >> 1)},
+					& result = p;
+				return result;
+			}
+			Point & w (Graph_lib::Circle & r)
+			{
+				Point
+					p	{r.point(0).x,r.point(0).y + (r.radius() >> 1)},
+					& result = p;
+				return result;
+			}			
+			Point & nw (Graph_lib::Circle & r)
+			{
+				int
+					dist {arc_dist(r.radius())};
+				Point 
+					p	{r.point(0).x + dist, r.point(0).y + dist},
+					& result = p;
+				return result;
+			}
+			Point & ne (Graph_lib::Circle & r)
+			{
+				int
+					dist {arc_dist(r.radius())};
+				Point
+					p	{r.point(0).x + 2 * r.radius() - dist, r.point(0).y + dist},
+					& result = p;
+				return result;
+			}
+			Point & se (Graph_lib::Circle & r)
+			{
+				int
+					dist {2 * r.radius() - arc_dist(r.radius())};
+				Point
+					p	{r.point(0).x + dist, r.point(0).y + dist},
+					& result = p;
+				return result;
+			}
+			Point & sw (Graph_lib::Circle & r)
+			{
+				int
+					dist {arc_dist(r.radius())};
+				Point
+					p	{r.point(0).x + dist, r.point(0).y + 2 * r.radius() - dist},
+					& result = p;
+				return result;
+			}
+
+			void main()
+			{
+				Circle
+					circle {Point{300, 300}, 150};
+				Graph_lib::Polygon
+					poly1;
+				poly1.add(nw(circle));
+				poly1.add(ne(circle));
+				poly1.add(se(circle));
+				poly1.add(sw(circle));
+				poly1.set_color (Color::Color_type::blue);
+				Simple_window
+					window {{2200, 500}, 800, 600, ""};
+				window.attach(circle);
+				window.attach(poly1);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e06
+		{
+
+		}
 	}
 }
