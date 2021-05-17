@@ -486,8 +486,8 @@ namespace ch13
 					{}
 
 					void draw_lines() const;
-				private:
 
+				private:
 					double
 						start,
 						end;
@@ -501,12 +501,23 @@ namespace ch13
 			struct Arc : Graph_lib::Circle
 			{
 				Arc (Point p, int r, int s) :
-					start {double ( 90 * s)}, Circle {p, r}
+					start {double(s) * 90}, Circle {p, r}
 					{}
 					void draw_lines() const;
 				private:
 					double
 						start;
+			};
+
+			struct Box : Graph_lib::Shape
+			{
+					int
+						width,
+						height,
+						radius;
+				public:
+					Box (Point, int, int, int);
+					void draw_lines() const;
 			};
 
 			void main();
