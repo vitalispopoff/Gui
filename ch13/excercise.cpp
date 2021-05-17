@@ -113,8 +113,8 @@ namespace ch13
 				//arcs
 				add ({x0, y0});
 				add ({x0, y2 - r});
-				add ({x1 + r, y2 - r});
-				add ({x1 + r, y1 - r});
+				add ({x2 - r, y2 - r});
+				add ({x2 - r, y1 - r});
 				//add ({p.x + r, p.y});
 				//add ({p.x + w - r, p.y});
 				//
@@ -162,7 +162,7 @@ namespace ch13
 				Simple_window
 					window {Point {2200, 500}, 600, 400, ""};
 				Box
-					box {Point {100, 100}, 200, 200, 50};
+					box {Point {100, 100}, 200, 100, 30};
 				window.attach (box);			
 				window.wait_for_button();
 			}
@@ -245,7 +245,7 @@ namespace ch13
 
 		namespace e03
 		{
-			Arrow::Arrow (Point start, Point end)
+			Arrow::Arrow (Point start, Point end, double s = 0.125)
 			{
 				add (end);
 				add (start);
@@ -254,7 +254,7 @@ namespace ch13
 					y1	{double(start.y)},
 					x2	{double(end.x)},
 					y2	{double(end.y)},
-					dart_size {0.125},
+					dart_size {s},
 					delta_x	{x2 - x1},
 					delta_y	{y2 - y1},
 					mid_x	{x2 - delta_x * dart_size},
@@ -503,7 +503,40 @@ namespace ch13
 
 		namespace e06
 		{
+			void main()
+			{
+				Vector_ref<Shape>
+					shapes;
+				shapes.push_back (new Box {{100, 100}, 100, 30, 10});	//b_win	
+				shapes.push_back (new Box {{250, 100}, 100, 30, 10});	//b_ls	
+				shapes.push_back (new Box {{400, 100}, 100, 30, 10});	//b_col	
+				shapes.push_back (new Box {{80, 200}, 140, 30, 10});	//b_s_w	
+				shapes.push_back (new Box {{250, 200}, 100, 30, 10});	//b_shape
+				shapes.push_back (new Box {{400, 200}, 100, 30, 10});	//b_p		
+				shapes.push_back (new Box {{20, 300}, 60, 30, 10});		// b_line
+				shapes.push_back (new Box {{100, 300}, 60, 30, 10});	// b_lines
+				shapes.push_back (new Box {{180, 300}, 60, 30, 10});	// b_polygon
+				shapes.push_back (new Box {{260, 300}, 60, 30, 10});	// b_axis
+				shapes.push_back (new Box {{340, 300}, 60, 30, 10});	// b_rect
+				shapes.push_back (new Box {{420, 300}, 60, 30, 10});	// b_text
+				shapes.push_back (new Box {{500, 300}, 60, 30, 10});	// b_image
+				shapes.push_back (new Arrow {Point {80 + 70, 200}, {100 + 50, 100 + 30}});
+				
+				shapes.push_back (new Arrow{Point {20 + 30, 300}, {250 + int(100 * 0.16), 200 + 30}, 0.0625});
+				shapes.push_back (new Arrow{Point {100 + 30, 300}, {250 + int(100 * 0.28), 200 + 30}, 0.0625});
+				shapes.push_back (new Arrow{Point {180 + 30, 300}, {250 + int(100 * 0.40), 200 + 30}, 0.0625});
+				shapes.push_back (new Arrow{Point {260 + 30, 300}, {250 + int(100 * 0.52), 200 + 30}, 0.0625});
+				shapes.push_back (new Arrow{Point {340 + 30, 300}, {250 + int(100 * 0.64), 200 + 30}, 0.0625});
+				shapes.push_back (new Arrow{Point {420 + 30, 300}, {250 + int(100 * 0.76), 200 + 30}, 0.0625});
+				shapes.push_back (new Arrow{Point {500 + 30, 300}, {250 + int(100 * 0.88), 200 + 30}, 0.0625});
+					
 
+				Simple_window
+					window	{{2200, 500}, 600, 400, ""};
+				for (int i = 0; i < shapes.size() ; ++i)
+					window.attach (shapes[i]);
+				window.wait_for_button();
+			}
 		}
 	}
 }

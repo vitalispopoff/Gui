@@ -527,7 +527,7 @@ namespace ch13
 		{
 			struct Arrow : Shape
 			{
-				Arrow (Point, Point);
+				Arrow (Point, Point, double);
 				void draw_lines() const;			
 			};
 			void main();
@@ -545,7 +545,10 @@ namespace ch13
 
 		namespace e06
 		{
+			using e02::Box;
+			using e03::Arrow;
 
+			void main();
 		}
 	}
 }
