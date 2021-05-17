@@ -522,5 +522,15 @@ namespace ch13
 
 			void main();
 		}
+
+		namespace e03
+		{
+			struct Arrow : Shape
+			{
+				Arrow (Point, Point);
+				void draw_lines() const;			
+			};
+			void main();
+		}
 	}
 }

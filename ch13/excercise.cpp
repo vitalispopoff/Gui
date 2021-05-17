@@ -242,5 +242,89 @@ namespace ch13
 				window.wait_for_button();
 			}
 		}
+
+		namespace e03
+		{
+			Arrow::Arrow (Point start, Point end)
+			{
+				add (end);
+				add (start);
+				double
+					x1	{double(start.x)},
+					y1	{double(start.y)},
+					x2	{double(end.x)},
+					y2	{double(end.y)},
+					dart_size {0.125},
+					delta_x	{x2 - x1},
+					delta_y	{y2 - y1},
+					mid_x	{x2 - delta_x * dart_size},
+					mid_y	{y2 -delta_y * dart_size};
+				add (Point {
+						int(mid_x - delta_y * dart_size * 0.5),
+						int(mid_y + delta_x * dart_size * 0.5)
+				});
+				add (Point {
+						int(mid_x + delta_y * dart_size * 0.5),
+						int(mid_y - delta_x * dart_size * 0.5)
+				});
+			}
+
+			void Arrow::draw_lines() const
+			{
+				if (color().visibility())
+					for (int i = 1; i < 4; ++i)
+						fl_line (
+							point(i).x,
+							point(i).y,
+							point(0).x,
+							point(0).y
+						);
+			}
+
+			void main()
+			{				
+				Simple_window
+					window {Point {2200, 500}, 600, 400, ""};
+				Arrow
+					arrow {{100, 380}, {540, 76}};
+				window.attach(arrow);
+				window.wait_for_button();
+			}
+
+			
+			void sketch01()
+			{
+				double					
+					x1		{200},
+					x2		{400},
+					y1		{200},
+					y2		{300},
+					
+					dart_size {0.125},
+					delta_x	{x2 - x1},
+					delta_y	{y2 - y1},
+					mid_x	{x2 - delta_x * dart_size},
+					mid_y	{y2 -delta_y * dart_size},
+					x3		{mid_x - delta_y * dart_size * 0.5},
+					y3		{mid_y + delta_x * dart_size * 0.5},
+					x4		{mid_x + delta_y * dart_size * 0.5},
+					y4		{mid_y - delta_x * dart_size * 0.5}
+					;
+
+				Simple_window
+					window {Point {2200, 500}, 600, 400, ""};
+
+				Line
+					l1	{{int(x1), int(y1)}, {int(x2), int(y2)}},
+					l2	{{int(x3), int(y3)}, {int(x2), int(y2)}},
+					l3	{{int(x4), int(y4)}, {int(x2), int(y2)}};
+
+				window.attach (l1);
+				window.attach (l2);
+				window.attach (l3);
+
+				window.wait_for_button();		
+			}
+		}
 	}
 }
