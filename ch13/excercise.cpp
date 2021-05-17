@@ -326,5 +326,84 @@ namespace ch13
 				window.wait_for_button();		
 			}
 		}
+
+		namespace e04
+		{
+			using namespace Graph_lib;
+			Point & n	(Graph_lib::Rectangle & r)
+			{
+				Point
+					p  {r.point(0).x + (r.width() >> 1), r.point(0).y},
+					& result = p;
+				return result;
+			}
+			Point & s (Graph_lib::Rectangle & r)
+			{
+				Point 
+					p {r.point(0).x + (r.width() >> 1),r.point(0).y + r.height()},
+					& result = p;
+				return result;
+			}
+			Point & e (Graph_lib::Rectangle & r)
+			{
+				Point 
+					p	{r.point(0).x + r.width(),r.point(0).y + (r.height() >> 1)},
+					& result = p;
+				return result;
+			}
+			Point & w (Graph_lib::Rectangle & r)
+			{
+				Point
+					p	{r.point(0).x,r.point(0).y + (r.height() >> 1)},
+					& result = p;
+				return result;
+			}			
+			Point & nw (Graph_lib::Rectangle & r)
+			{
+				Point 
+					p = r.point(0),
+					& result = p;
+				return result;
+			}
+			Point & ne (Graph_lib::Rectangle & r)
+			{
+				Point
+					p	{r.point(0).x + r.width(), r.point(0).y},
+					& result = p;
+				return result;
+			}
+			Point & se (Graph_lib::Rectangle & r)
+			{
+				Point
+					p	{r.point(0).x + r.height(), r.point(0).y + r.width()},
+					& result = p;
+				return result;
+			}
+			Point & sw (Graph_lib::Rectangle & r)
+			{
+				Point
+					p	{r.point(0).x, r.point(0).y + r.height()},
+					& result = p;
+				return result;
+			}
+			
+			void main()
+			{
+				Simple_window
+					window {{2200, 500}, 600, 400, ""};
+				Graph_lib::Rectangle
+					rect {{100, 100}, 250, 250};
+				Graph_lib::Polygon
+					poly1;
+				poly1.add(n(rect));
+				poly1.add(e(rect));
+				poly1.add(s(rect));
+				poly1.add(w(rect));
+				poly1.set_color(Color::Color_type::cyan);
+				window.attach(rect);
+				window.attach(poly1);
+				window.wait_for_button();		
+			}
+		}
 	}
 }
