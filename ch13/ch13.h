@@ -567,5 +567,29 @@ namespace ch13
 		{
 			void main();
 		}
+
+		namespace e10
+		{
+			struct Regular_polygon : Polygon
+			{
+				Regular_polygon (Point, int, int);
+
+				private:
+					int 
+						sides,
+						radius;
+			};
+			void main();
+		}
+
+		namespace e11
+		{
+			void main();
+		}
+
+		namespace e12
+		{
+			void main();
+		}
 	}
 }

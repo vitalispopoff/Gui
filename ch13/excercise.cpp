@@ -543,7 +543,6 @@ namespace ch13
 
 		namespace e08
 		{
-
 			Regular_hexagon::Regular_hexagon (Point p, int r) :
 				center{p}, radius {r}
 			{
@@ -609,6 +608,126 @@ namespace ch13
 				for (int i = 0; i < shapes.size(); ++i)
 					window.attach (shapes[i]);
 				window.wait_for_button();
+			}
+		}
+
+		namespace e10
+		{
+			Regular_polygon::Regular_polygon (Point p, int s, int r) :
+				sides {s}, radius {r}
+			{
+				if (s < 3)
+					error("make it at least a triangle...");
+
+				double 
+					center_x	{double(p.x)},
+					center_y	{double(p.y)},
+					angle	{2 * 3.14159265 / double(s)},
+					sine	{sin(angle)},
+					cosine	{cos(angle)};
+				add ({p.x, p.y - r});
+				for (int i = 1 ; i < s ; ++i)
+				{
+					double
+						cache_x {double (point(i - 1).x) - center_x},
+						cache_y {double (point(i - 1).y) - center_y},
+						x		{center_x + cache_x * cosine + cache_y * sine},
+						y		{center_y + cache_y * cosine - cache_x * sine};
+					add	({int(x), int(y)});
+				}
+			}
+
+			void main()
+			{
+				Regular_polygon
+					poly	{Point {300, 200}, 7, 150};
+				Simple_window
+					window	{{2200, 500}, 600, 400, ""};
+
+				window.attach(poly);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e11
+		{
+			void main()
+			{
+				Simple_window
+					window	{{2200, 500}, 600, 400 ,""};
+				Axis
+					ax_x	{Axis::Orientation::x, {100, 200}, 400},
+					ax_y	{Axis::Orientation::y, {300, 350}, 300};
+				window.attach(ax_x);
+				window.attach(ax_y);
+				int
+					center_x	{300},
+					center_y	{200},
+					vert_rad	{150},
+					hori_rad	{100};
+				Graph_lib::Ellipse
+					e	{{center_x, center_y}, vert_rad, hori_rad};
+				window.attach(e);
+				double
+					segment	{10. * 2.},								/// sqrt(100 * 100 / 25) = sqrt *(100 * 4)
+					f_x		{(4 * segment) * 1.5},
+					f_y		{3 * segment};				
+				Point
+					p1	{e.focus1()},
+					p2	{e.focus2()},
+					p3	{300 - int(f_x), 200 - int (f_y)};				
+				Line
+					l1	{p1, p3},
+					l2	{p2, p3};
+				window.attach(l1);
+				window.attach(l2);
+				Mark
+					f1	{p2, '+'},
+					f2	{p2, '+'},
+					f3	{p3, '+'};		
+				window.attach(f1);
+				window.attach(f2);
+				window.attach(f3);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e12
+		{
+			void main()
+			{
+				int
+					s {12},
+					center_x {300},
+					center_y {200},
+					radius	{100};
+				double
+					angle	{2 * 3.14159265 / double (s)},
+					sine	{sin(angle)},
+					cosine	{cos(angle)};
+				Simple_window
+					window		{{2200, 500}, 600, 400, ""};
+				Circle
+					circle {{center_x, center_y}, radius};
+				window.attach(circle);
+				Mark
+					mark	{{center_x + 100, center_y}, '+'};
+				window.attach(mark);
+				while (true)
+				{
+					window.wait_for_button();
+					double
+						in_x	{double (mark.point(0).x) - double (center_x)},
+						in_y	{double (mark.point(0).y) - double (center_y)},
+						out_x	{in_x * cosine + in_y * sine},
+						out_y	{in_y * cosine - in_x * sine},
+						dx		{in_x - out_x},
+						dy		{in_y - out_y};
+						cout 
+							<< in_x << '\t' << in_y << endl;
+					//mark.move	(int (dx), int (dy));
+					mark.move	(int(round(-dx)), int(round(-dy)));		// without rounding the mark spirals in towards the circle center
+				};			
 			}
 		}
 	}

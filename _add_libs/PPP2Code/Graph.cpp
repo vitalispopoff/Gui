@@ -354,7 +354,7 @@ namespace Graph_lib
 				w + w,
 				h + h,
 				0,
-				180 //360 
+				360 
 			);
 		}
 	}
