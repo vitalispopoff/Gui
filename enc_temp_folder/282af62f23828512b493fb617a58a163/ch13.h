@@ -604,10 +604,5 @@ namespace ch13
 			};
 			void main();
 		}
-
-		namespace e15
-		{
-
-		}
 	}
 }

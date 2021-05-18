@@ -769,10 +769,5 @@ namespace ch13
 					
 			}
 		}
-
-		namespace e15
-		{
-
-		}
 	}
 }
