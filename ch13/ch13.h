@@ -550,5 +550,22 @@ namespace ch13
 
 			void main();
 		}
+
+		namespace e08
+		{
+			struct Regular_hexagon : Polygon
+			{
+					Regular_hexagon (Point, int);
+				private:
+					int	radius;
+					Point center;
+			};
+			void main();
+		}
+
+		namespace e09
+		{
+			void main();
+		}
 	}
 }

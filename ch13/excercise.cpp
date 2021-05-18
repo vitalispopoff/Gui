@@ -1,8 +1,10 @@
+#include <iostream>
+#include <algorithm>
+
 //#include "../_add_libs/PPP2Code/fltk.h"
 //#include "../_add_libs/PPP2Code/Simple_window.h"
 #include "../_add_libs/PPP2Code/Graph.h"
 #include "ch13.h"
-#include <algorithm>
 
 using namespace std;
 
@@ -534,6 +536,77 @@ namespace ch13
 				Simple_window
 					window	{{2200, 500}, 600, 400, ""};
 				for (int i = 0; i < shapes.size() ; ++i)
+					window.attach (shapes[i]);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e08
+		{
+
+			Regular_hexagon::Regular_hexagon (Point p, int r) :
+				center{p}, radius {r}
+			{
+				int
+					distance {int(double(r) * 0.5 * 1.73205081)},	// height of a r-sided equilateral triangle: 0.5*r*sqrt(3)
+					half_r {int(double(r) * 0.5)};
+				add ({p.x, p.y - r});
+				add ({p.x + distance, p.y - half_r});
+				add ({p.x + distance, p.y + half_r});
+				add ({p.x, p.y + r});
+				add ({p.x - distance, p.y + half_r});
+				add ({p.x - distance, p.y - half_r});
+			}
+
+			void main()
+			{
+				Simple_window
+					window {{2200, 500}, 800, 600, ""};
+				Regular_hexagon 
+					reg_hex	{{300, 300}, 200};
+				window.attach (reg_hex);
+				Circle
+					circle	{{300, 300}, 200};
+				window.attach (circle);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e09
+		{
+			void main()
+			{				
+				using e08::Regular_hexagon;
+				Vector_ref<Regular_hexagon>
+					shapes;
+				int 
+					coords	{20},
+					radius	{100};
+				for (int i = 0; i < 256; ++i)
+				{
+					//shapes.add (new Regular_Hexagon
+					int						
+						row {i >> 4},
+						column {i & 15},
+						horizontal {column * 2 + (row & 1)}, 	// shapes move horizontally by 2r, but every other row is moved by add. r						
+						vertical {(row << 1)};
+					shapes.push_back (
+						new Regular_hexagon {
+							{
+								int(round(
+									double(horizontal) * 0.5 * 1.73205081 * double(radius)	// moves by heignt of an equilateral triangle of radius sizes side
+								)) + coords, 
+								int(round(
+									double(vertical) * 0.75 * double(radius)
+								)) + coords
+							}, 
+							radius
+						}
+					);
+				}
+				Simple_window
+					window {{2200, 500}, 600, 400, ""};
+				for (int i = 0; i < shapes.size(); ++i)
 					window.attach (shapes[i]);
 				window.wait_for_button();
 			}
