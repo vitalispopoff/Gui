@@ -609,5 +609,15 @@ namespace ch13
 		{
 			void main();
 		}
+
+		namespace e16
+		{
+			void main();
+		}
+
+		namespace e17
+		{
+			void main();
+		}
 	}
 }

@@ -7,7 +7,6 @@
 #include "ch13.h"
 
 using namespace std;
-
 namespace ch13
 {
 	namespace excercise
@@ -800,5 +799,99 @@ namespace ch13
 				window.wait_for_button();
 			}
 		}
+
+		namespace e16
+		{
+			void main()
+			{				
+				using e08::Regular_hexagon;
+				Vector_ref<Regular_hexagon>
+					shapes;
+				double
+					sqrt_3	{1.73205081};
+				int
+					w_width		{600},
+					w_height	{400},
+					radius		{10},
+					columns		{int (round (double(w_width) / double(radius) * sqrt_3))},
+					rows		{int (round (double(w_height) / double(radius) * 0.75))},
+					t_amount	{columns * rows},
+					coords	{0};
+				for (int i = 0; i < t_amount; ++i)
+				{
+					int						
+						row {int (double (i) / double (columns))},
+						column {i % columns},
+						horizontal {column * 2 + (row & 1)}, 	// shapes move horizontally by 2r, but every other row is moved by add. r						
+						vertical {(row << 1)};
+					shapes.push_back (
+						new Regular_hexagon {
+							{
+								int(round(
+									double(horizontal) * 0.5 * 1.73205081 * double(radius)	// moves by heignt of an equilateral triangle of radius sizes side
+								)) + coords, 
+								int(round(
+									double(vertical) * 0.75 * double(radius)
+								)) + coords
+							}, 
+							radius
+						}
+					);
+				}
+				Simple_window
+					window {{2200, 500}, w_width, w_height, ""};
+				for (int i = 0; i < shapes.size(); ++i)
+					window.attach (shapes[i]);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e17
+		{
+			void main()
+			{				
+				using e08::Regular_hexagon;
+				Vector_ref<Regular_hexagon>
+					shapes;
+				double
+					sqrt_3	{1.73205081};
+				int
+					w_width		{600},
+					w_height	{400},
+					radius		{10},
+					columns		{int (round (double(w_width) / double(radius) * sqrt_3))},
+					rows		{int (round (double(w_height) / double(radius) * 0.75))},
+					t_amount	{columns * rows},
+					coords	{0};
+				for (int i = 0; i < t_amount; ++i)
+				{
+					int						
+						row {int (double (i) / double (columns))},
+						column {i % columns},
+						horizontal {column * 2 + (row & 1)}, 	// shapes move horizontally by 2r, but every other row is moved by add. r						
+						vertical {(row << 1)};
+					shapes.push_back (
+						new Regular_hexagon {
+							{
+								int(round(
+									double(horizontal) * 0.5 * 1.73205081 * double(radius)	// moves by heignt of an equilateral triangle of radius sizes side
+								)) + coords, 
+								int(round(
+									double(vertical) * 0.75 * double(radius)
+								)) + coords
+							}, 
+							radius
+						}
+					);
+					shapes[i].set_color(Color::Transparency::invisible);
+					shapes[i].set_fill_color(Color{(i % columns) + int(i / rows) });
+				}
+				Simple_window
+					window {{2200, 500}, w_width, w_height, ""};
+				for (int i = 0; i < shapes.size(); ++i)
+					window.attach (shapes[i]);
+				window.wait_for_button();
+			}
+		}		
 	}
 }
