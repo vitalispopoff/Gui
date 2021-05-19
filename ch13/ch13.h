@@ -607,7 +607,7 @@ namespace ch13
 
 		namespace e15
 		{
-
+			void main();
 		}
 	}
 }

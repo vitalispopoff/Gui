@@ -740,7 +740,6 @@ namespace ch13
 				add ({p.x, p.y + height});
 				add ({p.x + width, p.y + height});
 			}
-
 			void main()
 			{
 				Simple_window
@@ -772,7 +771,34 @@ namespace ch13
 
 		namespace e15
 		{
+			void main()
+			{
+				using e14::Right_triangle;
+				Vector_ref<Right_triangle>
+					triangles;
+				int
+					w_width		{600},
+					w_height	{400},
+					t_width		{15},
+					t_height	{10},
+					columns		{int (w_width / t_width)},
+					rows		{int (w_height / t_height)},
+					t_amount	{columns * rows};
 
+				for (int i = 0; i < t_amount ; ++i)
+				{
+					int
+						anc1_x	{(i % columns) * t_width},
+						anc1_y	{int (i / columns) * t_height};
+					triangles.push_back (new Right_triangle {{anc1_x, anc1_y}, t_height, t_width});
+					triangles.push_back (new Right_triangle {{anc1_x + t_width, anc1_y + t_height}, -t_height, -t_width});				
+				}									
+				Simple_window
+					window		{{2200, 500}, 600, 400 , ""};
+				for (int i = 0; i < triangles.size(); ++i)
+					window.attach (triangles[i]);
+				window.wait_for_button();
+			}
 		}
 	}
 }
