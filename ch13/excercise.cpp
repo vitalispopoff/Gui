@@ -7,6 +7,7 @@
 #include "ch13.h"
 
 using namespace std;
+
 namespace ch13
 {
 	namespace excercise
@@ -732,8 +733,8 @@ namespace ch13
 
 		namespace e14
 		{
-			Right_triangle::Right_triangle(Point p, int h, int w) :
-				height {h}, width {w}
+			Right_triangle::Right_triangle(Point p, int w, int h) :
+				width {w}, height {h}
 			{
 				add (p);
 				add ({p.x, p.y + height});
@@ -749,14 +750,14 @@ namespace ch13
 					cen_y	{200};
 				Vector_ref<Right_triangle>
 					triangles;
-				triangles.push_back (new Right_triangle {{cen_x - tile, cen_y - 2 * tile}, 2 * tile, -tile});
-				triangles.push_back (new Right_triangle {{cen_x - tile, cen_y}, -2 * tile, tile});
-				triangles.push_back (new Right_triangle {{cen_x, cen_y - 2 * tile}, tile, 2 * tile});
-				triangles.push_back (new Right_triangle {{cen_x + 2 * tile, cen_y}, -tile, -2 * tile });
-				triangles.push_back (new Right_triangle {{cen_x + tile, cen_y + 2 * tile}, -2 * tile, tile});
-				triangles.push_back (new Right_triangle {{cen_x + tile, cen_y}, 2 * tile, -tile});
-				triangles.push_back (new Right_triangle {{cen_x, cen_y + 2 * tile}, -tile, -2 * tile});
-				triangles.push_back (new Right_triangle {{cen_x - 2 * tile, cen_y}, tile, 2 * tile});
+				triangles.push_back (new Right_triangle {{cen_x - tile, cen_y - 2 * tile}, -tile, 2 * tile});
+				triangles.push_back (new Right_triangle {{cen_x - tile, cen_y}, tile, -2 * tile});
+				triangles.push_back (new Right_triangle {{cen_x, cen_y - 2 * tile}, 2 * tile, tile});
+				triangles.push_back (new Right_triangle {{cen_x + 2 * tile, cen_y}, -2 * tile, -tile });
+				triangles.push_back (new Right_triangle {{cen_x + tile, cen_y + 2 * tile}, tile, -2 * tile});
+				triangles.push_back (new Right_triangle {{cen_x + tile, cen_y}, -tile, 2 * tile});
+				triangles.push_back (new Right_triangle {{cen_x, cen_y + 2 * tile}, -2 * tile, -tile});
+				triangles.push_back (new Right_triangle {{cen_x - 2 * tile, cen_y}, 2 * tile, tile});
 				for (int i = 0; i < triangles.size(); ++i)
 				{
 					triangles[i].set_color(Color::Transparency::invisible);
@@ -789,8 +790,8 @@ namespace ch13
 					int
 						anc1_x	{(i % columns) * t_width},
 						anc1_y	{int (i / columns) * t_height};
-					triangles.push_back (new Right_triangle {{anc1_x, anc1_y}, t_height, t_width});
-					triangles.push_back (new Right_triangle {{anc1_x + t_width, anc1_y + t_height}, -t_height, -t_width});				
+					triangles.push_back (new Right_triangle {{anc1_x, anc1_y}, t_width, t_height});
+					triangles.push_back (new Right_triangle {{anc1_x + t_width, anc1_y + t_height}, -t_width, -t_height});				
 				}									
 				Simple_window
 					window		{{2200, 500}, 600, 400 , ""};

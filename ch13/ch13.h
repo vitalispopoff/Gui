@@ -599,8 +599,8 @@ namespace ch13
 					Right_triangle(Point, int, int);
 				private:
 					int
-						height,
-						width;
+						width,
+						height;
 			};
 			void main();
 		}

@@ -7,10 +7,10 @@ int main()
 {	
 	try
 	{
-		//ch13::drill::d05::main();
-		//ch13::excercise::e02::main();
-		ch13::excercise::e17::main(); 
 
+		//ch13::excercise::e12::main();
+		ch14::excercise::e06::main();
+		
 		return 0;
 	}
 	catch (exception & e)
