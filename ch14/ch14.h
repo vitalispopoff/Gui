@@ -475,9 +475,26 @@ namespace ch14
 			void main();
 		}
 
-		namespace e07
+		namespace e08a
 		{
+			struct Octagon : Circle
+			{
+				Octagon	(Point p, int r) :
+					Circle {p, r}
+				{}
+				void draw_lines() const;
+			};
+			void main();
+		}
 
+		namespace e08b
+		{
+			struct Octagon : Polygon
+			{
+					Octagon	(Point, int);								
+			};
+
+			void main();
 		}
 	}
 }

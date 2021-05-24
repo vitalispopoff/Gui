@@ -289,9 +289,70 @@ namespace ch14
 			}
 		}
 
-		namespace e07
+		namespace e08a
 		{
+			void Octagon::draw_lines() const
+			{
+				Circle::draw_lines();
+				double
+					in_x	{double(radius())},
+					in_y	{0},
+					sin_pi_4th {0.707106781186548};
+				for (int i = 0; i < 8; ++i)
+				{
+					double
+						x	{(in_y + in_x) * sin_pi_4th},
+						y	{(in_y - in_x) * sin_pi_4th};
+					in_x = x;
+					in_y = y;
+					fl_line	(
+						point(0).x + radius() + int(round(x)),
+						point(0).y + radius() + int(round(y)),
+						point(0).x + radius() - int(round(x)),
+						point(0).y + radius() + int(round(y)) 
+					);
+				}
 
+			}
+			void main()
+			{
+				Simple_window
+					window	{{1200, 620}, 600, 400,""};
+				Octagon
+					o	{{300, 200}, 150};
+				window.attach	(o);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e08b
+		{
+			Octagon::Octagon	(Point p, int r)
+			{
+				add ({p.x - r, p.y - r});
+				double
+					sin_pi_4th {0.707106781186548},
+					in_x	{- double(r)},
+					in_y	{- double(r)};
+				for (int i = 0; i < 7; ++i)
+				{
+					double
+						x	{(in_x + in_y) * sin_pi_4th},
+						y	{(in_y - in_x) * sin_pi_4th};
+					in_x = x;
+					in_y = y;
+					add ({p.x + int(x), p.y + int(y)});
+				}						
+			}
+			void main()
+			{
+				Simple_window
+					window	{{1200, 620}, 600, 400,""};
+				Octagon
+					o	{{300, 200}, 150};
+				window.attach	(o);
+				window.wait_for_button();
+			}
 		}
 	}
 }

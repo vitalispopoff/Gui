@@ -9,7 +9,7 @@ int main()
 	{
 
 		//ch13::excercise::e12::main();
-		ch14::excercise::e06::main();
+		ch14::excercise::e08b::main();
 		
 		return 0;
 	}
