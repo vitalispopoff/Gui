@@ -325,7 +325,7 @@ namespace ch14
 			}
 		}
 
-		namespace e08b
+		namespace e08
 		{
 			Octagon::Octagon	(Point p, int r)
 			{
@@ -351,6 +351,143 @@ namespace ch14
 					o	{{300, 200}, 150};
 				window.attach	(o);
 				window.wait_for_button();
+			}
+		}	
+
+		namespace e11
+		{			
+			void Binary_tree::set_points (int tiers)
+			{
+				add	(anchor_);
+				for (int i = 1; i < (2 << tiers); ++i)
+				{
+					
+					int
+						pre_index {i >> 1};
+					double
+						angle	{angle_factors[i] * slope_};
+					add ({
+						point (pre_index).x + int (round (sin (angle) * length_)),
+						point (pre_index).y - int (round (cos (angle) * length_))
+					});
+				};										
+//			/* 0 */			
+//				add	(anchor_);
+//			/* 1 */			
+//				add ({
+//					point (0).x + int (round (sin (0. * slope_) * double (length_))), 
+//					point (0).y - int (round (cos (0. * slope_) * double (length_)))
+//				});
+/////////////////////
+//			/* 2 */				
+//				add ({
+//					point (1).x + int (round (sin (-1. * slope_) * double (length_))),
+//					point (1).y - int (round (cos (1. * slope_) * double (length_)))
+//				});
+//			/* 3 */			
+//				add ({
+//					point (1).x + int (round (sin (1. * slope_) * double (length_))),
+//					point (1).y - int (round (cos (1. * slope_) * double (length_)))
+//				});
+/////////////////////
+//			/* 4 */		
+//				add ({
+//					point (2).x + int (round (sin (-2. * slope_) * double (length_))),
+//					point (2).y - int (round (cos (2. * slope_) * double (length_)))
+//				});
+//			/* 5 */			
+//				add ({
+//					point (2).x + int (round (sin (0. * slope_) * double (length_))),
+//					point (2).y - int (round (cos (0. * slope_) * double (length_)))
+//				});
+//			/* 6 */
+//				add ({
+//					point (3).x + int (round (sin (0. * slope_) * double (length_))),
+//					point (3).y - int (round (cos (0. * slope_) * double (length_)))
+//				});
+//			/* 7 */		
+//				add ({
+//					point (3).x + int (round (sin (2. * slope_) * double (length_))),
+//					point (3).y - int (round (cos (2. * slope_) * double (length_)))
+//				});
+/////////////////////
+//			/* 8 */			
+//				add ({
+//					point (4).x + int (round (sin (-3. * slope_) * double (length_))),
+//					point (4).y - int (round (cos (-3. * slope_) * double (length_)))
+//				});
+//			/* 9 */			
+//				add ({
+//					point (4).x + int (round (sin (-1. * slope_) * double (length_))),
+//					point (4).y - int (round (cos (-1. * slope_) * double (length_)))
+//				});
+//			/* 10 */				
+//				add ({
+//					point (5).x + int (round (sin (-1. * slope_) * double (length_))),
+//					point (5).y - int (round (cos (-1. * slope_) * double (length_)))
+//				});
+//			/* 11 */			
+//				add ({
+//					point (5).x + int (round (sin (1. * slope_) * double (length_))),
+//					point (5).y - int (round (cos (1. * slope_) * double (length_)))
+//				});
+//			/* 12 */				
+//				add ({
+//					point (6).x + int (round (sin (-1. * slope_) * double (length_))),
+//					point (6).y - int (round (cos (-1. * slope_) * double (length_)))
+//				});
+//			/* 13 */			
+//				add ({
+//					point (6).x + int (round (sin (1. * slope_) * double (length_))),
+//					point (6).y - int (round (cos (1. * slope_) * double (length_)))
+//				});
+//			/* 14 */			
+//				add ({
+//					point (7).x + int (round (sin (1. * slope_) * double (length_))),
+//					point (7).y - int (round (cos (1. * slope_) * double (length_)))
+//				});
+//			/* 8 */			
+//				add ({
+//					point (7).x + int (round (sin (3. * slope_) * double (length_))),
+//					point (7).y - int (round (cos (3. * slope_) * double (length_)))
+//				});
+			}
+
+			void Binary_tree::set_angle_factors(int tiers)
+			{
+				for (int i = angle_factors.size(); i < (2 << tiers); ++i)
+				{
+					int
+						sign {((i & 1) << 1) - 1};
+					angle_factors.push_back (angle_factors [i >> 1] + double(sign));
+				}
+			}
+
+			void Binary_tree::draw_lines () const
+			{
+				if (color ().visibility () && number_of_points () > 0)
+				{					
+					fl_color (color ().as_int ());
+					for (int i = 1; i < number_of_points (); ++i)
+					{
+						fl_line (
+							point (i >> 1).x,
+							point (i >> 1).y,
+							point (i).x,
+							point (i).y
+						);
+					}
+				}
+			}
+
+			void main ()
+			{
+				Simple_window
+					window	{ {1200, 500}, 600, 400, ""};
+				Binary_tree
+					tree { {300,350}, 20, 0.5, 6};
+				window.attach (tree);		
+				window.wait_for_button ();
 			}
 		}
 	}

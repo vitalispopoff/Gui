@@ -487,13 +487,43 @@ namespace ch14
 			void main();
 		}
 
-		namespace e08b
+		namespace e08
 		{
 			struct Octagon : Polygon
 			{
 					Octagon	(Point, int);								
 			};
 
+			void main();
+		}
+		
+		namespace e11
+		{
+			struct Binary_tree : Shape
+			{
+					Binary_tree (Point anchor, double length, double slope , int tiers = 0) :
+						anchor_ {anchor}, length_ {length}, slope_ {slope}
+					{						
+						if (tiers > 0)
+						{
+							set_angle_factors(tiers);
+							set_points(tiers);
+						}
+					}
+					void draw_lines () const;
+					void set_angle_factors (int);
+					vector<double>
+						angle_factors {0., 0., 1., -1.};
+
+				private:
+					Point
+						anchor_;
+					double
+						length_,
+						slope_;
+					void set_points (int);
+			};
+		
 			void main();
 		}
 	}
