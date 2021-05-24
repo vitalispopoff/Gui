@@ -329,12 +329,11 @@ namespace ch14
 		{
 			Octagon::Octagon	(Point p, int r)
 			{
-				add ({p.x - r, p.y - r});
 				double
 					sin_pi_4th {0.707106781186548},
-					in_x	{- double(r)},
+					in_x	{0.},
 					in_y	{- double(r)};
-				for (int i = 0; i < 7; ++i)
+				for (int i = 0; i < 8; ++i)
 				{
 					double
 						x	{(in_x + in_y) * sin_pi_4th},
