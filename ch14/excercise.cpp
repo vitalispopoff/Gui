@@ -354,7 +354,7 @@ namespace ch14
 			}
 		}	
 
-		namespace e11
+		namespace e11a
 		{			
 			void Binary_tree::set_points (int tiers)
 			{
@@ -488,6 +488,160 @@ namespace ch14
 					tree { {300,350}, 20, 0.5, 6};
 				window.attach (tree);		
 				window.wait_for_button ();
+			}
+		}
+
+		namespace e11
+		{			
+			void Binary_tree::set_points (int tiers)
+			{
+				int
+					up_side_down {false ? 1 : -1};
+				add	(anchor_);
+				for (int i = 1; i < (2 << tiers); ++i)
+				{					
+					int
+						pre_index {i >> 1};
+					double
+						angle	{angle_factors[i] * slope_};
+					add ({
+						point (pre_index).x + int (round (sin (angle) * length_)),
+						point (pre_index).y + int (round (cos (angle) * length_) * up_side_down)
+					});
+				};										
+			}
+
+			void Binary_tree::set_angle_factors(int tiers)
+			{
+				for (int i = angle_factors.size(); i < (2 << tiers); ++i)
+				{
+					int
+						sign {((i & 1) << 1) - 1};
+					angle_factors.push_back (angle_factors [i >> 1] + double(sign));
+				}
+			}
+
+			void Binary_tree::draw_lines () const
+			{
+				if (color ().visibility () && number_of_points () > 0)
+				{					
+					fl_color (color ().as_int ());
+					for (int i = 1; i < number_of_points (); ++i)
+					{
+						fl_line (
+							point (i >> 1).x,
+							point (i >> 1).y,
+							point (i).x,
+							point (i).y
+						);
+						int
+							radius {int(round((length_ * 0.25)))};
+						fl_arc (
+							point (i).x - (radius >> 1),
+							point (i).y - (radius >> 1),
+							radius,
+							radius,
+							0.,
+							360.
+						);
+						fl_pie (
+							point (i).x - (radius >> 1),
+							point (i).y - (radius >> 1),
+							radius,
+							radius,
+							0.,
+							360.
+						);
+					}
+				}
+			}
+
+			void main ()
+			{
+				Simple_window
+					window	{ {600, 500}, 800, 600, ""};
+				Binary_tree
+					tree { {300,350}, 40, 0.5, 5};
+				window.attach (tree);		
+				window.wait_for_button ();
+			}
+		}
+
+		namespace e12
+		{	
+			void Binary_tree::draw_lines () const
+			{
+				if (color ().visibility () && number_of_points () > 0)
+				{					
+					fl_color (color ().as_int ());
+					for (int i = 1; i < number_of_points (); ++i)
+						draw_drawing(point(i), point(i >> 1));
+				}
+			}
+
+			void Binary_tree::draw_drawing(Point p, Point pre) const
+			{
+				fl_pie (p.x - (3), p.y - (3), 3, 3, 0., 360.);
+			}
+
+			void main()
+			{
+				Simple_window
+					window	{{1000, 500}, 800, 600, ""};
+				Binary_tree
+					tree {{400, 400}, 20, 0.125 * 3.14159265, 16};
+				window.attach (tree);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e13
+		{
+			void Binary_tree::draw_drawing	(Point p, Point pre) const
+			{
+				draw_branches(p, pre);
+				draw_nodes(p);
+			}
+			void Binary_tree::draw_branches (Point p, Point pre) const
+			{				
+				fl_line (pre.x, pre.y, p.x, p.y);
+			}
+			void Binary_tree::draw_nodes	(Point p) const
+			{				
+				//fl_pie(p.x - 1, p.y - 1, 2, 2, 0., 360.);
+			}
+
+			void Arrow_tree::draw_branches(Point p, Point pre) const
+			{
+				double
+					x1	{double(pre.x)},
+					y1	{double(pre.y)},
+					x2	{double(p.x)},
+					y2	{double(p.y)},
+					dart_size {0.125},
+					delta_x	{x2 - x1},
+					delta_y	{y2 - y1},
+					mid_x	{x2 - delta_x * dart_size},
+					mid_y	{y2 -delta_y * dart_size},
+					x3	{mid_x - delta_y * dart_size * 0.5},
+					y3	{mid_y + delta_x * dart_size * 0.5},
+					x4	{mid_x + delta_y * dart_size * 0.5},
+					y4	{mid_y - delta_x * dart_size * 0.5};
+				fl_line (int(x1), int(y1), int(x2), int(y2));
+				fl_line	(int(x3), int(y3), int(x2), int(y2));
+				fl_line	(int(x4), int(y4), int(x2), int(y2));
+			}
+
+			void main()
+			{
+				Simple_window
+					window	{{2200, 500}, 600, 400, ""};
+				Arrow_tree
+					tree	{{300, 300}, 50, 0.4, 4};
+				tree.set_color	(Color::Color_type::dark_red);
+				/*tree.set_style(Line_style::Line_style_type::dot);*/
+				window.attach(tree);
+				window.wait_for_button();
 			}
 		}
 	}

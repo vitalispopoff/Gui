@@ -496,8 +496,8 @@ namespace ch14
 
 			void main();
 		}
-		
-		namespace e11
+
+		namespace e11a
 		{
 			struct Binary_tree : Shape
 			{
@@ -524,6 +524,80 @@ namespace ch14
 					void set_points (int);
 			};
 		
+			void main();
+		}
+		
+		namespace e11
+		{
+			struct Binary_tree : Shape
+			{
+					Binary_tree (Point anchor, double length, double slope , int tiers = 0) :
+						anchor_ {anchor}, length_ {length}, slope_ {slope}
+					{						
+						if (tiers > 0)
+						{
+							set_angle_factors(tiers);
+							set_points(tiers);
+						}
+					}
+					void draw_lines () const;
+					void set_angle_factors (int);
+					vector<double>
+						angle_factors {0., 0., 1., -1.};
+
+				protected:
+					Point
+						anchor_;
+					double
+						length_,
+						slope_;
+					void set_points (int);
+			};
+		
+			void main();
+		}
+
+		namespace e12
+		{
+			struct Binary_tree : e11::Binary_tree
+			{
+				Binary_tree (Point anchor, double length, double slope , int tiers = 0) :
+					e11::Binary_tree {anchor, length, slope, tiers}
+				{}
+				virtual void draw_lines() const;
+				virtual void draw_drawing(Point, Point) const;
+			};
+
+			void main();
+		}
+
+		namespace e13
+		{
+			struct Binary_tree : e12::Binary_tree
+			{
+				Binary_tree (Point anchor, double length, double slope , int tiers = 0) :
+					e12::Binary_tree {anchor, length, slope, tiers}
+				{}
+				virtual void draw_lines() const
+				{
+					e12::Binary_tree::draw_lines();
+				}
+				virtual void	draw_drawing	(Point, Point) const;
+				virtual void	draw_branches	(Point, Point) const;
+				virtual void	draw_nodes		(Point) const;
+			};
+
+			struct Arrow_tree : Binary_tree
+			{
+				Arrow_tree (Point anchor, double length, double slope , int tiers = 0) :
+					Binary_tree {anchor, length, slope, tiers}
+				{}
+				void draw_branches(Point, Point) const;
+
+
+
+			};
+
 			void main();
 		}
 	}
