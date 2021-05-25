@@ -226,7 +226,10 @@ namespace Graph_lib
 			{ 
 				points[i] = p; 
 			}
-
+			vector<Point> & point_ref () const
+			{
+				return points_ref;
+			}			
 		public:			
 			void draw() const;									/// deal with color and draw_lines
 
@@ -288,7 +291,8 @@ namespace Graph_lib
 
 		private:			
 			vector<Point>										/// not used by all shapes
-				points;	
+				points,
+				& points_ref = points;							/// added to alter the ch14 e14 solution
 			Color 
 				lcolor {false ? fl_color() : FL_BLACK};			/// gotta force default to black
 			Line_style 

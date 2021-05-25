@@ -1,4 +1,5 @@
 #pragma once
+#include <sstream>
 #include "ch14.h"
 
 namespace ch14
@@ -559,9 +560,9 @@ namespace ch14
 			void main ()
 			{
 				Simple_window
-					window	{ {600, 500}, 800, 600, ""};
+					window	{{1000, 500}, 600, 400, ""};
 				Binary_tree
-					tree { {300,350}, 40, 0.5, 5};
+					tree { {300,300}, 16, 0.25, 12};
 				window.attach (tree);		
 				window.wait_for_button ();
 			}
@@ -640,6 +641,94 @@ namespace ch14
 					tree	{{300, 300}, 50, 0.4, 4};
 				tree.set_color	(Color::Color_type::dark_red);
 				/*tree.set_style(Line_style::Line_style_type::dot);*/
+				window.attach(tree);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e14
+		{
+			Binary_tree::Binary_tree (Point anchor, double length, double slope , int tiers = 0) :
+				anchor_ {anchor}, length_ {length}, slope_ {slope}
+			{						
+				if (tiers > 0)
+				{
+					set_angle_factors(tiers);
+					set_points(tiers);
+				}
+			}
+			void Binary_tree::set_angle_factors(int tiers)
+			{
+				for (int i = angle_factors.size(); i < (2 << tiers); ++i)
+				{
+					int
+						sign {((i & 1) << 1) - 1};
+					angle_factors.push_back (angle_factors [i >> 1] + double(sign));
+				}
+			}
+			void Binary_tree::set_points (int tiers)
+			{
+				int
+					up_side_down {false ? 1 : -1};
+				add	(anchor_);
+				for (int i = 1; i < (2 << tiers); ++i)
+				{					
+					int
+						pre_index {i >> 1};
+					double
+						angle	{angle_factors[i] * slope_};
+					add ({
+						point (pre_index).x + int (round (sin (angle) * length_)),
+						point (pre_index).y + int (round (cos (angle) * length_) * up_side_down)
+					});
+				};										
+			}
+			void Binary_tree::draw_lines () const
+			{
+				if (color ().visibility () && number_of_points () > 0)
+				{					
+					fl_color (color ().as_int ());
+					for (int i = 1; i < number_of_points (); ++i)
+					{
+						draw_branches (point_ref(), i);
+						draw_nodes (point_ref(), i);
+					}
+				}
+			}
+
+			void Binary_tree::draw_branches (vector<Point> & pr, int i) const
+			{
+				fl_line (
+					pr[i >> 1].x,
+					pr[i >> 1].y,
+					pr[i].x,
+					pr[i].y
+				);
+			}
+			void Binary_tree::draw_nodes	(vector<Point> & pr, int i) const
+			{
+				static const int
+					dx	{4},
+					dy	{4};
+				stringstream
+					ss;
+				ss << i;
+				string
+					str;
+				ss >> str;
+				fl_draw (
+					str.c_str(),
+					pr[i].x,
+					pr[i].y
+				);
+			}
+
+			void main()
+			{
+				Simple_window
+					window	{{1000,500}, 600, 400, ""};
+				Binary_tree
+					tree	{{300, 250}, 100, 0.75 * 3.14, 6};
 				window.attach(tree);
 				window.wait_for_button();
 			}

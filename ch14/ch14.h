@@ -593,9 +593,33 @@ namespace ch14
 					Binary_tree {anchor, length, slope, tiers}
 				{}
 				void draw_branches(Point, Point) const;
+			};
 
+			void main();
+		}
 
+		namespace e14
+		{
+			struct Binary_tree : Shape
+			{
+					Binary_tree (Point, double, double, int);
 
+					void draw_lines () const;
+				protected:
+					Point
+						anchor_;
+					double
+						length_,
+						slope_;
+					vector<double>
+						angle_factors {0., 0., 1., -1.},
+						& af_ref = angle_factors;
+
+					void set_points (int);
+					void set_angle_factors (int);
+
+					void draw_branches (vector<Point> &, int) const;
+					void draw_nodes (vector<Point> &, int) const;
 			};
 
 			void main();
