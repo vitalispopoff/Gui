@@ -10,7 +10,8 @@ int main()
 
 		//ch13::excercise::e12::main();
 		//ch14::excercise::e11::main();
-		ch14::excercise::e14::main();
+		//ch14::excercise::e14::main();
+		ch15::sample::s04::main();
 		
 		return 0;
 	}
