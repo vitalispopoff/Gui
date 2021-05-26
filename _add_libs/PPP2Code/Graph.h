@@ -38,7 +38,8 @@ namespace Graph_lib
 
 		enum class Transparency									//v/ made enum to enum class
 		{ 
-			invisible = 0, 
+			invisible = 0,
+			translucent = 128,									//v/ added specially for the ch15 s07, not tested against previous code
 			visible = 255
 		};
 
