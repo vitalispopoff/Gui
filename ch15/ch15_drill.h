@@ -74,6 +74,8 @@ namespace ch15
 				{}
 			};
 		}
+
+		// part 1
 		
 		namespace d01
 		{
@@ -90,6 +92,8 @@ namespace ch15
 			void main();
 		}
 
+		// part 2
+
 		namespace d05
 		{
 			void main();
@@ -97,6 +101,32 @@ namespace ch15
 
 		namespace d06
 		{
+			void main();
+		}
+
+		namespace d07
+		{
+			void main();
+		}
+
+		namespace d09
+		{
+			void main();
+		}
+
+		// part 3
+
+		namespace d10
+		{
+			struct Person
+			{				
+				string
+					name;
+				int
+					age;
+				Person (string, int);
+			};
+
 			void main();
 		}
 	}
