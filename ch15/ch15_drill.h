@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 #include "../_add_libs/PPP2Code/Gui.h"
 
@@ -124,9 +125,106 @@ namespace ch15
 					name;
 				int
 					age;
+				Person () :
+					name {}, age {0}
+				{}
 				Person (string, int);
 			};
 
+			void main();
+		}
+
+		namespace d12
+		{
+			void main();
+		}
+
+		namespace d14
+		{
+			struct Person
+			{				
+					Person () :
+						name_ {}, age_ {0}
+					{}
+					Person (string n, int a) :
+						name_ {n}, age_ {check_age(a)}
+					{}
+					virtual string	name	() const
+					{
+						return name_;
+					}
+					virtual int		age		() const
+					{
+						return age_;
+					}
+					virtual void	name	(string n)
+					{
+						set_name(n);
+					}
+					virtual void	age		(int a)
+					{						
+						set_age(check_age(a));
+					}
+				protected :
+					virtual int check_age	(int a)
+					{
+						if (a < 0)
+							error ("negative age nod allowed");
+						return a;
+					}
+					void	set_name	(string n)
+					{
+						name_ = n;
+					}
+					void	set_age		(int a)
+					{ 
+						age_ = a;
+					}
+				private :
+					string name_;
+					int age_;
+			};
+			ostream & operator << (ostream &, Person &);
+			istream & operator >> (istream &, Person &);
+			void main();
+		}
+
+		namespace d15
+		{
+			struct Person
+			{
+					Person ();
+					Person (string, int);
+
+					string name () const
+					{
+						return name_;
+					}
+					int	age () const
+					{
+						return age_;
+					}
+
+					virtual void name (string);
+					virtual void age (int);
+
+				protected :
+					virtual string check_name (string);
+					virtual int check_age (int);
+
+					void set_name (string n)
+					{
+						name_ = n;
+					}
+					void set_age (int a)
+					{
+						age_ = a;
+					}
+					
+				private :
+					string name_;
+					int age_;
+			};
 			void main();
 		}
 	}

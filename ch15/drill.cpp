@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include "ch15_drill.h"
 
 namespace ch15
@@ -243,7 +243,7 @@ namespace ch15
 
 		namespace d10
 		{
-			Person::Person (string n = "", int a = 0) :
+			Person::Person (string n, int a = 0) :
 					name {n}
 			{
 				if (a < 0)
@@ -269,6 +269,124 @@ namespace ch15
 			}
 		}
 
+		namespace d12
+		{
+			using d10::Person;
+			using d10::operator <<;
+			istream & operator >> (istream & is, Person & p)
+			{
+				is 
+					>> p.name 
+					>> p.age;
+				return is;
+			}
+			void main()
+			{
+				Person 
+					p;
+				std::cin 
+					>> p;
+				std::cout 
+					<< p
+					<< endl;		
+				for(char c {0}; c != 'x' ;std::cin >> c);
+			}
+		}
+
+		namespace d14
+		{
+			ostream & operator << (ostream & os, Person & p)
+			{
+				os 
+					<< p.name()
+					<<", " 
+					<< p.age();
+				return os;						
+			}
+			istream & operator >> (istream & is, Person & p)
+			{
+				string n;
+				int a;
+				is >> n >> a;
+				p.name(n);
+				p.age(a);
+				return is;
+			}
+			void main()
+			{
+				Person 
+					p;
+				std::cin 
+					>> p;
+				std::cout 
+					<< p
+					<< endl;		
+				for(char c {0}; c != 'x' ;std::cin >> c);
+			}
+		}
+
+		namespace d15
+		{
+			Person::Person () :
+				name_ {""}, age_{0}
+			{}
+			Person::Person (string n, int a = 0) :
+				name_{check_name(n)},  age_{check_age(a)}
+			{}
+
+			void Person::name (string n)
+			{
+				set_name(check_name(n));
+			}
+			void Person::age (int a)
+			{
+				set_age (check_age(a));
+			}
+
+			string	Person::check_name	(string n)
+			{
+				for(char c : n)
+					if( ispunct(c))
+						error ("punctuation characters are not allowed");
+				return n;
+			}
+			int		Person::check_age	(int a)
+			{
+				if (a < 0 || a > 150)
+					error ("input is outside the age range");
+				return a;
+			}
+
+			ostream & operator << (ostream & os,d15::Person & p)
+			{
+				os 
+					<< p.name()
+					<<", " 
+					<< p.age();
+				return os;						
+			}
+			istream & operator >> (istream & is, d15::Person & p)
+			{
+				string n;
+				int a;
+				is >> n >> a;
+				p.name(n);
+				p.age(a);
+				return is;
+			}
+
+			void main()
+			{
+				Person 
+					p;
+				std::cin 
+					>> p;
+				std::cout 
+					<< p
+					<< endl;		
+				for(char c {0}; c != 'x' ;std::cin >> c);
+			}
+		}
 
 	}	
 }

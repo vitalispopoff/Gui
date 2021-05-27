@@ -7,7 +7,7 @@ int main()
 {	
 	try
 	{
-		ch15::drill::d10::main();
+		ch15::drill::d15::main();
 		
 		return 0;
 	}
