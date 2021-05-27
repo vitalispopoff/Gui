@@ -1,5 +1,7 @@
 //#include <cmath>
 #include <sstream>
+#include <fstream>
+#include <iostream>
 #include "ch15.h"
 
 namespace ch15
@@ -308,6 +310,227 @@ namespace ch15
 					///  - yet commenting out the line doesn't seem to change anything, or does it?
 					window.detach (e);
 				}
+			}
+		}
+
+		namespace s08
+		{
+		/// apparently can declare scope global variables from other namespaces...
+			using s07::n;		
+			double fac (double n)
+			{
+				double
+					r {1};
+				while (1 < n)
+					r *= n--;
+				return r;
+			}		
+			double term (double x, int i)
+			{
+				return pow (x, i) / fac (double(i));
+			}
+			double expe (double x)
+			{
+				double
+					sum {0};
+				for (int i = 0; i < n; ++i)
+					sum += term (x, i);
+				return sum;
+			}
+			void main()
+			{
+				using namespace constants;
+				Simple_window
+					window {{2200, 500}, xmax, ymax, ""};
+				Axis
+					x	{Axis::Orientation::x, {20, y_orig}, xlength, xlength / x_scale,},
+					y	{Axis::Orientation::y, {x_orig, ylength + 20}, ylength, ylength / y_scale,};
+				Color
+					ax_col {Color::Color_type::black, Color::Transparency::translucent};
+				x.set_color (ax_col);
+				y.set_color (ax_col);
+				window.attach	(x);
+				window.attach	(y);
+				Function 
+					real_exp {exp, double(r_min), double(r_max), {x_orig, y_orig}, 200, double(x_scale), double(y_scale)};
+				real_exp.set_color(Color::Color_type::blue);
+				window.attach(real_exp);
+				window.wait_for_button();
+				for (; n < 50; ++n)
+				{
+					ostringstream
+						ss;
+					ss 
+						<< "exp approx. : n == " 
+						<< n;
+					window.set_label (ss.str().c_str());
+					Function 
+						e {[] (double x) {return expe (x);}, double(r_min), double(r_max), {x_orig, y_orig}, 200, double(x_scale), double(y_scale)};
+					e.set_color({Color::Color_type::yellow});
+					window.attach (e);
+					window.wait_for_button();				
+					window.detach (e);
+				}
+			}
+		}
+
+		namespace s09
+		{
+			istream & operator >> (istream & is, Distribution & d)
+			{
+				char
+					ch1 {0},	// like '('
+					ch2 {0},	// like ':'
+					ch3 {0};	// like ')'
+				Distribution
+					dd;
+				if (is >> ch1 >> dd.year >> ch2 >> dd.young >> dd.middle >> dd.old >> ch3)
+				{
+					if (ch1 != '(' || ch2 != ':' || ch3 != ')')
+					{
+						is.clear (ios_base::failbit);
+						return is;
+					}
+				}
+				else
+					return is;
+				d = dd;
+				return is;
+			}
+
+			string 
+				file_name {"japanese-age-data.txt"};
+			ifstream 
+				ifs {file_name};
+
+			void sketch ()
+			{
+				if (!ifs)
+					error ("can't open " + file_name);	///commit: e8424b144f0cab65cb0dfa1828c1f8b9957ce9d0 :: std_lib_facilities.h :: 141 sqq
+				/// ...
+				int
+					base_year {0},
+					end_year {0};
+				/// ...
+				for (Distribution d; ifs >> d; )
+				{
+					if (d.year < base_year || end_year < d.year)
+						error ("year out of range");
+					if (d.young + d.middle + d.old != 100)
+						error ("percentages don't add up");
+				}
+				/// ...
+			}
+		}
+
+		namespace s10
+		{
+			constexpr int
+				xanchor	= 1000,
+				yanchor	= 500,
+				
+				xmax	= 600,
+				ymax	= 400,
+
+				xoffset	= 100,
+				yoffset	= 60,
+
+				xspace	= 40,
+				yspace	= 40,
+
+				xlength	= xmax - xoffset - xspace,
+				ylength	= ymax - yoffset - yspace,
+
+				base_year	= 1960,
+				end_year	= 2040;
+			constexpr double
+				xscale = double (xlength) / (end_year - base_year),
+				yscale = double (ylength) * 0.01;	/// it's better to multiply, than divide
+
+			Scale
+				xs	{xoffset, base_year, xscale},
+				ys	{ymax - yoffset, 0 , -yscale};
+
+			using s09::file_name;
+			using s09::ifs;
+
+			void main()
+			{
+				Graph_lib::Window 
+					win {{xanchor, yanchor}, xmax, ymax, "Aging Japan"};
+				string
+					lab_years	{"year	1960	1970	1980	1990	2000	2010	2020	2030	2040"};
+				Graph_lib::Axis
+					x {
+						Axis::Orientation::x, 
+						{xoffset, ymax - yoffset}, 
+						xlength, 
+						(end_year - base_year) / 10,
+						lab_years
+						//"year	1960	1970	1980	1990	"	these two strings would be concatenated by the compiler
+						//"2000	2010	2020	2030	2040"
+					};
+				x.label.move (-100, 0);
+				Axis
+					y {
+						Axis::Orientation::y, 
+						{xoffset, ymax - yoffset}, 
+						ylength, 10, 
+						"% of population"
+					};
+				Line
+					current_year {
+						{xs (2008), ys (0)}, 
+						{xs (2008), ys (100)}
+					};
+				current_year.set_style (Line_style::Line_style_type::dash);
+
+				if (!ifs)
+					error ("can't open " + file_name);
+				Open_polyline 
+					children,
+					adults,
+					aged;
+				for (Distribution d; ifs >> d; )
+				{
+					if (d.year < base_year || end_year < d.year)
+						error ("year out of range");
+					if (d.young + d.middle + d.old != 100)
+						error ("percentages don't add up");
+					const int
+						x = xs (d.year);
+						//x = xs {d.year};		// doesn't work anymore
+					children.add ({x, ys (d.young)});
+					adults.add ({x, ys(d.middle)});
+					aged.add ({x, ys(d.old)});
+				}
+
+				Color
+					children_col	{Color::Color_type::red},
+					adults_col		{Color::Color_type::blue},
+					aged_col		{Color::Color_type::green};
+				Text
+					children_label	{{20, children.point(0).y}, "age 0-14"},
+					adults_label	{{20, adults.point(0).y}, "age 15-64"},
+					aged_label		{{20, aged.point(0).y}, "age 65+"};
+				children.set_color	(children_col);
+				adults.set_color	(adults_col);
+				aged.set_color		(aged_col);
+				children_label.set_color(children_col);
+				adults_label.set_color	(adults_col);
+				aged_label.set_color	(aged_col);
+
+				win.attach	(children);
+				win.attach	(adults);
+				win.attach	(aged);
+				win.attach	(children_label);
+				win.attach	(adults_label);
+				win.attach	(aged_label);
+				win.attach	(x);
+				win.attach	(y);
+				win.attach	(current_year);
+
+				gui_main();
 			}
 		}
 	}

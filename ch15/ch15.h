@@ -95,17 +95,60 @@ namespace ch15
 
 		namespace s07
 		{
-			//int fac (int);
-			//double term (double, int);
-			//double expe  (double, int);
 			void main();
 		}
-	}
 
+		namespace s08
+		{
+			void main();
+		}
+
+		namespace s09
+		{
+			struct Distribution
+			{
+				int
+					year,
+					young,
+					middle,
+					old;
+			};
+			istream & operator >> (istream &, Distribution &);
+		}
+
+		namespace s10
+		{
+			using s09::Distribution;
+			using s09::operator >>;	/// watch it closely !
+
+
+			class Scale 
+			{
+					int 
+						cbase,
+						vbase;
+					double scale;
+				public :
+					Scale (int b, int vb, double s) :
+						cbase {b}, vbase {vb}, scale {s}
+					{}
+					int operator () (int v) const 
+					{
+						return int(round(double(cbase) + (double(v) - double(vbase)) * scale));
+					}
+			};
+
+			void main();
+		}
+		
+	}
 
 	namespace drill
 	{
-
+		namespace d01
+		{
+			void main();
+		}
 	}
 	
 	namespace excercise
