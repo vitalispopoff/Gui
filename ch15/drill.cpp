@@ -5,18 +5,17 @@ namespace ch15
 {
 	namespace drill
 	{
+		using namespace constants;
+
 		namespace d01
 		{
+			
 			void main()
 			{
-				const Point
-					win_anchor	{1000, 500},
-					win_size	{600, 600};
 
 				Graph_lib::Window
 					win {win_anchor, win_size.x, win_size.y, "Function graphs"};
-				const int
-					axis_len	{400};
+
 				Axis
 					ax_x {
 						Axis::Orientation::x,
@@ -32,24 +31,22 @@ namespace ch15
 						20,
 						"1 == 20px"
 					};
-				Color
-					ax_col {Color::Color_type::red};
+
 				ax_x.set_color	(ax_col);
 				ax_y.set_color	(ax_col);
 
 				win.attach	(ax_x);
 				win.attach	(ax_y);
-				
+			
 				Function
 					f1 {
 						[] (double) { return 1.;},
-						-10.,
-						11.,
-						{300, 300},
-						20 + 11, 
-						//1, 1	// drills, part 2: drill 1
-						20,
-						20
+						f_min,
+						f_max,
+						f_orig,
+						f_count, 
+						f_x_unit_len,
+						f_y_unit_len,
 					};
 				win.attach (f1);
 

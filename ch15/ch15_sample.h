@@ -41,16 +41,14 @@ namespace ch15
 			struct Function : Shape
 			{
 				Function (
-					Fct f, 
-					double r1, 
-					double r2, 
-					Point orig, 
-					int count = 100, 
-					double xscale = 25, 
-					double yscale = 25
+					Fct f,				/// function to be translated into sections (like mulitiline)
+					double r1,			/// section min val in scaled units
+					double r2,			/// section max val in scaled units
+					Point orig,			/// 0,0 point location
+					int count = 100,	/// number of sections
+					double xscale = 25,	/// x scale of section
+					double yscale = 25	/// y scale of section
 				);
-
-
 			};
 		}
 
