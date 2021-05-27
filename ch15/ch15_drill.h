@@ -58,7 +58,21 @@ namespace ch15
 							error ("no z allowed");
 					}
 				}
-			};			
+			};		
+			
+			struct Function : Graph_lib::Function
+			{
+				Function (
+					Fct f,
+					double f_min = f_min,
+					double f_max = f_max,
+					Point f_orig = {win_size.x >> 1, win_size.y >> 1},
+					int f_count = int(f_max) - int(f_min), 
+					double f_x_unit_len = f_x_unit_len,
+					double f_y_unit_len = f_y_unit_len
+					) : Graph_lib::Function {f, f_min, f_max, f_orig, f_count, f_x_unit_len, f_y_unit_len}
+				{}
+			};
 		}
 		
 		namespace d01

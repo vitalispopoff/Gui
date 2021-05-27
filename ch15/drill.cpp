@@ -63,22 +63,18 @@ namespace ch15
 					ax_y {
 						Axis::Orientation::y,
 					};
-
-				//ax_x.set_color	(ax_col);
-				//ax_y.set_color	(ax_col);
-
 				win.attach	(ax_x);
 				win.attach	(ax_y);
 			
-				Function
+				constants::Function
 					f1 {
 						[] (double) { return 1.;},
-						f_min,
-						f_max,
-						f_orig,
-						f_count, 
-						f_x_unit_len,
-						f_y_unit_len,
+						//f_min,
+						//f_max,
+						//f_orig,
+						//f_count, 
+						//f_x_unit_len,
+						//f_y_unit_len,
 					};
 				win.attach (f1);
 
