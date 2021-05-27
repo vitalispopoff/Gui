@@ -84,6 +84,11 @@ namespace ch15
 		{
 			void main();
 		}
+
+		namespace d04
+		{
+			void main();
+		}
 	}
 
 }
