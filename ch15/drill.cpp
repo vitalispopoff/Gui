@@ -13,7 +13,7 @@ namespace ch15
 			{
 				Graph_lib::Window
 					win {win_anchor, win_size.x, win_size.y, win_lab};
-				Axis
+				constants::Axis
 					ax_x {
 						Axis::Orientation::x,
 						ax_x_anch,						
@@ -43,7 +43,6 @@ namespace ch15
 						f_y_unit_len,
 					};
 				win.attach (f1);
-
 				for (char c {0};  c != 'x'; std::cin >> c)
 					Fl::wait();
 			}
@@ -57,7 +56,7 @@ namespace ch15
 				Graph_lib::Window
 					win {win_anchor, win_size.x, win_size.y, win_lab};
 
-				Axis
+				constants::Axis
 					ax_x {
 						Axis::Orientation::x,
 						ax_x_anch,						

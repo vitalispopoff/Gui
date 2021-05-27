@@ -32,8 +32,19 @@ namespace ch15
 				f_y_unit_len	{20.};
 			const int
 				f_count			{int(f_max) - int(f_min)};
-		}
 
+			struct Axis : Graph_lib::Axis
+			{
+				Axis (
+					Orientation orient,
+					Point anchor,
+					int ax_len,
+					int ax_unit_len,
+					string ax_lab
+					) : Graph_lib::Axis {orient, anchor, ax_len, ax_unit_len, ax_lab} {}
+			};
+		}
+		
 		namespace d01
 		{
 			void main();
