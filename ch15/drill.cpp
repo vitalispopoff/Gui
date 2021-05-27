@@ -1,4 +1,5 @@
-
+//#include <stdexcept>
+#include <iostream>
 #include "ch15_drill.h"
 
 namespace ch15
@@ -387,6 +388,36 @@ namespace ch15
 				for(char c {0}; c != 'x' ;std::cin >> c);
 			}
 		}
+
+		namespace d16
+		{
+			using namespace d15;
+			void main()
+			{
+				vector<Person>
+					peeps;
+				try
+				{
+					while(true)
+					{
+						Person p;
+						cin >> p;
+						peeps.push_back(p);
+						int 
+							index {int(peeps.size())};
+						index -= (index > 0);
+						cout << peeps[index].name() << " saved under index " << index << endl;
+					}
+				}
+				catch (exception & e)
+				{
+					for(Person p : peeps)
+						cout << p << endl;
+				}
+				for(char c {0}; c != 'x' ;std::cin >> c);
+			}
+		}
+
 
 	}	
 }

@@ -227,5 +227,10 @@ namespace ch15
 			};
 			void main();
 		}
+
+		namespace d16
+		{
+			void main();
+		}
 	}
 }
