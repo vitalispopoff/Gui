@@ -31,6 +31,9 @@
     <Filter Include="Source Files\ch15">
       <UniqueIdentifier>{f098caab-c506-4f2d-a410-3b774fcd848b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ch15">
+      <UniqueIdentifier>{deb9d854-6d33-47de-9bdd-b865ec3042ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Appendix_D_test\test.cpp">
@@ -119,8 +122,11 @@
     <ClInclude Include="ch14\ch14.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ch15\ch15.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ch15\ch15_drill.h">
+      <Filter>Header Files\ch15</Filter>
+    </ClInclude>
+    <ClInclude Include="ch15\ch15_sample.h">
+      <Filter>Header Files\ch15</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

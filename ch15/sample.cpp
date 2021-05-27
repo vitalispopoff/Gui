@@ -2,7 +2,7 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
-#include "ch15.h"
+#include "ch15_sample.h"
 
 namespace ch15
 {

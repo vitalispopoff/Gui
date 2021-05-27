@@ -41,7 +41,8 @@
     <ClInclude Include="ch12\ch12.h" />
     <ClInclude Include="ch13\ch13.h" />
     <ClInclude Include="ch14\ch14.h" />
-    <ClInclude Include="ch15\ch15.h" />
+    <ClInclude Include="ch15\ch15_drill.h" />
+    <ClInclude Include="ch15\ch15_sample.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="_add_libs\PPP2Code\fltk.h" />
     <ClInclude Include="_add_libs\PPP2Code\Graph.h" />
