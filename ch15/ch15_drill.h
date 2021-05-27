@@ -12,11 +12,14 @@ namespace ch15
 		{
 			const Point
 				win_anchor	{1000, 500},
-				win_size	{600, 600},
+				win_size	{600, 600},			
 				f_orig		{win_size.x >> 1, win_size.y >> 1};
 			const int
 				ax_len	{400},
 				ax_unit_len	{20};
+			const Point
+				ax_x_anch	{(win_size.x - ax_len) >> 1, win_size.y >> 1},
+				ax_y_anch	{win_size.y >> 1, win_size.y - ((win_size.y - ax_len) >> 1)};
 			const Color
 				ax_col {Color::Color_type::red};
 			const string
