@@ -89,6 +89,15 @@ namespace ch15
 		{
 			void main();
 		}
-	}
 
+		namespace d05
+		{
+			void main();
+		}
+
+		namespace d06
+		{
+			void main();
+		}
+	}
 }
