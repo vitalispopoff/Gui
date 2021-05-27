@@ -37,12 +37,28 @@ namespace ch15
 			{
 				Axis (
 					Orientation orient,
-					Point anchor,
-					int ax_len,
-					int ax_unit_len,
-					string ax_lab
-					) : Graph_lib::Axis {orient, anchor, ax_len, ax_unit_len, ax_lab} {}
-			};
+					Point anchor = win_size,
+					int ax_len = ax_len,
+					int ax_unit_len = ax_unit_len,
+					string ax_lab = ax_lab
+					) : Graph_lib::Axis {orient, func(orient), ax_len, ax_unit_len, ax_lab} 
+				{
+					set_color (ax_col);
+				}
+
+				Point func (Orientation o)
+				{	
+					switch (o)
+					{
+						case Orientation::x :
+							return {(win_size.x - ax_len) >> 1, win_size.y >> 1};
+						case Orientation::y :
+							return {win_size.y >> 1, win_size.y - ((win_size.y - ax_len) >> 1)};
+						default:
+							error ("no z allowed");
+					}
+				}
+			};			
 		}
 		
 		namespace d01

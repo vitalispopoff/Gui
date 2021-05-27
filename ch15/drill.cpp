@@ -13,17 +13,17 @@ namespace ch15
 			{
 				Graph_lib::Window
 					win {win_anchor, win_size.x, win_size.y, win_lab};
-				constants::Axis
+				Axis
 					ax_x {
 						Axis::Orientation::x,
-						ax_x_anch,						
+						{(win_size.x - ax_len) >> 1, win_size.y >> 1},						
 						ax_len,
 						ax_unit_len,
 						ax_lab
 					},
 					ax_y {
 						Axis::Orientation::y,
-						ax_y_anch,
+						{win_size.y >> 1, win_size.y - ((win_size.y - ax_len) >> 1)},
 						ax_len,
 						ax_unit_len,
 						ax_lab
@@ -59,21 +59,13 @@ namespace ch15
 				constants::Axis
 					ax_x {
 						Axis::Orientation::x,
-						ax_x_anch,						
-						ax_len,
-						ax_unit_len,
-						ax_lab
 					},
 					ax_y {
 						Axis::Orientation::y,
-						ax_y_anch,
-						ax_len,
-						ax_unit_len,
-						ax_lab
 					};
 
-				ax_x.set_color	(ax_col);
-				ax_y.set_color	(ax_col);
+				//ax_x.set_color	(ax_col);
+				//ax_y.set_color	(ax_col);
 
 				win.attach	(ax_x);
 				win.attach	(ax_y);
