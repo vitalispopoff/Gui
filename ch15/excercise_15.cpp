@@ -170,7 +170,7 @@ namespace ch15
 					return dimensions.x;
 				return int(round(double(dimensions.x) / double(values.size())));
 			}
-			int bar_height(int i)
+			int Bar_chart::bar_height(int i)
 			{
 				if (values.size() == 0)
 					return dimensions.y;

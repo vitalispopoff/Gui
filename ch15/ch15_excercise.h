@@ -69,6 +69,15 @@ namespace ch15
 					anchor {a}, 
 					dimensions {Point {w, h}}
 				{}
+				Bar_chart (Point top_left, Point bottom_rite) :
+					anchor {top_left},
+					dimensions {Point {bottom_rite.x - top_left.x, bottom_rite.y - top_left.y}}
+				{}
+				Bar_chart (Point top_left, Point bottom_rite, vector<double> vs) :
+					Bar_chart {top_left, bottom_rite}
+				{
+					values = vs;
+				}
 				void add_bar(double b);
 				//{
 				//	values.push_back(b);
@@ -86,6 +95,7 @@ namespace ch15
 				//		return dimensions.y;
 				//	return int (round (double(dimensions.y) * values[i] / abs(max_bar_value)));
 				//}
+
 
 				Point
 					anchor		{0, 0},
