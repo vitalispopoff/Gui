@@ -51,40 +51,43 @@
     <ClCompile Include="_add_libs\PPP2Code\Gui.cpp">
       <Filter>Source Files\_add_libs</Filter>
     </ClCompile>
-    <ClCompile Include="ch12\example.cpp">
+    <ClCompile Include="ch12\example_12.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
-    <ClCompile Include="ch12\drill.cpp">
+    <ClCompile Include="ch12\drill_12.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
-    <ClCompile Include="ch12\excercise.cpp">
+    <ClCompile Include="ch12\excercise_12.cpp">
       <Filter>Source Files\ch12</Filter>
     </ClCompile>
-    <ClCompile Include="ch13\excercise.cpp">
+    <ClCompile Include="ch13\excercise_13.cpp">
       <Filter>Source Files\ch13</Filter>
     </ClCompile>
-    <ClCompile Include="ch13\drill.cpp">
+    <ClCompile Include="ch13\drill_13.cpp">
       <Filter>Source Files\ch13</Filter>
     </ClCompile>
-    <ClCompile Include="ch13\example.cpp">
+    <ClCompile Include="ch13\example_13.cpp">
       <Filter>Source Files\ch13</Filter>
     </ClCompile>
-    <ClCompile Include="ch14\drill.cpp">
+    <ClCompile Include="ch14\drill_14.cpp">
       <Filter>Source Files\ch14</Filter>
     </ClCompile>
-    <ClCompile Include="ch14\excercise.cpp">
+    <ClCompile Include="ch14\excercise_14.cpp">
       <Filter>Source Files\ch14</Filter>
     </ClCompile>
-    <ClCompile Include="ch14\sample.cpp">
+    <ClCompile Include="ch14\sample_14.cpp">
       <Filter>Source Files\ch14</Filter>
     </ClCompile>
-    <ClCompile Include="ch15\drill.cpp">
+    <ClCompile Include="ch15\drill_15.cpp">
       <Filter>Source Files\ch15</Filter>
     </ClCompile>
-    <ClCompile Include="ch15\excercise.cpp">
+    <ClCompile Include="ch15\excercise_15.cpp">
       <Filter>Source Files\ch15</Filter>
     </ClCompile>
-    <ClCompile Include="ch15\sample.cpp">
+    <ClCompile Include="ch15\sample_15.cpp">
+      <Filter>Source Files\ch15</Filter>
+    </ClCompile>
+    <ClCompile Include="ch15\ch15_e05.cpp">
       <Filter>Source Files\ch15</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,6 +129,12 @@
       <Filter>Header Files\ch15</Filter>
     </ClInclude>
     <ClInclude Include="ch15\ch15_sample.h">
+      <Filter>Header Files\ch15</Filter>
+    </ClInclude>
+    <ClInclude Include="ch15\ch15_excercise.h">
+      <Filter>Header Files\ch15</Filter>
+    </ClInclude>
+    <ClInclude Include="ch15\ch15.h">
       <Filter>Header Files\ch15</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+//#include "../_add_libs/PPP2Code/Simple_window.h"
 #include "../_add_libs/PPP2Code/Gui.h"
 
 namespace ch15
@@ -46,7 +46,6 @@ namespace ch15
 				{
 					set_color (ax_col);
 				}
-
 				Point func (Orientation o)
 				{	
 					switch (o)

@@ -1,13 +1,5 @@
 #pragma once
 
-#include "../_add_libs/PPP2Code/Simple_window.h"
-
-namespace ch15
-{
-
-	
-	namespace excercise
-	{
-
-	}
-}
+#include "ch15_sample.h"
+#include "ch15_drill.h"
+#include "ch15_excercise.h"
