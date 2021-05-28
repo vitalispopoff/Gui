@@ -156,5 +156,26 @@ namespace ch15
 			}
 
 		}
+
+		namespace e06
+		{
+			void Bar_chart::add_bar(double b)
+			{
+				values.push_back(b);
+				max_bar_value = max(max_bar_value, b);
+			}
+			int Bar_chart::bar_width()
+			{
+				if (values.size() == 0)
+					return dimensions.x;
+				return int(round(double(dimensions.x) / double(values.size())));
+			}
+			int bar_height(int i)
+			{
+				if (values.size() == 0)
+					return dimensions.y;
+				return int (round (double(dimensions.y) * values[i] / abs(max_bar_value)));
+			}
+		}
 	}
 }

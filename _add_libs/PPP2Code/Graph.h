@@ -311,12 +311,12 @@ namespace Graph_lib
 		Function
 		(
 			Fct f, 
-			double r1, 
-			double r2, 
-			Point orig, 
-			int count = 100, 
-			double xscale = 25, 
-			double yscale = 25
+			double r1,				//v/	preview range min (in axis notches)
+			double r2,				//v/	preview range max (in axis notches)
+			Point orig,				//v/	(0,0) 
+			int count = 100,		//v/	number of node points to draw
+			double xscale = 25,		//v/	distance between node points (notches)
+			double yscale = 25		//v/	- '' -
 		);
 
 		//Function(Point orig, Fct f, double r1, double r2, int count, double xscale = 1, double yscale = 1);	

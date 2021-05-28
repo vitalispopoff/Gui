@@ -55,5 +55,46 @@ namespace ch15
 		{
 			void main();
 		}
+
+		namespace e06
+		{
+			using namespace Graph_lib;
+
+			/// doesn't support negative values
+			struct Bar_chart : Shape
+			{
+				Bar_chart () 
+				{}
+				Bar_chart (Point a, int w, int h) :
+					anchor {a}, 
+					dimensions {Point {w, h}}
+				{}
+				void add_bar(double b);
+				//{
+				//	values.push_back(b);
+				//	max_bar_value = max(max_bar_value, b);
+				//}
+				int bar_width();
+				//{
+				//	if (values.size() == 0)
+				//		return dimensions.x;
+				//	return int(round(double(dimensions.x) / double(values.size())));
+				//}
+				int bar_height(int i);
+				//{
+				//	if (values.size() == 0)
+				//		return dimensions.y;
+				//	return int (round (double(dimensions.y) * values[i] / abs(max_bar_value)));
+				//}
+
+				Point
+					anchor		{0, 0},
+					dimensions	{0, 0};
+				vector<double>
+					values;
+				double
+					max_bar_value {-DBL_MAX};
+			};
+		}
 	}
 }
