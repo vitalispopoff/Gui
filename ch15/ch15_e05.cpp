@@ -61,5 +61,26 @@ namespace ch15
 				}
 			}
 		}
+
+		namespace e06
+		{
+			void main()
+			{
+				Simple_window
+					window {{1000, 500}, 600, 400, ""};
+				vector<double>	
+					bar_values {100, 50, 1};
+				Bar_chart
+					bar	{{50, 50}, 500, 300, bar_values};
+
+
+				window.attach (bar);
+				window.wait_for_button();
+				//keep_open();
+			}
+		}
+
+
+
 	}
 }

@@ -159,23 +159,44 @@ namespace ch15
 
 		namespace e06
 		{
-			void Bar_chart::add_bar(double b)
+					Bar_chart::Bar_chart	(Point top_left, int width, int height, vector<double> vs) :
+				anchor {top_left}, w {width}, h {height}
+			{
+				values = vs;
+				for (double val : values)
+					max_bar_value = max (max_bar_value, val);
+			}		
+			void	Bar_chart::add_bar		(double b)
 			{
 				values.push_back(b);
 				max_bar_value = max(max_bar_value, b);
 			}
-			int Bar_chart::bar_width()
+			void	Bar_chart::draw_lines	() const
 			{
-				if (values.size() == 0)
-					return dimensions.x;
-				return int(round(double(dimensions.x) / double(values.size())));
+				if (values.size () > 0)
+				{
+					int
+						bar_width = int (round (double (w) / double (values.size())));
+					for (int i = 0; i < values.size(); ++i)
+					{
+						int
+							bar_height = int (round (double (h) * values[i] / max_bar_value)) - 1;
+						draw_bar (
+							anchor.x + i * bar_width,
+							anchor.y  + h - bar_height,
+							bar_width,
+							bar_height
+						);
+					}
+				}
 			}
-			int Bar_chart::bar_height(int i)
+			void Bar_chart::draw_bar (int x1, int y1, int width, int height) const
 			{
-				if (values.size() == 0)
-					return dimensions.y;
-				return int (round (double(dimensions.y) * values[i] / abs(max_bar_value)));
+				fl_rectf (x1, y1, width, height);
+				fl_rect (x1, y1, width, height);
 			}
+
+
 		}
 	}
 }
