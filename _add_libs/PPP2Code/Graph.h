@@ -450,7 +450,7 @@ namespace Graph_lib
 	};
 
 	struct Text : Shape 
-	{		
+	{
 		Text(Point x, const string &s)							/// the point is the bottom left of the first letter
 			: lab {s} 
 		{ 

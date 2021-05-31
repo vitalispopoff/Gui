@@ -1,6 +1,7 @@
 #include "ch15_excercise.h"
 #include "ch15_sample.h"
 
+#include <iostream>
 #include <sstream>
 
 namespace ch15
@@ -64,23 +65,73 @@ namespace ch15
 
 		namespace e06
 		{
+			vector<double>	
+				bar_values {100, 50, 1};
+			Bar_chart
+				bar	{{50, 50}, 500, 300, bar_values};
+			void main()
+			{
+			Simple_window
+				window {{1000, 500}, 600, 400, ""};
+				window.attach (bar);
+				window.wait_for_button();
+			}
+		}
+
+		namespace e07
+		{
+			//using e06::bar_values;
+			vector<double>	
+				bar_values {100, 50, 1};
 			void main()
 			{
 				Simple_window
 					window {{1000, 500}, 600, 400, ""};
-				vector<double>	
-					bar_values {100, 50, 1};
 				Bar_chart
-					bar	{{50, 50}, 500, 300, bar_values};
-
-
+					bar {{50, 50}, 500, 300, bar_values};
+				bar.set_fill_color (Color::Color_type::dark_cyan);
 				window.attach (bar);
+				window.wait_for_button();	
+			}
+		}		
+
+		namespace e08
+		{
+			//using e07::Bar_chart;
+			void main()
+			{
+				Simple_window
+					window	{{1000, 500}, 600, 400, ""};
+				vector <pair <int, int>>
+					bar_values {
+						{170, 7},
+						{175, 9},
+						{180, 23},
+						{185, 17},
+						{190, 6},
+						{195, 1}
+					};
+				Bar_chart
+					bar	{{50, 50}, {500, 300}};
+
+				for ( pair <int, int> p : bar_values)
+				{
+					stringstream
+						ss;
+					ss << p.first;
+					string
+						s;
+					ss >> s;
+					bar.add_bar(s, double (p.second));
+				}
+				bar.set_color ({Color::Color_type::black, Color::Transparency::visible});
+				bar.set_fill_color ({Color::Color_type::cyan, Color::Transparency::visible});
+				window.attach (bar);
+				Axis 
+					axis	{Axis::Orientation::y, {bar.anch.x - 10, bar.anch.y + bar.size.y}, bar.size.y, int(bar.max_bar_value)};
+				window.attach (axis);
 				window.wait_for_button();
-				//keep_open();
 			}
 		}
-
-
-
 	}
 }

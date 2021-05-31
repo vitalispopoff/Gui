@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <sstream>
 #include "ch15_excercise.h"
 #include "ch15_drill.h"
 
@@ -195,8 +195,102 @@ namespace ch15
 				fl_rectf (x1, y1, width, height);
 				fl_rect (x1, y1, width, height);
 			}
+		}
 
+		namespace e07
+		{
+					Bar_chart::Bar_chart	(Point top_left, int width, int height, vector<double> vs) :
+				a {top_left}, w {width}, h {height}
+			{
+				values = vs;
+				for (double val : values)
+				{	
+					max_bar_value = max (max_bar_value, val);
+					stringstream
+						ss;
+					ss << val;
+					string
+						s;
+					ss >> s;
+					labels.push_back(s);
+				}
+			}		
+			void	Bar_chart::draw_lines	() const
+			{
+				if (values.size () > 0)
+				{
+					int
+						bar_width = int (round (double (w) / double (values.size())));
+					for (int i = 0; i < values.size(); ++i)
+					{
+						int
+							bar_height = int (round (double (h) * values[i] / max_bar_value)) - 1;
+						draw_bar (
+							a.x + i * bar_width,
+							a.y  + h - bar_height,
+							bar_width,
+							bar_height,
+							labels[i]
+						);
+					}
+				}
+			}
+			void Bar_chart::draw_bar (int x1, int y1, int width, int height, string lab) const
+			{
+				fl_color(fill_color().as_int());
+				fl_rectf (x1, y1, width, height);
+				fl_color(color().as_int());
+				fl_rect (x1, y1, width, height);
+				int 
+					ofnt = fl_font(),
+					osz = fl_size();
+				fl_font(ofnt, osz);
+				fl_draw(lab.c_str(), x1, y1);
+			}	
+		}
+		
+		namespace e08
+		{
+			Bar_chart::Bar_chart (Point anchor, Point sizes) :
+				anch {anchor}, size {sizes}
+			{}
 
+			void Bar_chart::add_bar(string s, double d)
+			{
+				labels.push_back (s);
+				values.push_back (d);
+				max_bar_value = max (max_bar_value, d);				
+			}
+
+			void	Bar_chart::draw_lines	() const
+			{
+				if (values.size () > 0)
+				{
+					int
+						bar_width = int (round (double (size.x) / double (values.size())));
+					for (int i = 0; i < values.size(); ++i)
+					{
+						int
+							bar_height = int (round (double (size.y) * values[i] / max_bar_value)) - 1,
+							x1 = anch.x + i * bar_width,
+							y1 = anch.y  + size.y - bar_height,
+							x2 = bar_width,
+							y2 = bar_height;
+
+						fl_color(fill_color().as_int());
+						fl_rectf (x1, y1, x2, y2);
+						
+						fl_color(color().as_int());
+						fl_rect (x1, y1, x2, y2);
+
+						int 
+							ofnt = fl_font(),
+							osz = fl_size();
+						fl_font(ofnt, osz);
+						fl_draw(labels[i].c_str(), x1, y1);
+					}
+				}
+			}
 		}
 	}
 }

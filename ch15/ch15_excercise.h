@@ -63,23 +63,80 @@ namespace ch15
 			/// doesn't support negative values
 			struct Bar_chart : Shape
 			{
-				Bar_chart () {}
-				Bar_chart (Point, int, int, vector<double>);
+					Bar_chart () {}
+					Bar_chart (Point, int, int, vector<double>);
 
-				void add_bar(double);
-				void draw_lines() const;
-				void draw_bar (int, int, int, int) const;
+					void add_bar(double);
+					virtual void draw_lines() const;
+					virtual void draw_bar (int, int, int, int) const;
+					Point
+						anchor		{0, 0};
+					int
+						w	{0}, 
+						h	{0};
+					double
+						max_bar_value {-DBL_MAX};
+				private :
+					vector<double>
+						values;
+			};
+
+			void main();
+		}
+
+		namespace e07
+		{
+			using namespace Graph_lib;
+
+			struct Bar_chart : Shape
+			{
+					Bar_chart () {}
+					Bar_chart (Point anchor, int width, int height) :
+						a{anchor}, w {width}, h {height}
+					{}
+					Bar_chart (Point, int, int, vector<double>);
+
+
+					virtual void draw_lines() const;
+					virtual void draw_bar (int, int, int, int, string) const;
+					Point
+						a	{0, 0};
+					int
+						w	{0}, 
+						h	{0};
+					double
+						max_bar_value {-DBL_MAX};
+				private :
+					vector<double>
+						values;
+					vector<string>
+						labels;
+			};
+			void main();
+		}
+
+		namespace e08
+		{
+			using namespace Graph_lib;
+
+			struct Bar_chart : Shape
+			{
+				Bar_chart () {}
+				Bar_chart (Point, Point);
+
+				void add_bar(string, double);
+				virtual void draw_lines() const;
+
 				Point
-					anchor		{0, 0};
-				int
-					w	{0}, 
-					h	{0};
+					anch	{0, 0},
+					size	{0, 0};
 				vector<double>
 					values;
+				vector<string>
+					labels;
 				double
 					max_bar_value {-DBL_MAX};
 			};
-
 			void main();
 		}
 	}
