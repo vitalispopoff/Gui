@@ -137,7 +137,10 @@ namespace ch15
 				double
 					max_bar_value {-DBL_MAX};
 			};
+
+			vector <pair <int, int>> load_data();
 			void main();
 		}
+
 	}
 }

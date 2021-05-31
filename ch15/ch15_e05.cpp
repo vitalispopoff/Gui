@@ -97,31 +97,31 @@ namespace ch15
 
 		namespace e08
 		{
-			vector <pair <int, int>> load_data()
-			{
-				string
-					filename {"../_other/wzrost.txt"};
-				ifstream
-					ifs (filename);
-				if (!ifs)
-					error ("couldn't open file " + filename);
-				vector <pair <int, int>>
-					result;
-				char
-					c1	{0},
-					c2	{0},
-					c3	{0};
-				pair <int, int>
-					p;
-				while (ifs >> c1 >> p.first >> c2 >> p.second >> c3)					
-				{
-					result.push_back(p);
-					if (c1 != '(' || c2 != ',' || c3 != ')')
-						error ("failed to read file");
-				};
-				ifs.close();
-				return result;
-			}
+			//vector <pair <int, int>> load_data()
+			//{
+			//	string
+			//		filename {"../_other/wzrost.txt"};
+			//	ifstream
+			//		ifs (filename);
+			//	if (!ifs)
+			//		error ("couldn't open file " + filename);
+			//	vector <pair <int, int>>
+			//		result;
+			//	char
+			//		c1	{0},
+			//		c2	{0},
+			//		c3	{0};
+			//	pair <int, int>
+			//		p;
+			//	while (ifs >> c1 >> p.first >> c2 >> p.second >> c3)					
+			//	{
+			//		result.push_back(p);
+			//		if (c1 != '(' || c2 != ',' || c3 != ')')
+			//			error ("failed to read file");
+			//	};
+			//	ifs.close();
+			//	return result;
+			//}
 
 			void main()
 			{
