@@ -7,17 +7,19 @@ int main()
 {	
 	try
 	{
-		//ch15::drill::d09::main();
-		ch15::excercise::e08::main();
+
+		//return 0;
 		
-		return 0;
+		return ch16::sample::s08::main();
 	}
 	catch (exception & e)
 	{
+		cerr << "exception: " << e.what() << '\n';
 		return 1;
 	}
 	catch (...)
 	{
+		cerr << "some exception\n";
 		return 2;
 	}
 }
