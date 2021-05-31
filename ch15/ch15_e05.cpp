@@ -1,6 +1,6 @@
 #include "ch15_excercise.h"
 #include "ch15_sample.h"
-
+#include <fstream>
 #include <iostream>
 #include <sstream>
 
@@ -97,23 +97,41 @@ namespace ch15
 
 		namespace e08
 		{
-			//using e07::Bar_chart;
+			vector <pair <int, int>> load_data()
+			{
+				string
+					filename {"../_other/wzrost.txt"};
+				ifstream
+					ifs (filename);
+				if (!ifs)
+					error ("couldn't open file " + filename);
+				vector <pair <int, int>>
+					result;
+				char
+					c1	{0},
+					c2	{0},
+					c3	{0};
+				pair <int, int>
+					p;
+				while (ifs >> c1 >> p.first >> c2 >> p.second >> c3)					
+				{
+					result.push_back(p);
+					if (c1 != '(' || c2 != ',' || c3 != ')')
+						error ("failed to read file");
+				};
+				ifs.close();
+				return result;
+			}
+
 			void main()
 			{
 				Simple_window
 					window	{{1000, 500}, 600, 400, ""};
 				vector <pair <int, int>>
-					bar_values {
-						{170, 7},
-						{175, 9},
-						{180, 23},
-						{185, 17},
-						{190, 6},
-						{195, 1}
-					};
+					bar_values = load_data();
 				Bar_chart
 					bar	{{50, 50}, {500, 300}};
-
+				 
 				for ( pair <int, int> p : bar_values)
 				{
 					stringstream
