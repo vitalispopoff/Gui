@@ -99,6 +99,9 @@
     <ClCompile Include="ch16\ch16_drill.cpp">
       <Filter>Source Files\ch16</Filter>
     </ClCompile>
+    <ClCompile Include="ch16\ch16_excercise.cpp">
+      <Filter>Source Files\ch16</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

@@ -334,4 +334,42 @@ namespace ch16
 			int main();
 		}	
 	}
+
+	namespace excercise
+	{
+		namespace e01
+		{
+			using namespace Graph_lib;
+			struct My_window : Window
+			{
+				My_window (
+					Point xy,
+					int w,
+					int h,
+					string & title
+				);
+			protected :
+				Button
+					but_next,
+					but_quit;
+				bool
+					waiting_for_next {true};
+
+				void next()
+				{
+					waiting_for_next = false;
+				}
+
+				void wait_for_next()
+				{
+					while (waiting_for_next)
+						Fl::wait();
+					waiting_for_next = true;
+					Fl::redraw();
+				}
+			};
+
+			int main();
+		}
+	}
 }

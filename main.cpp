@@ -10,7 +10,7 @@ int main()
 
 		//return 0;
 		
-		return ch16::drill::d04::main();
+		return ch16::excercise::e01::main();
 	}
 	catch (exception & e)
 	{
