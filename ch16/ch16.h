@@ -365,7 +365,6 @@ namespace ch16
 				{
 					hide();
 				}
-
 			};
 
 			struct Derived_window : My_window
@@ -390,6 +389,35 @@ namespace ch16
 					oss 
 						<< index;
 					iter.put(oss.str());
+				}
+			};
+			int main();
+		}
+
+		namespace e02
+		{
+			using namespace Graph_lib;
+			struct Checker_window : e01::My_window
+			{
+				Checker_window (Point xy, int w, int h, string & title);
+			protected :
+				Button
+					b0, b1, b2, b3;
+				void action0()
+				{
+					detach(b0);
+				}
+				void action1()
+				{
+					detach(b1);
+				}
+				void action2()
+				{
+					detach(b2);
+				}
+				void action3()
+				{
+					detach(b3);
 				}
 			};
 			int main();
