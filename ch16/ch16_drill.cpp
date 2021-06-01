@@ -23,20 +23,15 @@ namespace ch16
 					}
 				}
 			{
-				style_menu.attach (new Button {{0, 0}, 0, 0, "solid", [] (Address, Address pw) {reference_to <Lines_window1> (pw).change_style ({solid});}});
-				style_menu.attach (new Button {{0, 0}, 0, 0, "dot", [] (Address, Address pw) {reference_to <Lines_window1> (pw).change_style ({dot});}});
-				style_menu.attach (new Button {{0, 0}, 0, 0, "dash", [] (Address, Address pw) {reference_to <Lines_window1> (pw).change_style ({dash});}});
+				style_menu.attach (new Button {{0, 0}, 0, 0, "solid", [] (Address, Address pw) {reference_to <Lines_window1> (pw).change_style (solid);}});
+				style_menu.attach (new Button {{0, 0}, 0, 0, "dot", [] (Address, Address pw) {reference_to <Lines_window1> (pw).change_style (dot);}});
+				style_menu.attach (new Button {{0, 0}, 0, 0, "dash", [] (Address, Address pw) {reference_to <Lines_window1> (pw).change_style (dash);}});
 				attach (style_menu);
 				style_menu.hide();
 				attach (style_menu_button);
 			}
 
-			void Lines_window1::change_style(Line_style ls)
-			{
-				lines.set_style(ls);
-				style_menu.hide();
-				style_menu_button.show();
-			}
+
 			int main()
 			{
 				Lines_window1

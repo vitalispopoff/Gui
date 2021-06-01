@@ -300,18 +300,38 @@ namespace ch16
 						style_menu;
 					Button
 						style_menu_button;
-					void change_style (Line_style);
 
+					virtual void color_menu_pressed () override
+					{
+						color_menu_button.hide();
+						style_menu_button.hide();
+						color_menu.show();
+					}
+					virtual void hide_color_menu () override
+					{
+						color_menu.hide();
+						color_menu_button.show();
+						style_menu_button.show();
+					}	
+					void change_style(Line_style ls)
+					{
+						lines.set_style(ls);
+						hide_style_menu();
+					}
 					void style_menu_pressed()
 					{
 						style_menu_button.hide();
+						color_menu_button.hide();
 						style_menu.show();
 					}
+					void hide_style_menu ()
+					{
+						style_menu.hide();
+						color_menu_button.show();
+						style_menu_button.show();
+					}
 			};
-
 			int main();
-
-
 		}	
 	}
 }
