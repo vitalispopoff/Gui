@@ -332,61 +332,85 @@ namespace ch13
 		namespace e04
 		{
 			using namespace Graph_lib;
-			Point & n	(Graph_lib::Rectangle & r)
+			Point & n	(Graph_lib::Rectangle & r, Point & p)
 			{
-				Point
-					p  {r.point(0).x + (r.width() >> 1), r.point(0).y},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + (r.width() >> 1);
+				p.y = r.point(0).y;
+				//Point
+					//p  {r.point(0).x + (r.width() >> 1), r.point(0).y},
+					//& result = p;
+				//return result;
+				return p;
 			}
-			Point & s (Graph_lib::Rectangle & r)
+			Point & s (Graph_lib::Rectangle & r, Point & p)
 			{
-				Point 
-					p {r.point(0).x + (r.width() >> 1),r.point(0).y + r.height()},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + (r.width() >> 1);
+				p.y = r.point(0).y + r.height();
+				//Point 
+				//	p {r.point(0).x + (r.width() >> 1),r.point(0).y + r.height()},
+				//	& result = p;
+				//return result;
+				return p;
 			}
-			Point & e (Graph_lib::Rectangle & r)
+			Point & e (Graph_lib::Rectangle & r, Point & p)
 			{
-				Point 
-					p	{r.point(0).x + r.width(),r.point(0).y + (r.height() >> 1)},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + r.width();
+				p.y = r.point(0).y + (r.height() >> 1);
+				//Point 
+				//	p	{r.point(0).x + r.width(),r.point(0).y + (r.height() >> 1)},
+				//	& result = p;
+				//return result;
+				return p;
 			}
-			Point & w (Graph_lib::Rectangle & r)
+			Point & w (Graph_lib::Rectangle & r, Point & p)
 			{
-				Point
-					p	{r.point(0).x,r.point(0).y + (r.height() >> 1)},
-					& result = p;
-				return result;
+				p.x = r.point(0).x;
+				p.y = r.point(0).y + (r.height() >> 1);
+				//Point
+				//	p	{r.point(0).x, r.point(0).y + (r.height() >> 1)},
+				//	& result = p;
+				//return result;
+				return p;
 			}			
-			Point & nw (Graph_lib::Rectangle & r)
+			Point & nw (Graph_lib::Rectangle & r, Point & p)
 			{
-				Point 
-					p = r.point(0),
-					& result = p;
-				return result;
+				p.x = r.point(0).x;
+				p.y = r.point(0).y;
+				//Point 
+				//	p = r.point(0),
+				//	& result = p;
+				//return result;
+				return p;
 			}
-			Point & ne (Graph_lib::Rectangle & r)
+			Point & ne (Graph_lib::Rectangle & r, Point & p)
 			{
-				Point
-					p	{r.point(0).x + r.width(), r.point(0).y},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + r.width();
+				p.y = r.point(0).y;
+				//Point
+				//	p	{r.point(0).x + r.width(), r.point(0).y},
+				//	& result = p;
+				//return result;
+				return p;
 			}
-			Point & se (Graph_lib::Rectangle & r)
+			Point & se (Graph_lib::Rectangle & r, Point & p)
 			{
-				Point
-					p	{r.point(0).x + r.height(), r.point(0).y + r.width()},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + r.height();
+				p.y = r.point(0).y + r.width();
+				//Point
+				//	p	{r.point(0).x + r.height(), r.point(0).y + r.width()},
+				//	& result = p;
+				//return result;
+				return p;
 			}
-			Point & sw (Graph_lib::Rectangle & r)
+			Point & sw (Graph_lib::Rectangle & r, Point & p)
 			{
-				Point
-					p	{r.point(0).x, r.point(0).y + r.height()},
-					& result = p;
-				return result;
+				p.x = r.point(0).x;
+				p.y = r.point(0).y + r.height();
+				//Point
+				//	p	{r.point(0).x, r.point(0).y + r.height()},
+				//	& result = p;
+				//return result;
+				return p;
 			}
 			
 			void main()
@@ -397,10 +421,15 @@ namespace ch13
 					rect {{100, 100}, 250, 250};
 				Graph_lib::Polygon
 					poly1;
-				poly1.add(n(rect));
-				poly1.add(e(rect));
-				poly1.add(s(rect));
-				poly1.add(w(rect));
+				Point
+					p1,
+					p2,
+					p3,
+					p4;
+				poly1.add(n(rect, p1));
+				poly1.add(e(rect, p2));
+				poly1.add(s(rect, p3));
+				poly1.add(w(rect, p4));
 				poly1.set_color(Color::Color_type::cyan);
 				window.attach(rect);
 				window.attach(poly1);
@@ -419,69 +448,93 @@ namespace ch13
 			}
 			// 1.41421356
 					using namespace Graph_lib;
-			Point & n	(Graph_lib::Circle & r)
+			Point & n	(Graph_lib::Circle & r, Point & p)
 			{
-				Point
-					p  {r.point(0).x + (r.radius() >> 1), r.point(0).y},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + (r.radius() >> 1);
+				p.y = r.point(0).y;
+				return p;
+				//Point
+				//	p  {r.point(0).x + (r.radius() >> 1), r.point(0).y},
+				//	& result = p;
+				//return result;
 			}
-			Point & s (Graph_lib::Circle & r)
+			Point & s (Graph_lib::Circle & r, Point & p)
 			{
-				Point 
-					p {r.point(0).x + (r.radius() >> 1),r.point(0).y + r.radius()},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + (r.radius() >> 1);
+				p.y = r.point(0).y + r.radius();
+				return p;
+				//Point 
+				//	p {r.point(0).x + (r.radius() >> 1),r.point(0).y + r.radius()},
+				//	& result = p;
+				//return result;
 			}
-			Point & e (Graph_lib::Circle & r)
+			Point & e (Graph_lib::Circle & r, Point & p)
 			{
-				Point 
-					p	{r.point(0).x + r.radius(),r.point(0).y + (r.radius() >> 1)},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + r.radius();
+				p.y = r.point(0).y + (r.radius() >> 1);
+				return p;
+				//Point 
+				//	p	{r.point(0).x + r.radius(),r.point(0).y + (r.radius() >> 1)},
+				//	& result = p;
+				//return result;
 			}
-			Point & w (Graph_lib::Circle & r)
+			Point & w (Graph_lib::Circle & r, Point & p)
 			{
-				Point
-					p	{r.point(0).x,r.point(0).y + (r.radius() >> 1)},
-					& result = p;
-				return result;
+				p.x = r.point(0).x;
+				p.y = r.point(0).y + (r.radius() >> 1);
+				return p;
+				//Point
+				//	p	{r.point(0).x,r.point(0).y + (r.radius() >> 1)},
+				//	& result = p;
+				//return result;
 			}			
-			Point & nw (Graph_lib::Circle & r)
+			Point & nw (Graph_lib::Circle & r, Point & p)
 			{
 				int
 					dist {arc_dist(r.radius())};
-				Point 
-					p	{r.point(0).x + dist, r.point(0).y + dist},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + dist;
+				p.y = r.point(0).y + dist;
+				return p;
+				//Point 
+				//	p	{r.point(0).x + dist, r.point(0).y + dist},
+				//	& result = p;
+				//return result;
 			}
-			Point & ne (Graph_lib::Circle & r)
+			Point & ne (Graph_lib::Circle & r, Point & p)
 			{
 				int
 					dist {arc_dist(r.radius())};
-				Point
-					p	{r.point(0).x + 2 * r.radius() - dist, r.point(0).y + dist},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + 2 * r.radius() - dist;
+				p.y = r.point(0).y + dist;
+				return p;
+				//Point
+				//	p	{r.point(0).x + 2 * r.radius() - dist, r.point(0).y + dist},
+				//	& result = p;
+				//return result;
 			}
-			Point & se (Graph_lib::Circle & r)
+			Point & se (Graph_lib::Circle & r, Point & p)
 			{
 				int
 					dist {2 * r.radius() - arc_dist(r.radius())};
-				Point
-					p	{r.point(0).x + dist, r.point(0).y + dist},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + dist;
+				p.y = r.point(0).y + dist;
+				return p;
+				//Point
+				//	p	{r.point(0).x + dist, r.point(0).y + dist},
+				//	& result = p;
+				//return result;
 			}
-			Point & sw (Graph_lib::Circle & r)
+			Point & sw (Graph_lib::Circle & r, Point & p)
 			{
 				int
 					dist {arc_dist(r.radius())};
-				Point
-					p	{r.point(0).x + dist, r.point(0).y + 2 * r.radius() - dist},
-					& result = p;
-				return result;
+				p.x = r.point(0).x + dist;
+				p.y = r.point(0).y + 2 * r.radius() - dist;
+				return p;
+				//Point
+				//	p	{r.point(0).x + dist, r.point(0).y + 2 * r.radius() - dist},
+				//	& result = p;
+				//return result;
 			}
 
 			void main()
@@ -490,10 +543,15 @@ namespace ch13
 					circle {Point{300, 300}, 150};
 				Graph_lib::Polygon
 					poly1;
-				poly1.add(nw(circle));
-				poly1.add(ne(circle));
-				poly1.add(se(circle));
-				poly1.add(sw(circle));
+				Point
+					p1,
+					p2,
+					p3,
+					p4;
+				poly1.add(nw(circle, p1));
+				poly1.add(ne(circle, p2));
+				poly1.add(se(circle, p3));
+				poly1.add(sw(circle, p4));
 				poly1.set_color (Color::Color_type::blue);
 				Simple_window
 					window {{2200, 500}, 800, 600, ""};
