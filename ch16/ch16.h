@@ -1,4 +1,5 @@
 #pragma once
+#include <sstream>
 #include "../_add_libs/PPP2Code/Gui.h"
 
 namespace ch16
@@ -349,6 +350,10 @@ namespace ch16
 					string & title
 				);
 			protected :
+				int
+					index {0};
+				Out_box
+					iter;
 				Button
 					but_next,
 					but_quit;
@@ -358,6 +363,12 @@ namespace ch16
 				void next()
 				{
 					waiting_for_next = false;
+					index++;
+					ostringstream
+						oss;
+					oss 
+						<< index;
+					iter.put(oss.str());
 				}
 
 				void wait_for_next()
@@ -365,6 +376,7 @@ namespace ch16
 					while (waiting_for_next)
 						Fl::wait();
 					waiting_for_next = true;
+
 					Fl::redraw();
 				}
 			};

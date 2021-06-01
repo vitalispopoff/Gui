@@ -13,9 +13,11 @@ namespace ch16
 				string & title
 				) :
 				Window {xy, w, h, title},
+				iter {{((w - 50)>> 1), ((h - 20) >> 1)}, 50, 20, ""},
 				but_next {{x_max () - 100, 0}, 50, 20, "Next", [] (Address, Address pw) {reference_to <My_window> (pw).next();}},
 				but_quit {{x_max () - 50, 0}, 50, 20, "Quit", [] (Address, Address pw) {reference_to <My_window> (pw).hide();}}
 			{
+				attach (iter);
 				attach (but_next);
 				attach (but_quit);
 				wait_for_next();
