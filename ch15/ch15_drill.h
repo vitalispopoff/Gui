@@ -57,6 +57,7 @@ namespace ch15
 						default:
 							error ("no z allowed");
 					}
+					return {0, 0};	//added to clean C4715
 				}
 			};		
 			

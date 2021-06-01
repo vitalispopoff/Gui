@@ -176,7 +176,7 @@ namespace Graph_lib
 
 			~Vector_ref() 
 			{ 
-				for (int i = 0; i < owned.size(); ++i) 
+				for (int i = 0; i < int (owned.size()); ++i) 
 					delete owned[i]; 
 			}
 

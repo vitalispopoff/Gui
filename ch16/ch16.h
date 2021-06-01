@@ -64,32 +64,32 @@ namespace ch16
 			using Graph_lib::Window;
 			class Widget
 			{
-				public :
-					Widget (
-						Point xy, 
-						int w, 
-						int h, 
-						const string & s, 
-						Callback cb
-					);
-
-					virtual	void	move	(int dx, int dy);
-					virtual	void	hide	();
-					virtual	void	show	();
-					virtual	void	attach	(Window &) = 0;
-
-					Point
-						loc;
-					int
-						width,
-						height;
-					string
-						label;
-					Callback
-						do_it;
-				protected :
-					Window * own;
-					Fl_Widget * pw;
+				//public :
+				//	Widget (
+				//		Point xy, 
+				//		int w, 
+				//		int h, 
+				//		const string & s, 
+				//		Callback cb
+				//	);
+				// 
+				//	virtual	void	move	(int dx, int dy);
+				//	virtual	void	hide	();
+				//	virtual	void	show	();
+				//	virtual	void	attach	(Window &) = 0;
+				// 
+				//	Point
+				//		loc;
+				//	int
+				//		width,
+				//		height;
+				//	string
+				//		label;
+				//	Callback
+				//		do_it;
+				//protected :
+				//	Window * own;
+				//	Fl_Widget * pw;
 			};
 		}
 
@@ -178,7 +178,8 @@ namespace ch16
 					Lines_window (Point xy, int w, int h, const string & title);
 					Open_polyline
 						lines;
-				private :
+				//private :
+				protected :					/// changing from private to allow reuse in the next examples
 					Button
 						next_button,
 						quit_button;
@@ -191,6 +192,107 @@ namespace ch16
 					void next();
 					void quit();
 			};
+			int main();
+		}
+
+		namespace s09
+		{
+			using namespace Graph_lib;
+			struct Lines_window : s08::Lines_window
+			{
+				Lines_window (Point xy, int w, int h, const string & title);
+
+				//Open_polyline lines;	// this is inherited, right?
+				Menu
+					color_menu;
+
+				static void cb_red (Address, Address);
+				static void cb_blue (Address, Address);
+				static void cb_black (Address, Address);
+				static void cb_menu	(Address, Address);
+
+				void red_pressed() 
+				{
+					change (Color::Color_type::red);
+				}
+				void blue_pressed()
+				{
+					change (Color::Color_type::blue);
+				}
+				void black_pressed()
+				{
+					change (Color::Color_type::black);
+				}
+
+				void change (Color c)
+				{
+					lines.set_color(c);
+				}
+
+				
+			};
+			int main();
+		}
+
+		namespace s10
+		{
+			using namespace Graph_lib;
+			struct Lines_window : s08::Lines_window
+			{
+					Lines_window (
+						Point xy,
+						int w, 
+						int h,
+						const string & title
+					);
+				protected :
+					Button 
+						menu_button;
+					Menu
+						color_menu;
+					
+					static	void	cb_red		(Address, Address);
+					static	void	cb_blue		(Address, Address);
+					static	void	cb_black	(Address, Address);
+					static	void	cb_menu		(Address, Address);
+					void	red_pressed		() 
+					{
+						change (Color::Color_type::red);
+						hide_menu();
+					}
+					void	blue_pressed	()
+					{
+						change (Color::Color_type::blue);
+						hide_menu();
+					}
+					void	black_pressed	()
+					{
+						change (Color::Color_type::black);
+						hide_menu();
+					}
+					void	menu_pressed	()
+					{
+						menu_button.hide();
+						color_menu.show();
+					}
+					void	change	(Color c)
+					{
+						lines.set_color(c);
+					}
+					void	hide_menu	()
+					{
+						color_menu.hide();
+						menu_button.show();
+					}
+			};
+
+			int main();
+		}
+
+		namespace s11
+		{
+			using namespace Graph_lib;
+			using s10::Lines_window;
 			int main();
 		}
 	}

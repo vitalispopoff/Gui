@@ -56,16 +56,16 @@ namespace ch16
 
 		namespace s04
 		{
-			Widget::Widget (
-				Point xy, 
-				int w, 
-				int h, 
-				const string & s, 
-				Callback cb
-			) {}
-			void Widget::move (int dx, int dy) {}
-			void Widget::hide () {}
-			void Widget::show () {}
+			//Widget::Widget (
+			//	Point xy, 
+			//	int w, 
+			//	int h, 
+			//	const string & s, 
+			//	Callback cb
+			//) {}
+			//void Widget::move (int dx, int dy) {}
+			//void Widget::hide () {}
+			//void Widget::show () {}
 		}
 
 		namespace s08
@@ -133,10 +133,95 @@ namespace ch16
 				xy_out.put (ss.str());		// sending it to the Out_box
 				redraw();					// refresh display
 			}
+
 			int main()
 			{
 				Lines_window
 					win {Point {100, 100}, 600, 400, "lines"};
+				return gui_main();
+			}
+		}
+
+		namespace s09
+		{
+			Lines_window::Lines_window (Point xy, int w, int h, const string & title) :
+				s08::Lines_window (xy, w, h, title),
+				color_menu {
+					Point {x_max( ) - 70, 30}, 70, 20, Menu::Kind::vertical, "color"
+				}
+			{
+				color_menu.attach (new Button {Point {0, 0}, 0, 0, "red", cb_red});
+				color_menu.attach (new Button {Point {0, 0}, 0, 0, "blue", cb_blue});
+				color_menu.attach (new Button {Point {0, 0}, 0, 0, "black", cb_black});
+				attach (color_menu);
+			}
+			void Lines_window::cb_red (Address, Address pw)
+			{
+				reference_to <Lines_window> (pw).red_pressed();
+			}
+			void Lines_window::cb_blue (Address, Address pw)
+			{
+				reference_to <Lines_window> (pw).blue_pressed();
+			}
+			void Lines_window::cb_black (Address, Address pw)
+			{
+				reference_to <Lines_window> (pw).black_pressed();
+			}
+
+			int main()
+			{
+				Lines_window
+					win {Point {100, 100}, 600, 400, "lines"};
+				return gui_main();
+			}
+		}
+		
+		namespace s10
+		{
+			Lines_window::Lines_window (Point xy, int w, int h, const string & title) :
+				s08::Lines_window (xy, w, h, title),
+				color_menu {
+					Point {x_max( ) - 70, 30}, 70, 20, Menu::Kind::vertical, "color"
+				},
+				menu_button {
+					Point {x_max () - 80, 30}, 80, 20, "color menu", cb_menu}
+			{
+				color_menu.attach (new Button {Point {0, 0}, 0, 0, "red", cb_red});
+				color_menu.attach (new Button {Point {0, 0}, 0, 0, "blue", cb_blue});
+				color_menu.attach (new Button {Point {0, 0}, 0, 0, "black", cb_black});
+				attach (color_menu);
+				color_menu.hide();
+				attach(menu_button);
+			}
+			void Lines_window::cb_red (Address, Address pw)
+			{
+				reference_to <Lines_window> (pw).red_pressed();
+			}
+			void Lines_window::cb_blue (Address, Address pw)
+			{
+				reference_to <Lines_window> (pw).blue_pressed();
+			}
+			void Lines_window::cb_black (Address, Address pw)
+			{
+				reference_to <Lines_window> (pw).black_pressed();
+			}
+			void Lines_window::cb_menu (Address, Address pw)
+			{
+				reference_to <Lines_window> (pw).menu_pressed();
+			}
+			int main()
+			{
+				Lines_window
+					win {Point {100, 100}, 600, 400, "lines"};
+				return gui_main();
+			}
+		}
+
+		namespace s11
+		{
+			int main()
+			{
+				//Lines_window {Point {100, 100}, 600, 400, "lines"}; /// local variable w/o name. warn C26444
 				return gui_main();
 			}
 		}

@@ -55,7 +55,7 @@ namespace ch14
 
 			void Shape::move (int dx, int dy)
 			{
-				for (int i = 0; i < points.size(); ++i)
+				for (int i = 0; i < int (points.size()); ++i)
 				{
 					points[i].x += dx;
 					points[i].y += dy;

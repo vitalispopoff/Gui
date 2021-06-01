@@ -60,11 +60,11 @@ namespace Graph_lib
 
 	void Window::put_on_top(Shape &p) 
 	{
-		for (int i = 0; i < shapes.size(); ++i) 
+		for (int i = 0; i < int (shapes.size()); ++i) 
 		{
 			if ( &p == shapes[i]) 
 			{
-				for (++i; i < shapes.size(); ++i)
+				for (++i; i < int (shapes.size()); ++i)
 					shapes[i - 1] = shapes[i];
 				shapes[shapes.size() - 1] = &p;
 				return;

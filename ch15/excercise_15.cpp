@@ -178,7 +178,7 @@ namespace ch15
 				{
 					int
 						bar_width = int (round (double (w) / double (values.size())));
-					for (int i = 0; i < values.size(); ++i)
+					for (int i = 0; i < int (values.size()); ++i)
 					{
 						int
 							bar_height = int (round (double (h) * values[i] / max_bar_value)) - 1;
@@ -222,7 +222,7 @@ namespace ch15
 				{
 					int
 						bar_width = int (round (double (w) / double (values.size())));
-					for (int i = 0; i < values.size(); ++i)
+					for (int i = 0; i < int (values.size()); ++i)
 					{
 						int
 							bar_height = int (round (double (h) * values[i] / max_bar_value)) - 1;
@@ -269,7 +269,7 @@ namespace ch15
 				{
 					int
 						bar_width = int (round (double (size.x) / double (values.size())));
-					for (int i = 0; i < values.size(); ++i)
+					for (int i = 0; i < int (values.size()); ++i)
 					{
 						int
 							bar_height = int (round (double (size.y) * values[i] / max_bar_value)) - 1,

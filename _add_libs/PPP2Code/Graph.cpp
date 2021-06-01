@@ -79,8 +79,8 @@ namespace Graph_lib
 
 		if (parallel || u.first < 0 || u.first > 1 || u.second < 0 || u.second > 1) 
 			return false;
-		intersection.x = p1.x + u.first * (p2.x - p1.x);
-		intersection.y = p1.y + u.first * (p2.y - p1.y);
+		intersection.x = p1.x + int (round (u.first * (double (p2.x) - double (p1.x))));
+		intersection.y = p1.y + int (round (u.first * (double (p2.y) - double (p1.y))));
 		return true;
 	} 
 
