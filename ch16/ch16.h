@@ -343,9 +343,36 @@ namespace ch16
 			using namespace Graph_lib;
 			struct My_window : Window
 			{
-				My_window (
+				My_window (Point xy, int w, int h, string & title);
+				void wait_for_next()
+				{
+					while (waiting_for_next)
+						Fl::wait();
+					waiting_for_next = true;
+					Fl::redraw();
+				}
+			protected :
+				Button
+					but_next,
+					but_quit;
+				bool
+					waiting_for_next {true};
+				virtual void next()
+				{
+					waiting_for_next = false;
+				}
+				void quit()
+				{
+					hide();
+				}
+
+			};
+
+			struct Derived_window : My_window
+			{
+				Derived_window (
 					Point xy,
-					int w,
+					int w, 
 					int h,
 					string & title
 				);
@@ -354,15 +381,9 @@ namespace ch16
 					index {0};
 				Out_box
 					iter;
-				Button
-					but_next,
-					but_quit;
-				bool
-					waiting_for_next {true};
-
-				void next()
+				virtual void next()
 				{
-					waiting_for_next = false;
+					My_window::next();
 					index++;
 					ostringstream
 						oss;
@@ -370,17 +391,7 @@ namespace ch16
 						<< index;
 					iter.put(oss.str());
 				}
-
-				void wait_for_next()
-				{
-					while (waiting_for_next)
-						Fl::wait();
-					waiting_for_next = true;
-
-					Fl::redraw();
-				}
 			};
-
 			int main();
 		}
 	}
