@@ -178,56 +178,25 @@ namespace ch16
 		
 		namespace s10
 		{
+			Color
+				red	{Color::Color_type::red},
+				blue {Color::Color_type::blue},
+				black {Color::Color_type::black};
+
 			Lines_window::Lines_window (Point xy, int w, int h, const string & title) :
 				s08::Lines_window (xy, w, h, title),
-				color_menu {
-					{x_max () - 70, 30}, 70, 20, Menu::Kind::vertical, "color"
-				},
-				menu_button {
-					{x_max () - 70, 30}, 70, 20, "Colors", [] (Address, Address pw) 
-						{
-						reference_to <Lines_window> (pw).menu_pressed();
-						}
+				color_menu { {x_max () - 70, 30}, 70, 20, Menu::Kind::vertical, "color"},
+				color_menu_button {
+					{x_max () - 70, 30}, 70, 20, "Colors", [] (Address, Address pw) {reference_to <Lines_window> (pw).color_menu_pressed();}
 				}
 			{
-				color_menu.attach (new Button {{0, 0}, 0, 0, "red", [] (Address, Address pw)
-					{
-						reference_to <Lines_window> (pw).color_change({Color::Color_type::red});
-					}				
-				});
-				color_menu.attach (new Button {
-					{0, 0}, 0, 0, "blue", [] (Address, Address pw)
-					{
-						reference_to <Lines_window> (pw).color_change({Color::Color_type::blue});
-					}				
-				});
-				color_menu.attach (new Button {
-					{0, 0}, 0, 0, "black", [] (Address, Address pw)
-					{
-						reference_to <Lines_window> (pw).color_change({Color::Color_type::black});
-					}				
-				});
+				color_menu.attach (new Button {{0, 0}, 0, 0, "red", [] (Address, Address pw) {reference_to <Lines_window> (pw).change_color (red);}});
+				color_menu.attach (new Button {{0, 0}, 0, 0, "blue", [] (Address, Address pw) {reference_to <Lines_window> (pw).change_color (blue);}});
+				color_menu.attach (new Button {{0, 0}, 0, 0, "black", [] (Address, Address pw) {reference_to <Lines_window> (pw).change_color (black);}});
 				attach (color_menu);
 				color_menu.hide();
-				attach(menu_button);
+				attach(color_menu_button);
 			}
-			//void Lines_window::cb_red (Address, Address pw)
-			//{
-			//	reference_to <Lines_window> (pw).red_pressed();
-			//}
-			//void Lines_window::cb_blue (Address, Address pw)
-			//{
-			//	reference_to <Lines_window> (pw).blue_pressed();
-			//}
-			//void Lines_window::cb_black (Address, Address pw)
-			//{
-			//	reference_to <Lines_window> (pw).black_pressed();
-			//}
-			//void Lines_window::cb_menu (Address, Address pw)
-			//{
-			//	reference_to <Lines_window> (pw).menu_pressed();
-			//}
-
 			int main()
 			{
 				Lines_window

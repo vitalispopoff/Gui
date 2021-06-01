@@ -237,6 +237,7 @@ namespace ch16
 		namespace s10
 		{
 			using namespace Graph_lib;
+
 			struct Lines_window : s08::Lines_window
 			{
 					Lines_window (
@@ -246,35 +247,26 @@ namespace ch16
 						const string & title
 					);
 				protected :
-					Button 
-						menu_button;
 					Menu
 						color_menu;
+					Button 
+						color_menu_button;
 					
-					static	void	cb_red		(Address, Address);
-					static	void	cb_blue		(Address, Address);
-					static	void	cb_black	(Address, Address);
-					static	void	cb_menu		(Address, Address);
-					void	color_change	(Color c)
+					void change_color (Color c)
 					{
 						lines.set_color(c);
-						hide_menu();
+						hide_color_menu();
 					}
-					void	menu_pressed	()
+					virtual void color_menu_pressed ()
 					{
-						menu_button.hide();
+						color_menu_button.hide();
 						color_menu.show();
 					}
-					//void	change	(Color c)
-					//{
-					//	lines.set_color(c);
-					//}
-					void	hide_menu	()
+					virtual void hide_color_menu	()
 					{
 						color_menu.hide();
-						menu_button.show();
-					}
-					
+						color_menu_button.show();
+					}					
 			};
 
 			int main();
@@ -294,21 +286,27 @@ namespace ch16
 		{
 			using namespace Graph_lib;
 			using sample::s10::Lines_window;
+
 			struct Lines_window1 : sample::s10::Lines_window
 			{
-					Lines_window1 (Point xy, int w, int h, const string & title);
+					Lines_window1 (
+						Point xy, 
+						int w, 
+						int h, 
+						const string & title
+					);
 				protected :
 					Menu
 						style_menu;
 					Button
 						style_menu_button;
+					void change_style (Line_style);
 
 					void style_menu_pressed()
 					{
 						style_menu_button.hide();
 						style_menu.show();
 					}
-					void change_style(Line_style);
 			};
 
 			int main();
