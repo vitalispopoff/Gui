@@ -181,10 +181,10 @@ namespace ch16
 			Lines_window::Lines_window (Point xy, int w, int h, const string & title) :
 				s08::Lines_window (xy, w, h, title),
 				color_menu {
-					Point {x_max( ) - 70, 30}, 70, 20, Menu::Kind::vertical, "color"
+					Point {x_max () - 70, 30}, 70, 20, Menu::Kind::vertical, "color"
 				},
 				menu_button {
-					Point {x_max () - 80, 30}, 80, 20, "color menu", cb_menu}
+					Point {x_max () - 80, 30}, 80, 20, "Colors", cb_menu}
 			{
 				color_menu.attach (new Button {Point {0, 0}, 0, 0, "red", cb_red});
 				color_menu.attach (new Button {Point {0, 0}, 0, 0, "blue", cb_blue});

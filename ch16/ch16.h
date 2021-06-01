@@ -284,6 +284,7 @@ namespace ch16
 						color_menu.hide();
 						menu_button.show();
 					}
+					
 			};
 
 			int main();
@@ -295,5 +296,34 @@ namespace ch16
 			using s10::Lines_window;
 			int main();
 		}
+	}
+
+	namespace drill
+	{
+		namespace d04
+		{
+			using namespace Graph_lib;
+			using sample::s10::Lines_window;
+			struct Lines_window1 : sample::s10::Lines_window
+			{
+					Lines_window1 (Point xy, int w, int h, const string & title);
+				protected :
+					Menu
+						style_menu;
+					Button
+						style_menu_button;
+
+					void style_menu_pressed()
+					{
+						style_menu_button.hide();
+						style_menu.show();
+					}
+					void change_style(Line_style);
+			};
+
+			int main();
+
+
+		}	
 	}
 }
