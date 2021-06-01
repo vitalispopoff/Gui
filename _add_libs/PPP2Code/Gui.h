@@ -36,7 +36,7 @@ namespace Graph_lib
 			{
 				pw -> show(); 
 			}
-			virtual void	attach		(Window &) = 0;			/// each Widgit define at least one action for a window
+			virtual void	attach		(Window &) = 0;			/// each Widget define at least one action for a window
 
 			Point 
 				loc;

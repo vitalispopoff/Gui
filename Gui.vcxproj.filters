@@ -153,4 +153,22 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="_other\ColdGrits_ItsYourThing.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="_other\dog_9.gif">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="_other\kuvaton-kuka_jatti_ikkunan_auki2.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="_other\wzrost.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

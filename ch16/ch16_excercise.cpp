@@ -87,5 +87,56 @@ namespace ch16
 					return gui_main();
 			}
 		}
+
+		namespace e03
+		{							
+			Rand_button_window::Rand_button_window (Point xy, int w, int h, string & title) :
+				My_window {xy, w, h, title},
+				button {
+					{(w - 60) >> 1, (h - 40) >> 1},
+					60,
+					40,
+					"",
+					[] (Address, Address pw) { reference_to <Rand_button_window> (pw).relocate();}
+				},
+				cover {{0, 0}, filename, Suffix::Encoding::jpg}
+			{
+				attach (button);
+				cover.set_mask (
+					//button.loc, 
+					{(w - 60) >> 1, (h - 40) >> 1},
+					button.width, 
+					button.height
+				);
+				cover.move (button.loc.x, button.loc.y);
+				attach (cover);
+			}
+
+			void Rand_button_window::relocate()
+			{
+				int
+					dx_min	{-button.loc.x},
+					dx_max	{x_max () - button.width + dx_min},
+					dy_min	{- button.loc.y},
+					dy_max	{y_max () - button.height + dy_min},
+					
+					dx	= rand_int (dx_min, dx_max),
+					dy = rand_int (dy_min, dy_max);
+
+				button.move (dx, dy);
+				cover.set_mask(button.loc, button.width, button.height);
+				cover.move (dx, dy);
+			}
+
+			int main()
+			{
+				string
+					t;
+				Rand_button_window
+					win {{2200, 500}, 600, 400, t};
+				win.wait_for_next();
+				return gui_main();
+			}
+		}
 	}
 }

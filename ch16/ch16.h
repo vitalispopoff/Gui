@@ -1,5 +1,6 @@
 #pragma once
 #include <sstream>
+#include <random>
 #include "../_add_libs/PPP2Code/Gui.h"
 
 namespace ch16
@@ -340,6 +341,7 @@ namespace ch16
 	{
 		namespace e01
 		{
+
 			using namespace Graph_lib;
 			struct My_window : Window
 			{
@@ -357,6 +359,7 @@ namespace ch16
 					but_quit;
 				bool
 					waiting_for_next {true};
+
 				virtual void next()
 				{
 					waiting_for_next = false;
@@ -420,6 +423,34 @@ namespace ch16
 					detach(b3);
 				}
 			};
+			int main();
+		}
+
+		namespace e03
+		{
+			using namespace Graph_lib;
+
+			inline int rand_int (int min, int max)
+			{
+				static default_random_engine 
+					ran;
+				return uniform_int_distribution <> {min, max} (ran);
+			}
+
+			struct Rand_button_window : e01::My_window
+			{
+			protected :
+				string
+					filename {"E:\\_LAB\\_C\\Gui\\_other\\kuvaton-kuka_jatti_ikkunan_auki2.jpg"};
+			public : 
+				Rand_button_window (Point xy, int w, int h, string & title);
+			protected :
+				Button
+					button;
+				Image
+					cover;
+				void relocate();
+			};				
 			int main();
 		}
 	}

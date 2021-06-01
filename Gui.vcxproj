@@ -59,6 +59,16 @@
     <ClInclude Include="_add_libs\PPP2Code\Window.h" />
     <ClInclude Include="_Appendix_D_test\test.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="_other\ColdGrits_ItsYourThing.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="_other\dog_9.gif" />
+    <Image Include="_other\kuvaton-kuka_jatti_ikkunan_auki2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="_other\wzrost.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

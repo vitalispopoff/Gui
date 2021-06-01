@@ -442,7 +442,7 @@ namespace Graph_lib
 		add(xy);
 		if (!can_open(s)) 
 		{
-			fn.set_label("cannot open \""+s+'\"');
+			fn.set_label("cannot open \"" + s + '\"');
 			p = new Bad_image(30, 20);							/// the "error image"
 			return;
 		}
