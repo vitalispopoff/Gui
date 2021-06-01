@@ -255,19 +255,9 @@ namespace ch16
 					static	void	cb_blue		(Address, Address);
 					static	void	cb_black	(Address, Address);
 					static	void	cb_menu		(Address, Address);
-					void	red_pressed		() 
+					void	color_change	(Color c)
 					{
-						change (Color::Color_type::red);
-						hide_menu();
-					}
-					void	blue_pressed	()
-					{
-						change (Color::Color_type::blue);
-						hide_menu();
-					}
-					void	black_pressed	()
-					{
-						change (Color::Color_type::black);
+						lines.set_color(c);
 						hide_menu();
 					}
 					void	menu_pressed	()
@@ -275,10 +265,10 @@ namespace ch16
 						menu_button.hide();
 						color_menu.show();
 					}
-					void	change	(Color c)
-					{
-						lines.set_color(c);
-					}
+					//void	change	(Color c)
+					//{
+					//	lines.set_color(c);
+					//}
 					void	hide_menu	()
 					{
 						color_menu.hide();
