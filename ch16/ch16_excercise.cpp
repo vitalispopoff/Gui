@@ -163,8 +163,8 @@ namespace ch16
 				Window {xy, w, h, title},
 				b_quit {{x_max () - 50, 0}, 50, 20, "Quit", [] (Address, Address pw) {reference_to <Polygon_window> (pw).hide();}},
 				menu {{b_quit.loc.x - 5 * 20, 0}, 20, 20, Menu::Kind::horizontal, ""},
-				in_r {{menu.loc.x - 20 - 40, 0}, 40, 20, "R"},
-				in_y {{in_r.loc.x - 20 - 40, 0}, 40, 20, "Y"},
+				in_a {{menu.loc.x - 20 - 40, 0}, 40, 20, "A"},
+				in_y {{in_a.loc.x - 20 - 40, 0}, 40, 20, "Y"},
 				in_x {{in_y.loc.x - 20 - 40, 0}, 40, 20, "X"}
 			{
 				attach (b_quit);					
@@ -173,7 +173,7 @@ namespace ch16
 				menu.attach (new Button {{0, 0}, 0, 0, "H", [] (Address, Address pw) {reference_to <Polygon_window> (pw).hex();}});
 				menu.attach (new Button {{0, 0}, 0, 0, "C", [] (Address, Address pw) {reference_to <Polygon_window> (pw).cir();}});
 				attach (menu);
-				attach (in_r);
+				attach (in_a);
 				attach (in_y);
 				attach (in_x);
 			}
@@ -181,21 +181,33 @@ namespace ch16
 			void Polygon_window::cir()
 			{
 				int
-					x {in_x.get_int()},
-					y {in_y.get_int()},
-					radius = in_r.get_int();
-				if (radius <= 0 || radius > (x_max() << 1) || x < radius || x > x_max() - radius || y < radius || y > y_max() - radius)
+					x = in_x.get_int(),
+					y = in_y.get_int(),
+					a = in_a.get_int();
+				if (a <= 0 || a > (x_max() << 1) || x < a || x > x_max() - a || y < a || y > y_max() - a)
 					return;
-				shapes.push_back (new Circle {{x, y}, radius});
+				shapes.push_back (new Circle {{x, y}, a});
 				attach (shapes [shapes.size() - 1]);
 				redraw();
 			}
 
-			int get_rad()
+			void Polygon_window::sqr()
 			{
-				return 0;
+				int 
+					x = in_x.get_int(),
+					y = in_y.get_int(),
+					a = in_a.get_int();
+				if (a <= 0 || a > (x_max() << 1) || x < a || x > x_max() - a || y < a || y > y_max() - a)
+					return;
+				shapes.push_back (
+					new Graph_lib::Rectangle {
+						{x - a, y - a}, 
+						{x + a, y + a}
+					}
+				);
+				attach (shapes [shapes.size() - 1]);
+				redraw();
 			}
-
 
 			int main()
 			{

@@ -470,21 +470,20 @@ namespace ch16
 
 				void clean_shapes();
 				void tri(){}
-				void sqr(){}
 				void hex(){}
 
 			protected:
 				void cir();
+				void sqr();
 
 				Button
 					b_quit;
 				Menu
 					menu;
 				In_box
-					in_r,
-					in_y,
+					in_a,	//apothem
+					in_y,	
 					in_x;
-				int get_rad();
 			};
 			int main();
 		}
