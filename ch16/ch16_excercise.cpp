@@ -145,18 +145,18 @@ namespace ch16
 			Regular_polygon::Regular_polygon (Point center, int circumradius, int sides) 
 			{
 				double
-					angle	{3.14159265 / double (sides)},
+					angle	{2 * 3.14159265 / double (sides)},
 					sine	{sin(angle)},
 					cosine	{cos(angle)};
-				add ({center.x, center.y - circumradius});
-
+				add ({0, -circumradius});
 				for (int i = 0; i < sides - 1; ++i)
 				{
 					double
-						x	{point(i).x * sine + point(i).y * cosine},
-						y	{point(i).y * sine - point(i).x * cosine};
+						x	{double (point(i).x) * cosine + double (point(i).y) * sine},
+						y	{double (point(i).y) * cosine - double (point(i).x) * sine};
 					add ({int (round (x)), int (round (y))});
 				}
+				move (center.x, center.y);
 			}
 
 			Polygon_window::Polygon_window (Point xy, int w, int h, string & title) :
@@ -168,14 +168,36 @@ namespace ch16
 				in_x {{in_y.loc.x - 20 - 40, 0}, 40, 20, "X"}
 			{
 				attach (b_quit);					
-				menu.attach (new Button {{0, 0}, 0, 0, "T", [] (Address, Address pw) {reference_to <Polygon_window> (pw).tri();}});
+				menu.attach (new Button {{0, 0}, 0, 0, "T", [] (Address, Address pw) {reference_to <Polygon_window> (pw).pgn(3);}});
 				menu.attach (new Button {{0, 0}, 0, 0, "S", [] (Address, Address pw) {reference_to <Polygon_window> (pw).sqr();}});
-				menu.attach (new Button {{0, 0}, 0, 0, "H", [] (Address, Address pw) {reference_to <Polygon_window> (pw).hex();}});
+				menu.attach (new Button {{0, 0}, 0, 0, "H", [] (Address, Address pw) {reference_to <Polygon_window> (pw).pgn(6);}});
 				menu.attach (new Button {{0, 0}, 0, 0, "C", [] (Address, Address pw) {reference_to <Polygon_window> (pw).cir();}});
 				attach (menu);
 				attach (in_a);
 				attach (in_y);
 				attach (in_x);
+			}
+
+			void Polygon_window::pgn(int sides)
+			{
+				double
+					cosine = cos (3.14159265 / double (sides)); /// based on apothem, we calculate a circumradius, so need half of the inner angle
+				int 
+					x = in_x.get_int(),
+					y = in_y.get_int(),
+					a = in_a.get_int(),
+					cr = int (round (double (a) / cosine));				 
+				if (a <= 0 
+					|| cr > (x_max() << 1) 
+					|| x < cr					// top corner beyond top
+					|| x > x_max() - cr 
+					|| y < cr 
+					|| y > y_max() - cr
+				)
+					return;			
+				shapes.push_back (new Regular_polygon {{x, y}, cr, sides});
+				attach (shapes [shapes.size() - 1]);
+				redraw();
 			}
 
 			void Polygon_window::cir()

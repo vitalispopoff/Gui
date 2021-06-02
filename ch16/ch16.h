@@ -459,7 +459,7 @@ namespace ch16
 			using namespace Graph_lib;
 			struct Regular_polygon : Polygon
 			{
-				Regular_polygon (Point center, int circumradius, int sides) ;
+				Regular_polygon (Point center, int circumradius, int sides);
 			};
 
 			struct Polygon_window : Window
@@ -468,13 +468,10 @@ namespace ch16
 				Vector_ref <Shape>
 					shapes;
 
-				void clean_shapes();
-				void tri(){}
-				void hex(){}
-
 			protected:
-				void cir();
+				void pgn(int sides);
 				void sqr();
+				void cir();
 
 				Button
 					b_quit;
