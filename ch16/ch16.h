@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <sstream>
 #include <random>
 #include "../_add_libs/PPP2Code/Gui.h"
@@ -341,7 +342,6 @@ namespace ch16
 	{
 		namespace e01
 		{
-
 			using namespace Graph_lib;
 			struct My_window : Window
 			{
@@ -451,6 +451,41 @@ namespace ch16
 					cover;
 				void relocate();
 			};				
+			int main();
+		}
+
+		namespace e04
+		{
+			using namespace Graph_lib;
+			struct Regular_polygon : Polygon
+			{
+				Regular_polygon (Point center, int circumradius, int sides) ;
+			};
+
+			struct Polygon_window : Window
+			{
+				Polygon_window (Point xy, int w, int h, string & title);
+				Vector_ref <Shape>
+					shapes;
+
+				void clean_shapes();
+				void tri(){}
+				void sqr(){}
+				void hex(){}
+
+			protected:
+				void cir();
+
+				Button
+					b_quit;
+				Menu
+					menu;
+				In_box
+					in_r,
+					in_y,
+					in_x;
+				int get_rad();
+			};
 			int main();
 		}
 	}
