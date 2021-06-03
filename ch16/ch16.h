@@ -2,6 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include <random>
+#include <chrono>
+#include <thread>
 #include "../_add_libs/PPP2Code/Gui.h"
 
 namespace ch16
@@ -508,18 +510,22 @@ namespace ch16
 
 			struct Clock_window : Graph_lib::Window
 			{
+			public :
 				Clock_window (Point xy, int w, int h, string & title);
+				bool
+					keep_ticking {true};
+				void tick_tock();
 			protected :
 				Point
 					center,
 					dimensions;					
 				Button
-					quit;
-
+					b_quit;
 				Circle
 					border;
 				Vector_ref <Circle>
 					scale;
+				
 				void set_scale(Point center, int radius)
 				{
 					int
@@ -555,16 +561,7 @@ namespace ch16
 						attach (scale[i]);
 					}
 				}
-
-
-
-
-
-
-
-
-
-
+				void quit();
 			};
 
 			int main();

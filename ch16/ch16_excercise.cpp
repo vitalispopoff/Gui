@@ -257,27 +257,53 @@ namespace ch16
 
 		namespace e06
 		{
-			Clock_window ::Clock_window (Point xy, int w, int h, string & title) :
+			Clock_window::Clock_window (Point xy, int w, int h, string & title) :
 				Window {xy, w, h, title},
 				center {300, 300},
 				dimensions {w, h},
-				quit {{x_max() - 20, 0}, 20, 20, "X", [] (Address, Address pw) {reference_to <Clock_window> (pw).hide();}},
+				b_quit {{x_max() - 20, 0}, 20, 20, "X", [] (Address, Address pw) {reference_to <Clock_window> (pw).quit();}},
 				border	{center, min (w >> 1, (h >> 1) - 40)}
 			{
-				attach (quit);
+				attach (b_quit);
 				attach (border);
-				set_scale(center, (h >> 1) - 40);	
+				set_scale(center, (h >> 1) - 40);
 			}
 
+			void Clock_window::quit()
+			{
+				keep_ticking = false;
 
+				hide();
+			}
+
+			void Clock_window::tick_tock()
+			{
+				Fl::flush();
+				string 
+					sounds[] {"tick", "tock"};
+
+				int
+					counter {0};
+				while(keep_ticking)
+				{
+					Fl::wait(0.0625);
+					if (clock() - counter >= 1000)
+					{	cout << "tick, ";
+						counter = clock();
+					}
+				}
+
+			}
 
 			int main()
 			{
 				string
 					title {""};
 				Clock_window
-					window	 {{2200, 500}, 600, 600, title};
-				return gui_main();
+					window	 {{2000, 500}, 600, 600, title};
+				window.tick_tock();
+
+				return 0;
 			}
 		}
 	}
