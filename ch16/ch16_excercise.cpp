@@ -260,39 +260,171 @@ namespace ch16
 			Clock_window::Clock_window (Point xy, int w, int h, string & title) :
 				Window {xy, w, h, title},
 				center {300, 300},
-				dimensions {w, h},
+				dimensions {w >> 1, (h >> 1) - 40},
 				b_quit {{x_max() - 20, 0}, 20, 20, "X", [] (Address, Address pw) {reference_to <Clock_window> (pw).quit();}},
-				border	{center, min (w >> 1, (h >> 1) - 40)}
+				border	{center, min (dimensions.x, dimensions.y)},
+				s_hand_loc {0., double(dimensions.y >> 3) - double(dimensions.y)},
+				s_hand {
+					center, 
+					{
+						center.x + int (round (s_hand_loc.x)), 
+						center.y + int (round (s_hand_loc.y))
+					}
+				},
+				m_hand_loc {0., double(dimensions.y >> 2) - double(dimensions.y)},
+				m_hand {
+					center, 
+					{
+						center.x + int (round (m_hand_loc.x)), 
+						center.y + int (round (m_hand_loc.y))
+					}
+				},
+				h_hand_loc {0., double(dimensions.y >> 1) - double(dimensions.y)},
+				h_hand {
+					center, 
+					{
+						center.x + int (round (h_hand_loc.x)), 
+						center.y + int (round (h_hand_loc.y))
+					}
+				}	
 			{
 				attach (b_quit);
 				attach (border);
 				set_scale(center, (h >> 1) - 40);
+				s_hand.set_style({Line_style::Line_style_type::solid, 2});
+				m_hand.set_style({Line_style::Line_style_type::solid, 4});
+				h_hand.set_style({Line_style::Line_style_type::solid, 8});
+				attach (s_hand);
+				attach (m_hand);
+				attach (h_hand);
+			}
+
+			int
+				rad = 4;
+			double 
+				angle {-3.14159265358979323 / 30.},
+				cosine = cos (angle),
+				sine = sin (angle);
+
+			void Clock_window::set_scale(Point center, int radius)
+			{
+				scale.push_back (new Circle{{0, -(radius - (radius >> 4))}, rad << 1});
+				double
+					in_x = double (scale[0].center().x),
+					in_y = double (scale[0].center().y);
+
+				for (int i = 1; i < 60; ++i)
+				{
+					double
+						out_x = in_x * cosine + in_y * sine,
+						out_y = in_y * cosine - in_x * sine;									
+					scale.push_back (
+						new Circle {
+							{
+							int (round (out_x)), 
+							int (round (out_y))
+							},
+							rad * (1 + (i % 5 == 0))
+						}
+					);
+					in_x = out_x;
+					in_y = out_y;
+				}
+				for (int i = 0; i < 60; ++i)
+				{
+					scale[i].move(center.x, center.y);
+					attach (scale[i]);
+				}
 			}
 
 			void Clock_window::quit()
 			{
 				keep_ticking = false;
-
+				cout 
+					<< (clock() - counter >= 1000 
+						? sounds[int (sound)] 
+						: "")
+					<< "...\n";
 				hide();
 			}
 
 			void Clock_window::tick_tock()
 			{
 				Fl::flush();
-				string 
-					sounds[] {"tick", "tock"};
-
-				int
-					counter {0};
 				while(keep_ticking)
-				{
-					Fl::wait(0.0625);
-					if (clock() - counter >= 1000)
-					{	cout << "tick, ";
+				{					
+					//Fl::wait(0.0625);
+					Fl::wait (0.0333333);
+					if (clock() - counter >= 34)
+					{	
+						//cout << sounds[int (sound)] << ", ";
+						move_hands();
 						counter = clock();
+						//sound = !sound;
 					}
 				}
+			}
 
+
+			void Clock_window::move_hands()
+			{
+				double 
+					s_hand_angle = angle * 0.03333333333333333,
+					s_hand_cos = cos (s_hand_angle),
+					s_hand_sin = sin (s_hand_angle),
+					m_hand_angle = s_hand_angle * 0.01666666666666667,
+					m_hand_cos = cos (m_hand_angle),
+					m_hand_sin = sin (m_hand_angle),
+					h_hand_angle = m_hand_angle * 0.01666666666666667,
+					h_hand_cos = cos (h_hand_angle),
+					h_hand_sin = sin (h_hand_angle);
+				//double 
+				//	in_x = double(s_hand.point(1).x) - double (center.x),
+				//	in_y = double(s_hand.point(1).y) - double (center.y);
+				//s_hand.set_point (
+				//	1,
+				//	{
+				//		center.x + int (round (in_x * s_hand_cos + in_y * s_hand_sin)),
+				//		center.y + int (round (in_y * s_hand_cos - in_x * s_hand_sin))
+				//	}
+				//);
+				double
+					s_in_x = s_hand_loc.x * s_hand_cos + s_hand_loc.y * s_hand_sin,
+					s_in_y = s_hand_loc.y * s_hand_cos - s_hand_loc.x * s_hand_sin;
+				s_hand_loc.x = s_in_x;
+				s_hand_loc.y = s_in_y;
+				s_hand.set_point (
+					1,
+					{
+						center.x + int (round (s_in_x)),
+						center.y + int (round (s_in_y))
+					}
+				);
+				double
+					m_in_x = m_hand_loc.x * m_hand_cos + m_hand_loc.y * m_hand_sin,
+					m_in_y = m_hand_loc.y * m_hand_cos - m_hand_loc.x * m_hand_sin;
+				m_hand_loc.x = m_in_x;
+				m_hand_loc.y = m_in_y;
+				m_hand.set_point (
+					1,
+					{
+						center.x + int (round (m_in_x)),
+						center.y + int (round (m_in_y))
+					}
+				);
+				double
+					h_in_x = h_hand_loc.x * h_hand_cos + h_hand_loc.y * h_hand_sin,
+					h_in_y = h_hand_loc.y * h_hand_cos - h_hand_loc.x * h_hand_sin;
+				h_hand_loc.x = h_in_x;
+				h_hand_loc.y = h_in_y;
+				h_hand.set_point (
+					1,
+					{
+						center.x + int (round (h_in_x)),
+						center.y + int (round (h_in_y))
+					}
+				);
+				Fl::redraw();
 			}
 
 			int main()

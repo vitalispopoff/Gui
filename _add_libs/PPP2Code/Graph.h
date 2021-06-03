@@ -355,6 +355,11 @@ namespace Graph_lib
 			add(p1); 
 			add(p2); 
 		}
+																/// added to enable easier moving and turning of lines (ch16 e06)
+		void set_point(int i, Point p)
+		{
+			Shape::set_point(i, p);
+		}
 	};
 
 	struct Rectangle : Shape 
