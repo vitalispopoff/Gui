@@ -580,6 +580,7 @@ namespace ch16
 					s_hand,
 					m_hand,
 					h_hand;
+				void adjust_hands();
 				void move_hands();
 
 				int
