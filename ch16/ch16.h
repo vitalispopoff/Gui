@@ -460,8 +460,11 @@ namespace ch16
 			struct Regular_polygon : Polygon
 			{
 				Regular_polygon (Point center, int circumradius, int sides);
+				virtual void move (int dx, int dy)
+				{
+					Polygon::move(dx, dy);
+				}
 			};
-
 			struct Polygon_window : Window
 			{
 				Polygon_window (Point xy, int w, int h, string & title);
@@ -472,6 +475,18 @@ namespace ch16
 				void pgn(int sides);
 				void sqr();
 				void cir();
+				virtual int get_x()
+				{	
+					return in_x.get_int();
+				}
+				virtual int get_y()
+				{
+					 return in_y.get_int();
+				}
+				virtual int get_a()
+				{
+					return in_a.get_int();
+				}
 
 				Button
 					b_quit;
@@ -482,6 +497,76 @@ namespace ch16
 					in_y,	
 					in_x;
 			};
+			int main();
+		}
+
+		namespace e05{}
+
+		namespace e06
+		{
+			using namespace Graph_lib;
+
+			struct Clock_window : Graph_lib::Window
+			{
+				Clock_window (Point xy, int w, int h, string & title);
+			protected :
+				Point
+					center,
+					dimensions;					
+				Button
+					quit;
+
+				Circle
+					border;
+				Vector_ref <Circle>
+					scale;
+				void set_scale(Point center, int radius)
+				{
+					int
+						rad = 4;
+					scale.push_back (new Circle{{0, -(radius - (radius >> 4))}, rad << 1});
+					double 
+						angle {3.14159265358979323 / 30.},
+						cosine = cos (angle),
+						sine = sin (angle),
+						in_x = double (scale[0].center().x),
+						in_y = double (scale[0].center().y);
+
+					for (int i = 1; i < 60; ++i)
+					{
+						double
+							out_x = in_x * cosine + in_y * sine,
+							out_y = in_y * cosine - in_x * sine;									
+						scale.push_back (
+							new Circle {
+								{
+								int (round (out_x)), 
+								int (round (out_y))
+								},
+								rad * (1 + (i % 5 == 0))
+							}
+						);
+						in_x = out_x;
+						in_y = out_y;
+					}
+					for (int i = 0; i < 60; ++i)
+					{
+						scale[i].move(center.x, center.y);
+						attach (scale[i]);
+					}
+				}
+
+
+
+
+
+
+
+
+
+
+			};
+
 			int main();
 		}
 	}

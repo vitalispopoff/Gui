@@ -142,13 +142,13 @@ namespace ch16
 
 		namespace e04
 		{
-			Regular_polygon::Regular_polygon (Point center, int circumradius, int sides) 
+			Regular_polygon::Regular_polygon (Point center, int apothem, int sides) 
 			{
 				double
 					angle	{2 * 3.14159265 / double (sides)},
 					sine	{sin(angle)},
 					cosine	{cos(angle)};
-				add ({0, -circumradius});
+				add ({0, -apothem});
 				for (int i = 0; i < sides - 1; ++i)
 				{
 					double
@@ -183,13 +183,13 @@ namespace ch16
 				double
 					cosine = cos (3.14159265 / double (sides)); /// based on apothem, we calculate a circumradius, so need half of the inner angle
 				int 
-					x = in_x.get_int(),
-					y = in_y.get_int(),
-					a = in_a.get_int(),
+					x = get_x(),
+					y = get_y(),
+					a = get_a(),
 					cr = int (round (double (a) / cosine));				 
 				if (a <= 0 
 					|| cr > (x_max() << 1) 
-					|| x < cr					// top corner beyond top
+					|| x < cr
 					|| x > x_max() - cr 
 					|| y < cr 
 					|| y > y_max() - cr
@@ -203,10 +203,16 @@ namespace ch16
 			void Polygon_window::cir()
 			{
 				int
-					x = in_x.get_int(),
-					y = in_y.get_int(),
-					a = in_a.get_int();
-				if (a <= 0 || a > (x_max() << 1) || x < a || x > x_max() - a || y < a || y > y_max() - a)
+					x = get_x(),
+					y = get_y(),
+					a = get_a();
+				if (a <= 0 
+					|| a > (x_max() << 1) 
+					|| x < a 
+					|| x > x_max() - a 
+					|| y < a 
+					|| y > y_max() - a
+				)
 					return;
 				shapes.push_back (new Circle {{x, y}, a});
 				attach (shapes [shapes.size() - 1]);
@@ -216,10 +222,16 @@ namespace ch16
 			void Polygon_window::sqr()
 			{
 				int 
-					x = in_x.get_int(),
-					y = in_y.get_int(),
-					a = in_a.get_int();
-				if (a <= 0 || a > (x_max() << 1) || x < a || x > x_max() - a || y < a || y > y_max() - a)
+					x = get_x(),
+					y = get_y(),
+					a = get_a();
+				if (a <= 0 
+					|| a > (x_max() << 1) 
+					|| x < a 
+					|| x > x_max() - a 
+					|| y < a 
+					|| y > y_max() - a
+				)
 					return;
 				shapes.push_back (
 					new Graph_lib::Rectangle {
@@ -237,6 +249,34 @@ namespace ch16
 					title {""};
 				Polygon_window
 					sufring_on_sinewaves {{2200, 500}, 600, 400, title};
+				return gui_main();
+			}
+		}
+
+		namespace e05{}
+
+		namespace e06
+		{
+			Clock_window ::Clock_window (Point xy, int w, int h, string & title) :
+				Window {xy, w, h, title},
+				center {300, 300},
+				dimensions {w, h},
+				quit {{x_max() - 20, 0}, 20, 20, "X", [] (Address, Address pw) {reference_to <Clock_window> (pw).hide();}},
+				border	{center, min (w >> 1, (h >> 1) - 40)}
+			{
+				attach (quit);
+				attach (border);
+				set_scale(center, (h >> 1) - 40);	
+			}
+
+
+
+			int main()
+			{
+				string
+					title {""};
+				Clock_window
+					window	 {{2200, 500}, 600, 600, title};
 				return gui_main();
 			}
 		}

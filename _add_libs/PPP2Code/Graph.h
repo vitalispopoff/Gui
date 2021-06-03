@@ -409,6 +409,10 @@ namespace Graph_lib
 		void add(Point p) 
 		{ 
 			Shape::add(p); 
+		}										
+		virtual void move (int dx, int dy)						/// added virtual move() for ch16 e05
+		{
+			Shape::move(dx, dy);
 		}
 	};
 
@@ -417,8 +421,11 @@ namespace Graph_lib
 		using Open_polyline::Open_polyline;
 
 		void draw_lines() const;
-	
 	//	void add(Point p) { Shape::add(p); }
+		virtual void move (int dx, int dy)						/// added virtual move() for ch16 e05
+		{
+			Open_polyline::move(dx, dy);
+		}				
 	};
 
 	struct Polygon : Closed_polyline							/// closed sequence of non-intersecting lines
@@ -427,6 +434,11 @@ namespace Graph_lib
 		
 		void	add			(Point p);
 		void	draw_lines	() const;
+	
+		virtual void move (int dx, int dy)						/// added virtual move() for ch16 e05
+		{
+			Closed_polyline::move(dx, dy);
+		}
 	};
 
 	struct Lines : Shape										/// indepentdent lines
