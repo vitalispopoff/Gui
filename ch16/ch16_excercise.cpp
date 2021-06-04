@@ -594,11 +594,11 @@ namespace ch16
 			using namespace Graph_lib;
 			
 			Stock_exchange::Stock_exchange (Graph_lib::Point a, int w, int h, string & t) :
-				Window {a, w, h, t},
-				menu_currency {{10, 10}, 30, 20, Menu::Kind::horizontal,""}
+				Window {a, w, h, t}//,
+				//menu_currency {{10, 10}, 30, 20, Menu::Kind::horizontal,""}
 			{
 				import_exchange_table();
-				attach(menu_currency);
+				//attach(menu_currency);
 				ready();
 			}
 
@@ -641,7 +641,8 @@ namespace ch16
 			}
 
 			int main()
-			{			
+			{
+				
 				string t {""};
 				Stock_exchange se {{2000, 500}, 600, 400, t};
 

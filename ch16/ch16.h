@@ -657,8 +657,8 @@ namespace ch16
 
 				bool
 					flag_ready {true};
-				Menu
-					menu_currency;
+				//Menu
+				//	menu_currency;
 				vector<pair<const string, double>>
 					exchange_rates;
 				void import_exchange_table();
