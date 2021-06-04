@@ -63,6 +63,7 @@
     <Media Include="_other\ColdGrits_ItsYourThing.wav" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="_other\Animation\plane.gif" />
     <Image Include="_other\dog_9.gif" />
     <Image Include="_other\kuvaton-kuka_jatti_ikkunan_auki2.jpg" />
   </ItemGroup>

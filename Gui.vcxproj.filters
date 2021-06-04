@@ -37,6 +37,9 @@
     <Filter Include="Source Files\ch16">
       <UniqueIdentifier>{cfd5e493-1ec5-46ee-a281-674d61ae7dd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\ch16_e06">
+      <UniqueIdentifier>{d47d23cc-46fa-485a-a42b-56f130129884}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Appendix_D_test\test.cpp">
@@ -164,6 +167,9 @@
     </Image>
     <Image Include="_other\kuvaton-kuka_jatti_ikkunan_auki2.jpg">
       <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="_other\Animation\plane.gif">
+      <Filter>Resource Files\ch16_e06</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

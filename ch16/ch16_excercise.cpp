@@ -440,5 +440,55 @@ namespace ch16
 				return 0;
 			}
 		}
+
+		namespace e07
+		{
+			Animation_window::Animation_window (Point a, int w, int h, string & t) :
+				Window {a, w, h, t},
+				b_quit	{b_quit_anc, 50, 20, "X", [] (Address, Address pw){reference_to <Animation_window> (pw).quit();}},
+				b_stop	{b_stop_anc, 50, 20, "Stop", [] (Address, Address pw){reference_to <Animation_window> (pw).stop();}},
+				b_start {b_start_anc, 50, 20, "Start", [] (Address, Address pw) {reference_to <Animation_window> (pw).start();}},
+				sky {{0, 0}, {600, 400}}
+			{
+				set_bcg();
+				attach (sky);
+				attach (ground);
+				attach (plane);
+				attach (b_quit);
+				attach (b_quit_img);
+				attach (b_stop);
+				attach (b_stop_img);
+				attach (b_start);
+				attach (b_start_img);
+			}
+				void Animation_window::set_bcg()
+				{
+					sky.set_color (Color::Transparency::invisible);
+					sky.set_fill_color (Color::Color_type::cyan);
+				}
+				void Animation_window::quit()
+				{
+					keep_open = false;
+					hide();
+				}
+				void Animation_window::stop(){}
+				void Animation_window::start(){}
+
+			int main()
+			{
+				string 
+					t {""};
+				Animation_window
+					window {{2000, 500}, 600, 400, t};
+
+				while (window.keep_open)
+				{
+					//Fl::wait(window.frame_time);
+					Fl::wait();
+				}
+
+				return 0;
+			}
+		}
 	}
 }

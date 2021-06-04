@@ -9,7 +9,7 @@ int main()
 	{
 		//return ch16::sample::s08::main();
 		//return ch16::excercise::e02::main();
-		return ch16::excercise::e06::main();
+		return ch16::excercise::e07::main();
 	}
 	catch (exception & e)
 	{
