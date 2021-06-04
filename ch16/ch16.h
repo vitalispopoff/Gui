@@ -648,5 +648,25 @@ namespace ch16
 			int main();
 		}
 
+		namespace e08
+		{
+			struct Stock_exchange : Graph_lib::Window
+			{
+				Stock_exchange (Graph_lib::Point a, int w, int h, string & t);
+
+				bool
+					flag_ready {true};
+				vector<pair<string, double>>
+					currencies;
+				void import_exchange_table();
+				Menu
+					menu_currency;
+				void add_currency_buttons();
+
+				void ready();
+			};
+			
+			int main();
+		}
 	}
 }

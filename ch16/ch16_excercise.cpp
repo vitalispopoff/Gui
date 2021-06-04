@@ -588,5 +588,52 @@ namespace ch16
 				return 0;
 			}
 		}
+
+		namespace e08
+		{
+			using namespace Graph_lib;
+			
+			Stock_exchange::Stock_exchange (Graph_lib::Point a, int w, int h, string & t) :
+				Window {a, w, h, t},
+				menu_currency {{10, 10}, 30, 20, Menu::Kind::horizontal,""}
+			{
+				import_exchange_table();
+				add_currency_buttons();
+				ready();
+			}
+
+			void Stock_exchange::import_exchange_table()
+			{
+				string
+					filename {"../_other/stock_exchange.txt"};
+				ifstream
+					ifs {filename};
+				if(!ifs)
+					error ("can't read file");
+				string
+					name;
+				double
+					value {0};
+				while (ifs >> name >> value)
+					currencies.push_back({name, value});
+				ifs.close();
+			}
+
+
+			void Stock_exchange::ready()
+			{
+				while(flag_ready)
+					Fl::wait();
+			}
+
+			int main()
+			{
+				string t {""};
+				Stock_exchange se {{2000, 500}, 600, 400, t};
+
+				return 0;
+			}
+
+		}
 	}
 }
