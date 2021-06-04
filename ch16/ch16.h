@@ -600,41 +600,50 @@ namespace ch16
 			using Graph_lib::Window;
 			struct Animation_window : Window
 			{
+				Animation_window (Point a, int w, int h, string & t);
 				int
+					counter = clock();
+				int												/// button sizes.
 					b_width {50},
 					b_height {20};
-
-
-				Animation_window (Point a, int w, int h, string & t);
-
-				bool keep_open {true};
-				double
-					frame_time {1. / (60. * 0.5)};
 				Point
 					b_quit_anc	{x_max() - b_width, 0},
 					b_stop_anc	{b_quit_anc.x - b_width, 0},
 					b_start_anc	{b_stop_anc.x - b_width, 0};
 				Button
 					b_quit, b_stop, b_start;
+				string
+					file_address {"../_other/Animation/"};
+				Image
+					b_quit_img {b_quit_anc, {file_address + "b_quit.gif"}, Suffix::Encoding::gif},
+					b_stop_img {b_stop_anc, {file_address + "b_stop.gif"}, Suffix::Encoding::gif},
+					b_start_img {b_start_anc, {file_address + "b_start.gif"}, Suffix::Encoding::gif};
+
 				void quit();
 				void stop();
 				void start();
-				void buttons_on_top();
-				Graph_lib::Rectangle
-					sky
-					//, 
-					//front_quit, 
-					//front_stop, 
-					//front_start
-					;
-				void set_bcg();
+				void set_buttons();
+
 				Image
-					b_quit_img {b_quit_anc, "../_other/Animation/b_quit.gif", Suffix::Encoding::gif},
-					b_stop_img {b_stop_anc, "../_other/Animation/b_stop.gif", Suffix::Encoding::gif},
-					b_start_img {b_start_anc, "../_other/Animation/b_start.gif", Suffix::Encoding::gif},
-					ground {{0, 400 - 77}, "../_other/Animation/ground.gif", Suffix::Encoding::gif},
-					plane {{300 - 61, 200},  "../_other/Animation/plane.gif", Suffix::Encoding::gif};
+					ground {{0, 400 - 77}, {file_address + "ground.gif"}, Suffix::Encoding::gif};
+				Graph_lib::Rectangle
+					sky;
+				void set_bcg();
+
+				Image
+					plane {{300 - 61, 275}, {file_address + "plane.gif"}, Suffix::Encoding::gif};
+				void take_off();
+				void fly();
+				void land();
+				void park();
+
+				bool											/// flags
+					open {true},
+					flying {false};
+
+				void run_it();
 			};
+
 
 			int main();
 		}

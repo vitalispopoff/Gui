@@ -1,5 +1,6 @@
 
 #include "ch16.h"
+#include <fstream>
 
 namespace ch16
 {
@@ -360,7 +361,7 @@ namespace ch16
 			{
 				Fl::flush();
 				int 
-					epoch_time = time(NULL),
+					epoch_time = int(time(NULL)),
 					crumbs = (epoch_time - 27) % 43200,
 					seconds = crumbs % 60,
 					minutes = (crumbs / 60),
@@ -451,28 +452,131 @@ namespace ch16
 				sky {{0, 0}, {600, 400}}
 			{
 				set_bcg();
+				set_buttons();
+				attach (plane);
+			}
+			void Animation_window::set_bcg()
+			{
+				sky.set_color (Color::Transparency::invisible);
+				sky.set_fill_color (Color::Color_type::cyan);
 				attach (sky);
 				attach (ground);
-				attach (plane);
-				attach (b_quit);
+			}
+			void Animation_window::set_buttons()
+			{
+			attach (b_quit);
 				attach (b_quit_img);
 				attach (b_stop);
 				attach (b_stop_img);
 				attach (b_start);
 				attach (b_start_img);
 			}
-				void Animation_window::set_bcg()
+			
+			void Animation_window::quit()
+			{
+				b_start.hide();
+				detach(b_start_img);
+				b_stop.hide();
+				detach(b_stop_img);
+				b_quit.hide();
+				detach(b_quit_img);
+				if (flying)
 				{
-					sky.set_color (Color::Transparency::invisible);
-					sky.set_fill_color (Color::Color_type::cyan);
+					flying = false;
+					land();
 				}
-				void Animation_window::quit()
+				open = false;
+				hide();	
+			}
+			void Animation_window::stop()
+			{
+				b_stop.hide();
+				detach(b_stop_img);
+				b_start.show();
+				attach(b_start_img);
+				flying = false;
+				land();
+				open = true;
+				run_it();
+			}		
+			void Animation_window::start()
+			{
+				b_start.hide();
+				detach(b_start_img);
+				b_stop.show();
+				attach(b_stop_img);
+				open = false;
+				flying = true;
+				take_off();
+			}
+			
+			void Animation_window::run_it()
+			{
+				b_stop.hide();
+				detach(b_stop_img);
+				Fl::redraw();
+				while (open)
 				{
-					keep_open = false;
-					hide();
+					Fl::wait();
 				}
-				void Animation_window::stop(){}
-				void Animation_window::start(){}
+			}
+
+			void Animation_window::take_off()
+			{
+				while(flying && plane.point(0).y > 150)
+				{
+					Fl::wait(0.001);
+					if (counter + 40 <= clock())
+					{
+						plane.move(-2, -1);
+						Fl::redraw();
+						counter = clock();
+					}
+					if (plane.point(0).x == -123)
+						plane.move(123 + 600, 0);
+				}
+				fly();
+			}
+			void Animation_window::fly()
+			{
+				while (flying)
+				{
+					Fl::wait(0.001);
+					if (counter + 40 <= clock())
+					{
+						plane.move(-2, 0);
+						Fl::redraw();
+						counter = clock();
+					}
+					if (plane.point(0).x < -121)
+						plane.move(123 + 600, 0);
+				}
+			}
+			void Animation_window::land()
+			{
+				while (plane.point(0).x != 300 - 61 && plane.point(0).y != 275)
+				{
+					Fl::wait(0.001);				
+					if (counter + 40 <= clock())
+					{
+						if (plane.point(0).y < 275)
+						{
+							plane.move (-2, 1);
+							Fl::redraw();
+							counter = clock();
+						}
+						else 
+							if (plane.point(0).x != 300 - 61)
+							{
+								plane.move (-2, 0);
+								Fl::redraw();
+								counter = clock();
+							}
+					}
+					if (plane.point(0).x < -121)
+						plane.move(123 + 600, 0);
+				}
+			}
 
 			int main()
 			{
@@ -480,13 +584,7 @@ namespace ch16
 					t {""};
 				Animation_window
 					window {{2000, 500}, 600, 400, t};
-
-				while (window.keep_open)
-				{
-					//Fl::wait(window.frame_time);
-					Fl::wait();
-				}
-
+				window.run_it();
 				return 0;
 			}
 		}
