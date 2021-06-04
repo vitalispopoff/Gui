@@ -3,7 +3,8 @@
 #include <sstream>
 #include <random>
 #include <chrono>
-#include <thread>
+//#include <thread>
+#include <map>
 #include "../_add_libs/PPP2Code/Gui.h"
 
 namespace ch16
@@ -656,12 +657,13 @@ namespace ch16
 
 				bool
 					flag_ready {true};
-				vector<pair<string, double>>
-					currencies;
-				void import_exchange_table();
 				Menu
 					menu_currency;
-				void add_currency_buttons();
+				vector<pair<const string, double>>
+					exchange_rates;
+				void import_exchange_table();
+				void button_pushed(string s);
+
 
 				void ready();
 			};

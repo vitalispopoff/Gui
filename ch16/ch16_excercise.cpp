@@ -598,7 +598,7 @@ namespace ch16
 				menu_currency {{10, 10}, 30, 20, Menu::Kind::horizontal,""}
 			{
 				import_exchange_table();
-				add_currency_buttons();
+				attach(menu_currency);
 				ready();
 			}
 
@@ -615,9 +615,23 @@ namespace ch16
 				double
 					value {0};
 				while (ifs >> name >> value)
-					currencies.push_back({name, value});
+				{
+					exchange_rates.push_back({name, value});
+					//menu_currency.attach (
+					//	new Button {
+					//		{0, 0},
+					//		0, 
+					//		0,  
+					//		exchange_rates[exchange_rates.size() - 1], 
+					//		[] (Address, Address pw) {reference_to<Stock_exchange> (pw).button_pushed();}
+					//	}
+					//);
+				}
 				ifs.close();
+				ready();
 			}
+
+
 
 
 			void Stock_exchange::ready()
@@ -627,7 +641,7 @@ namespace ch16
 			}
 
 			int main()
-			{
+			{			
 				string t {""};
 				Stock_exchange se {{2000, 500}, 600, 400, t};
 
