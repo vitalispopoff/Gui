@@ -614,7 +614,7 @@ namespace ch16
 				Button
 					b_quit, b_stop, b_start;
 				string
-					file_address {"../_other/Animation/"};
+					file_address {"E:/_LAB/_C/Gui/_other/Animation/"};
 				Image
 					b_quit_img {b_quit_anc, {file_address + "b_quit.gif"}, Suffix::Encoding::gif},
 					b_stop_img {b_stop_anc, {file_address + "b_stop.gif"}, Suffix::Encoding::gif},
@@ -651,23 +651,44 @@ namespace ch16
 
 		namespace e08
 		{
-			struct Stock_exchange : Graph_lib::Window
+			enum class Currencies
 			{
-				Stock_exchange (Graph_lib::Point a, int w, int h, string & t);
-
-				bool
-					flag_ready {true};
-				//Menu
-				//	menu_currency;
-				vector<pair<const string, double>>
-					exchange_rates;
-				void import_exchange_table();
-				void button_pushed(string s);
-
-
-				void ready();
+				CHF, EUR, GBP, JPY, PLN, USD
 			};
-			
+
+			class Currency_button : public Graph_lib::Widget
+			{
+			public :
+				Currency_button (Point a, int w, int h, string & t, Currencies s) :
+					Widget {
+						a, w, h, t, 
+						[] (Address, Address pw) 
+						{
+							reference_to<Currency_button> (pw).act();
+						}
+					},
+					symbol {s}
+				{}
+
+				void attach(Window & win);
+
+				Currencies act()
+				{
+					return symbol;
+				}
+			protected :
+				Currencies
+					symbol;
+			};
+
+
+			struct Stock_window : Window
+			{
+				Stock_window (Point a, int w, int h, string & t) :
+					Window {a, w, h, t}					
+				{};
+			};
+
 			int main();
 		}
 	}

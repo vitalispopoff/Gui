@@ -1,1 +1,1 @@
-chf	3.57 eur 4.72 gbp 5.56 jpy 0.0012 pln 1. usd 4.9
+CHF	3.57 EUR 4.72 GBP 5.56 JPY 0.0012 PLN 1. USD 4.9

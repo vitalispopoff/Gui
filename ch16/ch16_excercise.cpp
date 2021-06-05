@@ -592,59 +592,54 @@ namespace ch16
 		namespace e08
 		{
 			using namespace Graph_lib;
+			using Graph_lib::Window;
+
+			void Currency_button::attach(Window & win)
+			{
+				pw = new Fl_Button(loc.x, loc.y, width, height, label.c_str());
+				pw -> callback(reinterpret_cast<Fl_Callback *>(do_it), & win);		/// pass the window
+				own = & win;
+			}
 			
-			Stock_exchange::Stock_exchange (Graph_lib::Point a, int w, int h, string & t) :
-				Window {a, w, h, t}//,
-				//menu_currency {{10, 10}, 30, 20, Menu::Kind::horizontal,""}
-			{
-				import_exchange_table();
-				//attach(menu_currency);
-				ready();
+			//Stock_exchange::Stock_exchange (Graph_lib::Point a, int w, int h, string & t) :
+			//	Window {a, w, h, t}
+			//{
+			//	import_exchange_table();
+			//	ready();
+			//}
+			// 
+			//void Stock_exchange::import_exchange_table()
+			//{
+			//	string
+			//		path_absolute {"E:/_LAB/_C/Gui/"},
+			//		path_relative {"_other/"},
+			//		file_name {"stock_exchange"},
+			//		file_extension {"txt"};
+			//	ifstream
+			//		ifs {path_absolute + path_relative + file_name + "." + file_extension};
+			//	if(!ifs)
+			//		error ("can't read file");
+			//	string
+			//		name;
+			//	double
+			//		value {0};
+			//	while (ifs >> name >> value)
+			//	{
+			//		
+			//	}
+			//	ifs.close();
 			}
 
-			void Stock_exchange::import_exchange_table()
-			{
-				string
-					filename {"../_other/stock_exchange.txt"};
-				ifstream
-					ifs {filename};
-				if(!ifs)
-					error ("can't read file");
-				string
-					name;
-				double
-					value {0};
-				while (ifs >> name >> value)
-				{
-					exchange_rates.push_back({name, value});
-					//menu_currency.attach (
-					//	new Button {
-					//		{0, 0},
-					//		0, 
-					//		0,  
-					//		exchange_rates[exchange_rates.size() - 1], 
-					//		[] (Address, Address pw) {reference_to<Stock_exchange> (pw).button_pushed();}
-					//	}
-					//);
-				}
-				ifs.close();
-				ready();
-			}
-
-
-
-
-			void Stock_exchange::ready()
-			{
-				while(flag_ready)
-					Fl::wait();
-			}
+			//void Stock_exchange::ready()
+			//{
+			//	while(flag_ready)
+			//		Fl::wait();
+			//}
 
 			int main()
-			{
-				
+			{				
 				string t {""};
-				Stock_exchange se {{2000, 500}, 600, 400, t};
+				//Stock_exchange se {{2000, 500}, 600, 400, t};
 
 				return 0;
 			}

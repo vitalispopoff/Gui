@@ -68,6 +68,7 @@
     <Image Include="_other\kuvaton-kuka_jatti_ikkunan_auki2.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="_other\stock_exchange.txt" />
     <Text Include="_other\wzrost.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

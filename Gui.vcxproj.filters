@@ -176,5 +176,8 @@
     <Text Include="_other\wzrost.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="_other\stock_exchange.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
