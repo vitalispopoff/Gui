@@ -650,38 +650,7 @@ namespace ch16
 		}
 
 		namespace e08
-		{
-			using namespace Graph_lib;
-
-			enum Curr_symbol
-			{
-				CHF,
-				EUR,
-				GBP,
-				JPY,
-				PLN,
-				USD
-			};
-
-			struct Button_curr : Button
-			{
-				Button_curr (Point p, int w, int h, string & t, Curr_symbol & s) :
-					Button {
-						p, w, h, t, 
-						[] (Address, Address pw) {reference_to<Button_curr> (pw).respond();}
-					},
-					symbol {s}
-				{}
-
-				Curr_symbol
-					symbol;
-
-				void respond()
-				{
-				 cout << label;
-				}
-			};
-
+		{			
 			int main();
 		}
 	}

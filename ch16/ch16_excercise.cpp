@@ -591,30 +591,16 @@ namespace ch16
 
 		namespace e08
 		{
-			using namespace Graph_lib;
-			
 			int main()
 			{
-				string
-					title {""},
-					b_title {"close"};
-				Graph_lib::Window
-					w {{2000, 500}, 600, 400, title};
-				Curr_symbol
-					b_s {JPY};
-				Button_curr
-					b	{
-						{0, 0}, 600, 400, b_title, b_s 
-					};
-				w.attach(b);
+				double 
+					in_value,
+					in_rate,
+					out_rate;
+				while (cin >> in_value >> in_rate >> out_rate)
+					cout << (in_value * in_rate / out_rate) << endl;
 
-				Curr_symbol
-					c {Curr_symbol::JPY};
 
-				cout << b.label;
-
-				while (true)
-					Fl::wait();
 
 				return 0;
 			}
