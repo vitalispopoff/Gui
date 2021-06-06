@@ -651,7 +651,23 @@ namespace ch16
 
 		namespace e08
 		{
+			using namespace Graph_lib;
+			struct Button_curr : Button
+			{
+				Button_curr (Point p, int w, int h, string & t) :
+					Button {
+						p, w, h, t, 
+						[] (Address, Address pw) {reference_to<Button_curr> (pw).respond();}
+					}
+				{}
 
+				void respond()
+				{
+					cout << "boink!\n";
+				}
+			};
+
+			int main();
 		}
 	}
 }

@@ -591,7 +591,27 @@ namespace ch16
 
 		namespace e08
 		{
+			using namespace Graph_lib;
+			
+			int main()
+			{
+				string
+					title {""},
+					b_title {"close"};
+				Graph_lib::Window
+					w {{2000, 500}, 600, 400, title};
+				Button_curr
+					b	{
+						{0, 0}, 600, 400, b_title, 
+						//[] (Address, Address pw) {reference_to<Graph_lib::Window> (pw).hide();}
+					};
+				w.attach(b);
 
+				while (true)
+					Fl::wait();
+
+				return 0;
+			}
 		}
 	}
 }
