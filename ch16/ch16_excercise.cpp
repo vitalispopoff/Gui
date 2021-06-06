@@ -626,7 +626,9 @@ namespace ch16
 					out_rate_index;
 
 				while (cin >> in_value >> in_rate_index >> out_rate_index)
+				{
 					cout << (in_value * rates[in_rate_index] / rates[out_rate_index]) << endl;
+				}
 			}
 
 			using namespace Graph_lib;
@@ -651,6 +653,17 @@ namespace ch16
 					}
 				);
 				window.attach (curr_menu);
+
+				In_box 
+					in_value_box {
+					{curr_menu.loc.x + 50, curr_menu.loc.y + curr_menu.height + 10},
+					50,
+					20,
+					"In"
+				};
+				window.attach (in_value_box);
+
+
 				//operate();
 
 				while (true)
