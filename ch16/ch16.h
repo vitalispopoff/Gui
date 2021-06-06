@@ -651,6 +651,22 @@ namespace ch16
 
 		namespace e08
 		{
+			struct Stock_data
+			{
+				Stock_data (string fn) :
+					filename {fn}
+				{}
+				void load_data();
+				void operate();
+
+				string
+					filename;
+				vector <double>
+					rates;
+				vector <string>
+					symbols;
+			};
+
 			using namespace Graph_lib;
 			using Graph_lib::Window;
 			struct Stock_window : Window
@@ -664,13 +680,18 @@ namespace ch16
 					curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, ""},
 					in_value_box {{60 , curr_menu.loc.y + 30},50, 20, "In"}
 				{
-					curr_menu.attach(new Button{{0, 0}, 0, 0, ""/*symbols[0]*/,
-						[] (Address, Address pw) {reference_to<Stock_window>(pw).act();}
+					curr_menu.attach(new Button{{0, 0}, 0, 0, "CHF",
+						[] (Address, Address pw) {reference_to<Stock_window>(pw).act("CHF");}
+					});
+					curr_menu.attach(new Button{{0, 0}, 0, 0, "EUR",
+						[] (Address, Address pw) {reference_to<Stock_window>(pw).act("EUR");}
 					});
 					attach (curr_menu);			
 					attach (in_value_box);
 				}
-				void act() {}
+				void act(string s)
+				{
+				}
 			};
 
 			void load_data();

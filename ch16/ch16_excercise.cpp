@@ -591,14 +591,14 @@ namespace ch16
 
 		namespace e08
 		{
-			string
-				filename {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
-			vector <double>
-				rates;
-			vector <string>
-				symbols;
+			//string
+			//	filename {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
+			//vector <double>
+			//	rates;
+			//vector <string>
+			//	symbols;
 
-			void load_data()
+			void Stock_data::load_data()
 			{
 				ifstream
 					ifs {filename};
@@ -617,7 +617,7 @@ namespace ch16
 				ifs.close();
 			}
 
-			void operate()
+			void Stock_data::operate()
 			{
 				double 
 					in_value;
@@ -636,7 +636,9 @@ namespace ch16
 
 			int main()
 			{
-				load_data();
+				//load_data();
+				Stock_data
+					sd {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
 				string
 					title;
 				Stock_window
