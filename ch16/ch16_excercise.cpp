@@ -595,8 +595,10 @@ namespace ch16
 				filename {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
 			vector <double>
 				rates;
+			vector <string>
+				symbols;
 
-			void load()
+			void load_data()
 			{
 				ifstream
 					ifs {filename};
@@ -609,6 +611,7 @@ namespace ch16
 				while (ifs >> symbol >> rate)
 				{
 					rates.push_back (rate);
+					symbols.push_back (symbol);
 					cout << symbol << " (" << rate << ") added at : " << rates.size() - 1 << ".\n";
 				}
 				ifs.close();
@@ -625,11 +628,34 @@ namespace ch16
 				while (cin >> in_value >> in_rate_index >> out_rate_index)
 					cout << (in_value * rates[in_rate_index] / rates[out_rate_index]) << endl;
 			}
-			
+
+			using namespace Graph_lib;
+			using Graph_lib::Window;
+
 			int main()
 			{
-				load();
-				operate();
+				load_data();
+				string
+					title;
+				Window
+					window {{2000, 500}, 600, 400, title};
+				Menu
+					curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, title};
+				curr_menu.attach (
+					new Button {
+						{0, 0},
+						0, 
+						0, 
+						symbols[0],
+						[] (Address, Address pw) {reference_to<Window> (pw).hide();}
+					}
+				);
+				window.attach (curr_menu);
+				//operate();
+
+				while (true)
+				 Fl::wait();
+
 
 				return 0;			
 			}

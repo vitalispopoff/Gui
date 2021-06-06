@@ -652,7 +652,8 @@ namespace ch16
 		namespace e08
 		{
 
-			void load();
+			void load_data();
+
 			void operate();
 
 			int main();
