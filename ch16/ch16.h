@@ -651,45 +651,7 @@ namespace ch16
 
 		namespace e08
 		{
-			enum class Currencies
-			{
-				CHF, EUR, GBP, JPY, PLN, USD
-			};
 
-			class Currency_button : public Graph_lib::Widget
-			{
-			public :
-				Currency_button (Point a, int w, int h, string & t, Currencies s) :
-					Widget {
-						a, w, h, t, 
-						[] (Address, Address pw) 
-						{
-							reference_to<Currency_button> (pw).act();
-						}
-					},
-					symbol {s}
-				{}
-
-				void attach(Window & win);
-
-				Currencies act()
-				{
-					return symbol;
-				}
-			protected :
-				Currencies
-					symbol;
-			};
-
-
-			struct Stock_window : Window
-			{
-				Stock_window (Point a, int w, int h, string & t) :
-					Window {a, w, h, t}					
-				{};
-			};
-
-			int main();
 		}
 	}
 }

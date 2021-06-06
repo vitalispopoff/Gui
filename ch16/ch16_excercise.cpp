@@ -591,58 +591,6 @@ namespace ch16
 
 		namespace e08
 		{
-			using namespace Graph_lib;
-			using Graph_lib::Window;
-
-			void Currency_button::attach(Window & win)
-			{
-				pw = new Fl_Button(loc.x, loc.y, width, height, label.c_str());
-				pw -> callback(reinterpret_cast<Fl_Callback *>(do_it), & win);		/// pass the window
-				own = & win;
-			}
-			
-			//Stock_exchange::Stock_exchange (Graph_lib::Point a, int w, int h, string & t) :
-			//	Window {a, w, h, t}
-			//{
-			//	import_exchange_table();
-			//	ready();
-			//}
-			// 
-			//void Stock_exchange::import_exchange_table()
-			//{
-			//	string
-			//		path_absolute {"E:/_LAB/_C/Gui/"},
-			//		path_relative {"_other/"},
-			//		file_name {"stock_exchange"},
-			//		file_extension {"txt"};
-			//	ifstream
-			//		ifs {path_absolute + path_relative + file_name + "." + file_extension};
-			//	if(!ifs)
-			//		error ("can't read file");
-			//	string
-			//		name;
-			//	double
-			//		value {0};
-			//	while (ifs >> name >> value)
-			//	{
-			//		
-			//	}
-			//	ifs.close();
-			}
-
-			//void Stock_exchange::ready()
-			//{
-			//	while(flag_ready)
-			//		Fl::wait();
-			//}
-
-			int main()
-			{				
-				string t {""};
-				//Stock_exchange se {{2000, 500}, 600, 400, t};
-
-				return 0;
-			}
 
 		}
 	}
