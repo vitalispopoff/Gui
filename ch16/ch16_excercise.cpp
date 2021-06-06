@@ -593,16 +593,41 @@ namespace ch16
 		{
 			int main()
 			{
+
+				ifstream
+					ifs {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
+				if (!ifs)
+				{
+					cerr << "can't read the file";
+					Fl::wait(15);
+					return 1;
+				}
+
+				string
+					symbol;
+				double
+					rate {0};
+				vector <double>
+					rates;
+
+				while (ifs >> symbol >> rate)
+				{
+					rates.push_back (rate);
+					cout << symbol << " (" << rate << ") added to the rate chart at the index : " << rates.size() - 1 << ".\n";
+				}
+
+				ifs.close();
+
 				double 
-					in_value,
-					in_rate,
-					out_rate;
-				while (cin >> in_value >> in_rate >> out_rate)
-					cout << (in_value * in_rate / out_rate) << endl;
+					in_value;
+				int
+					in_rate_index,
+					out_rate_index;
 
+				while (cin >> in_value >> in_rate_index >> out_rate_index)
+					cout << (in_value * rates[in_rate_index] / rates[out_rate_index]) << endl;
 
-
-				return 0;
+				return 0;			
 			}
 		}
 	}

@@ -650,7 +650,7 @@ namespace ch16
 		}
 
 		namespace e08
-		{			
+		{						
 			int main();
 		}
 	}
