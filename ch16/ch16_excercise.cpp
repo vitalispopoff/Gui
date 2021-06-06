@@ -591,33 +591,31 @@ namespace ch16
 
 		namespace e08
 		{
-			int main()
+			string
+				filename {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
+			vector <double>
+				rates;
+
+			void load()
 			{
-
 				ifstream
-					ifs {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
+					ifs {filename};
 				if (!ifs)
-				{
 					cerr << "can't read the file";
-					Fl::wait(15);
-					return 1;
-				}
-
 				string
 					symbol;
 				double
 					rate {0};
-				vector <double>
-					rates;
-
 				while (ifs >> symbol >> rate)
 				{
 					rates.push_back (rate);
-					cout << symbol << " (" << rate << ") added to the rate chart at the index : " << rates.size() - 1 << ".\n";
+					cout << symbol << " (" << rate << ") added at : " << rates.size() - 1 << ".\n";
 				}
-
 				ifs.close();
+			}
 
+			void operate()
+			{
 				double 
 					in_value;
 				int
@@ -626,6 +624,12 @@ namespace ch16
 
 				while (cin >> in_value >> in_rate_index >> out_rate_index)
 					cout << (in_value * rates[in_rate_index] / rates[out_rate_index]) << endl;
+			}
+			
+			int main()
+			{
+				load();
+				operate();
 
 				return 0;			
 			}

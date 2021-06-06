@@ -650,7 +650,11 @@ namespace ch16
 		}
 
 		namespace e08
-		{						
+		{
+
+			void load();
+			void operate();
+
 			int main();
 		}
 	}
