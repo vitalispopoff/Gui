@@ -600,12 +600,18 @@ namespace ch16
 					b_title {"close"};
 				Graph_lib::Window
 					w {{2000, 500}, 600, 400, title};
+				Curr_symbol
+					b_s {JPY};
 				Button_curr
 					b	{
-						{0, 0}, 600, 400, b_title, 
-						//[] (Address, Address pw) {reference_to<Graph_lib::Window> (pw).hide();}
+						{0, 0}, 600, 400, b_title, b_s 
 					};
 				w.attach(b);
+
+				Curr_symbol
+					c {Curr_symbol::JPY};
+
+				cout << b.label;
 
 				while (true)
 					Fl::wait();
