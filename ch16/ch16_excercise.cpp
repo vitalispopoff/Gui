@@ -639,29 +639,29 @@ namespace ch16
 				load_data();
 				string
 					title;
-				Window
+				Stock_window
 					window {{2000, 500}, 600, 400, title};
-				Menu
-					curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, title};
-				curr_menu.attach (
-					new Button {
-						{0, 0},
-						0, 
-						0, 
-						symbols[0],
-						[] (Address, Address pw) {reference_to<Window> (pw).hide();}
-					}
-				);
-				window.attach (curr_menu);
+				//Menu
+				//	curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, title};
+				//curr_menu.attach (
+				//	new Button {
+				//		{0, 0},
+				//		0, 
+				//		0, 
+				//		symbols[0],
+				//		[] (Address, Address pw) {reference_to<Window> (pw).hide();}
+				//	}
+				//);
+				//window.attach (curr_menu);
 
-				In_box 
-					in_value_box {
-					{curr_menu.loc.x + 50, curr_menu.loc.y + curr_menu.height + 10},
-					50,
-					20,
-					"In"
-				};
-				window.attach (in_value_box);
+				//In_box 
+				//	in_value_box {
+				//	{curr_menu.loc.x + 50, curr_menu.loc.y + curr_menu.height + 10},
+				//	50,
+				//	20,
+				//	"In"
+				//};
+				//window.attach (in_value_box);
 
 
 				//operate();

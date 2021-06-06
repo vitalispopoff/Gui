@@ -651,6 +651,27 @@ namespace ch16
 
 		namespace e08
 		{
+			using namespace Graph_lib;
+			using Graph_lib::Window;
+			struct Stock_window : Window
+			{
+				Menu
+					curr_menu;
+				In_box 
+					in_value_box;
+				Stock_window (Point p, int w, int h, string & t) :
+					Window {p, w, h, t},
+					curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, ""},
+					in_value_box {{60 , curr_menu.loc.y + 30},50, 20, "In"}
+				{
+					curr_menu.attach(new Button{{0, 0}, 0, 0, ""/*symbols[0]*/,
+						[] (Address, Address pw) {reference_to<Stock_window>(pw).act();}
+					});
+					attach (curr_menu);			
+					attach (in_value_box);
+				}
+				void act() {}
+			};
 
 			void load_data();
 
