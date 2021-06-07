@@ -606,20 +606,12 @@ namespace ch16
 					rates.push_back (rate);
 					symbols.push_back (symbol);
 				}
-				cout << "Loaded.\n";
 				ifs.close();
 			}
 
 			double Stock_data::operate()
 			{
-				//double 
-				//	in_value;
-				//int
-				//	in_rate_index,
-				//	out_rate_index;
-				//while (cin >> in_value >> in_rate_index >> out_rate_index)
-					return in_value * /*rates[*/in_rate/*_index]*/ / /*rates[*/out_rate/*_index]*//*) << endl*/;
-				//in_rate_index = out_rate_index = 0;
+				return in_value * selected_rates[0] / selected_rates[1];
 			}
 
 			using namespace Graph_lib;
@@ -680,36 +672,13 @@ namespace ch16
 						}
 					}
 				};
-
-				if (stock_data.in_rate != 0.)
+				if (stock_data.selected_rates[0] != 0.)
 				{
-					//for (string symbol : stock_data.symbols)
-					//{
-					//	if (s == symbol)
-					//	{
-					//		stock_data.out_rate = stock_data.rates[i];
-					//		break;
-					//	}
-					//	i++;
-					//}
-					load_rate (stock_data.out_rate);
-					cout << "2nd : " << s << " : " << stock_data.out_rate << endl;		
-					
-					//stringstream
-					//	ss;
-					//ss.str(in_value_box.get_string());
-					//double
-					//	in_value;
-					//ss 
-					//	>> in_value;
-					//in_value = in_value * stock_data.in_rate / stock_data.out_rate;
-					//ss 
-					//	<< in_value;
-					//out_value_box.put(ss.str());
+					load_rate (stock_data.selected_rates[1]);
 					return;
 				}
 				for (string symbol : stock_data.symbols)
-					load_rate(stock_data.in_rate);
+					load_rate(stock_data.selected_rates[0]);
 			}
 			int main()
 			{
@@ -727,7 +696,6 @@ namespace ch16
 				while (window.keep_open)
 				{		
 					Fl::wait();
-
 					/// would rather have it triggered by a callback, but In_box ain't eager to work this way...
 					if (window.in_value_box.get_string() != tmp)
 					{
@@ -736,20 +704,14 @@ namespace ch16
 							ss (window.in_value_box.get_string());
 						ss 
 							>> sd.in_value;
-						cout 
-							<< sd.in_value 
-							<< endl;
-						if (sd.in_rate != 0. && sd.out_rate != 0.)
+						if (sd.in_value * sd.selected_rates[0] * sd.selected_rates[1] > 0)
 						{
 							double
 								result = sd.operate();
-							cout << result << endl;
 							window.out_value_box.put(to_string(result));
 						}
 					}
 				}	
-
-
 				return 0;			
 			}
 		}

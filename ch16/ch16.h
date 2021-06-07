@@ -664,7 +664,8 @@ namespace ch16
 				string
 					filename;
 				vector <double>
-					rates;
+					rates,
+					selected_rates {0., 0.};
 				vector <string>
 					symbols;
 				double
