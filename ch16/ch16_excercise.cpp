@@ -642,10 +642,10 @@ namespace ch16
 				stock_data {sd}
 			{
 				curr_menu.attach(new Button{{0, 0}, 0, 0, "CHF",
-					[] (Address, Address pw) {reference_to<Stock_window>(pw).stock_data.load_rate("CHF");}
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("CHF");}
 				});
 				curr_menu.attach(new Button{{0, 0}, 0, 0, "EUR",
-					[] (Address, Address pw) {reference_to<Stock_window>(pw).stock_data.load_rate("EUR");}
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("EUR");}
 				});
 				attach (curr_menu);
 				attach (in_value_box);
@@ -672,29 +672,8 @@ namespace ch16
 
 			void Stock_window::act(string s)
 			{
-				auto load_rate 
-				{ 
-					[&](double & d){
-						int 
-							i {0};
-						for (string symbol : stock_data.symbols)
-						{
-							if (s == symbol)
-							{
-								d = stock_data.rates[i];
-								break;
-							}
-							i++;
-						}
-					}
-				};
-				if (stock_data.selected_rates.front() != 0.)
-				{
-					load_rate (stock_data.selected_rates.back());
-					return;
-				}
-				for (string symbol : stock_data.symbols)
-					load_rate(stock_data.selected_rates.front());
+				stock_data.load_rate(s);
+				out_value_box.put (to_string (stock_data.operate()));
 			}
 
 			int main()
