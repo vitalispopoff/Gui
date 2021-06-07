@@ -722,14 +722,16 @@ namespace ch16
 				Stock_window
 					window {{2000, 500}, 320, 120, title, sd_ref};
 
-				stringstream
-					ss;
+				string
+					tmp;
 				while (window.keep_open)
 				{		
 					Fl::wait();
-					if (window.in_value_box.get_string() != ss.str())
+					if (window.in_value_box.get_string() != tmp)
 					{
-						ss.str(window.in_value_box.get_string());
+						tmp = window.in_value_box.get_string();
+						stringstream
+							ss (window.in_value_box.get_string());
 						ss 
 							>> sd.in_value;
 						cout << sd.in_value << endl;
