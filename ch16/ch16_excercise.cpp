@@ -636,8 +636,8 @@ namespace ch16
 			Stock_window ::Stock_window (Point p, int w, int h, string & t, Stock_data & sd) :
 				Window {p, w, h, t},
 				curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, ""},
-				in_value_box {{60, curr_menu.loc.y + 35},50, 20, "In"},
-				out_value_box{{60, in_value_box.loc.y + 35}, 50, 20, "Out"},
+				in_value_box {{100, curr_menu.loc.y + 35},70, 20, "In"},				
+				out_value_box{{100, in_value_box.loc.y + 35}, 70, 20, "Out"},
 				b_quit {{x_max() - 15, 3}, 12, 12, "x", [] (Address, Address pw) {reference_to <Stock_window>(pw).exit();}},
 				stock_data {sd}
 			{
@@ -646,6 +646,18 @@ namespace ch16
 				});
 				curr_menu.attach(new Button{{0, 0}, 0, 0, "EUR",
 					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("EUR");}
+				});
+				curr_menu.attach(new Button{{0, 0}, 0, 0, "GBP",
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("GBP");}
+				});
+				curr_menu.attach(new Button{{0, 0}, 0, 0, "JPY",
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("JPY");}
+				});
+				curr_menu.attach(new Button{{0, 0}, 0, 0, "PLN",
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("PLN");}
+				});
+				curr_menu.attach(new Button{{0, 0}, 0, 0, "USD",
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("USD");}
 				});
 				attach (curr_menu);
 				attach (in_value_box);
@@ -671,9 +683,16 @@ namespace ch16
 			}
 
 			void Stock_window::act(string s)
-			{
+			{				
 				stock_data.load_rate(s);
 				out_value_box.put (to_string (stock_data.operate()));
+				/// update in/out box descriptions :
+				stock_data.selected_symbols.push_back("(" + s + ")");
+				stock_data.selected_symbols.pop_front();
+				detach(in_value_box);
+				in_value_box.label = stock_data.selected_symbols.front() + " In";
+				attach(in_value_box);
+				out_value_box.label = stock_data.selected_symbols.back() + " Out";
 			}
 
 			int main()

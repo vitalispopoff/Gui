@@ -668,6 +668,8 @@ namespace ch16
 					rates;
 				list <double>
 					selected_rates {0., 0.};
+				list <string>
+					selected_symbols {"", ""};
 				vector <string>
 					symbols;
 				double
