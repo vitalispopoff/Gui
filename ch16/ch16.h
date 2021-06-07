@@ -659,7 +659,7 @@ namespace ch16
 					load_data();
 				}
 				void load_data();
-				void operate();
+				double operate();
 
 				string
 					filename;

@@ -610,16 +610,16 @@ namespace ch16
 				ifs.close();
 			}
 
-			void Stock_data::operate()
+			double Stock_data::operate()
 			{
-				double 
-					in_value;
-				int
-					in_rate_index,
-					out_rate_index;
-				while (cin >> in_value >> in_rate_index >> out_rate_index)
-					cout << (in_value * rates[in_rate_index] / rates[out_rate_index]) << endl;
-				in_rate_index = out_rate_index = 0;
+				//double 
+				//	in_value;
+				//int
+				//	in_rate_index,
+				//	out_rate_index;
+				//while (cin >> in_value >> in_rate_index >> out_rate_index)
+					return in_value * /*rates[*/in_rate/*_index]*/ / /*rates[*/out_rate/*_index]*//*) << endl*/;
+				//in_rate_index = out_rate_index = 0;
 			}
 
 			using namespace Graph_lib;
@@ -727,6 +727,8 @@ namespace ch16
 				while (window.keep_open)
 				{		
 					Fl::wait();
+
+					/// would rather have it triggered by a callback, but In_box ain't eager to work this way...
 					if (window.in_value_box.get_string() != tmp)
 					{
 						tmp = window.in_value_box.get_string();
@@ -734,7 +736,16 @@ namespace ch16
 							ss (window.in_value_box.get_string());
 						ss 
 							>> sd.in_value;
-						cout << sd.in_value << endl;
+						cout 
+							<< sd.in_value 
+							<< endl;
+						if (sd.in_rate != 0. && sd.out_rate != 0.)
+						{
+							double
+								result = sd.operate();
+							cout << result << endl;
+							window.out_value_box.put(to_string(result));
+						}
 					}
 				}	
 
