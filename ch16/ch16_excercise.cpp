@@ -619,6 +619,7 @@ namespace ch16
 					out_rate_index;
 				while (cin >> in_value >> in_rate_index >> out_rate_index)
 					cout << (in_value * rates[in_rate_index] / rates[out_rate_index]) << endl;
+				in_rate_index = out_rate_index = 0;
 			}
 
 			using namespace Graph_lib;

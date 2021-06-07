@@ -667,6 +667,9 @@ namespace ch16
 					rates;
 				vector <string>
 					symbols;
+				double
+					in_rate {0.},
+					out_rate {0.};
 			};
 
 			using namespace Graph_lib;
@@ -691,7 +694,36 @@ namespace ch16
 				void exit();
 				void act(string s)
 				{
-					cout << s << endl;
+					int 
+						i {0};
+					if (stock_data.in_rate != 0.)
+					{
+						for (string symbol : stock_data.symbols)
+						{
+							if (s == symbol)
+							{
+								stock_data.out_rate = stock_data.rates[i];
+								break;
+							}
+							i++;
+						}
+						cout << "2nd : " << s << " : " << stock_data.out_rate << endl;
+						//stock_data.operate(); //v/ !!!
+
+
+
+						return;
+					}
+					for (string symbol : stock_data.symbols)
+					{
+						if (s == symbol)
+						{
+							stock_data.in_rate = stock_data.rates[i];
+							cout << "1st : " << s << " : " << stock_data.out_rate << endl;
+							return;
+						}
+						i++;
+					}
 				}
 			};
 			int main();
