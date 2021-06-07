@@ -668,6 +668,7 @@ namespace ch16
 				vector <string>
 					symbols;
 				double
+					in_value {0.},
 					in_rate {0.},
 					out_rate {0.};
 			};
@@ -690,41 +691,10 @@ namespace ch16
 					& stock_data;
 				
 				Stock_window (Point p, int w, int h, string & t, Stock_data & sd);
-
+				void load_input();
 				void exit();
-				void act(string s)
-				{
-					int 
-						i {0};
-					if (stock_data.in_rate != 0.)
-					{
-						for (string symbol : stock_data.symbols)
-						{
-							if (s == symbol)
-							{
-								stock_data.out_rate = stock_data.rates[i];
-								break;
-							}
-							i++;
-						}
-						cout << "2nd : " << s << " : " << stock_data.out_rate << endl;
-						//stock_data.operate(); //v/ !!!
+				void act(string s);
 
-
-
-						return;
-					}
-					for (string symbol : stock_data.symbols)
-					{
-						if (s == symbol)
-						{
-							stock_data.in_rate = stock_data.rates[i];
-							cout << "1st : " << s << " : " << stock_data.out_rate << endl;
-							return;
-						}
-						i++;
-					}
-				}
 			};
 			int main();
 		}

@@ -626,24 +626,35 @@ namespace ch16
 			using Graph_lib::Window;
 
 			Stock_window ::Stock_window (Point p, int w, int h, string & t, Stock_data & sd) :
-					Window {p, w, h, t},
-					curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, ""},
-					in_value_box {{60, curr_menu.loc.y + 35},50, 20, "In"},
-					out_value_box{{60, in_value_box.loc.y + 35}, 50, 20, "Out"},
-					b_quit {{x_max() - 15, 3}, 12, 12, "x", [] (Address, Address pw) {reference_to <Stock_window>(pw).exit();}},
-					stock_data {sd}
-				{
-					curr_menu.attach(new Button{{0, 0}, 0, 0, "CHF",
-						[] (Address, Address pw) {reference_to<Stock_window>(pw).act("CHF");}
-					});
-					curr_menu.attach(new Button{{0, 0}, 0, 0, "EUR",
-						[] (Address, Address pw) {reference_to<Stock_window>(pw).act("EUR");}
-					});
-					attach (curr_menu);			
-					attach (in_value_box);
-					attach (out_value_box);
-					attach (b_quit);
-				}
+				Window {p, w, h, t},
+				curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, ""},
+				in_value_box {{60, curr_menu.loc.y + 35},50, 20, "In"},
+				out_value_box{{60, in_value_box.loc.y + 35}, 50, 20, "Out"},
+				b_quit {{x_max() - 15, 3}, 12, 12, "x", [] (Address, Address pw) {reference_to <Stock_window>(pw).exit();}},
+				stock_data {sd}
+			{
+				curr_menu.attach(new Button{{0, 0}, 0, 0, "CHF",
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("CHF");}
+				});
+				curr_menu.attach(new Button{{0, 0}, 0, 0, "EUR",
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("EUR");}
+				});
+				attach (curr_menu);
+				attach (in_value_box);
+				attach (out_value_box);
+				attach (b_quit);
+			}
+
+			void Stock_window::load_input()
+			{
+				stringstream
+					ss;
+				ss.str(in_value_box.get_string());
+				double
+					in_value;
+				ss 
+					>> in_value;
+			}
 			void Stock_window::exit()
 			{
 				keep_open = false;
@@ -651,6 +662,55 @@ namespace ch16
 				hide();
 			}
 
+			void Stock_window::act(string s)
+			{
+				auto load_rate 
+				{ 
+					[&](double & d){
+						int 
+							i {0};
+						for (string symbol : stock_data.symbols)
+						{
+							if (s == symbol)
+							{
+								d = stock_data.rates[i];
+								break;
+							}
+							i++;
+						}
+					}
+				};
+
+				if (stock_data.in_rate != 0.)
+				{
+					//for (string symbol : stock_data.symbols)
+					//{
+					//	if (s == symbol)
+					//	{
+					//		stock_data.out_rate = stock_data.rates[i];
+					//		break;
+					//	}
+					//	i++;
+					//}
+					load_rate (stock_data.out_rate);
+					cout << "2nd : " << s << " : " << stock_data.out_rate << endl;		
+					
+					//stringstream
+					//	ss;
+					//ss.str(in_value_box.get_string());
+					//double
+					//	in_value;
+					//ss 
+					//	>> in_value;
+					//in_value = in_value * stock_data.in_rate / stock_data.out_rate;
+					//ss 
+					//	<< in_value;
+					//out_value_box.put(ss.str());
+					return;
+				}
+				for (string symbol : stock_data.symbols)
+					load_rate(stock_data.in_rate);
+			}
 			int main()
 			{
 				string
@@ -662,8 +722,21 @@ namespace ch16
 				Stock_window
 					window {{2000, 500}, 320, 120, title, sd_ref};
 
+				string 
+					tmp {};
 				while (window.keep_open)
-				 Fl::wait();
+				{		
+					Fl::wait();
+					if (window.in_value_box.get_string() != tmp)
+					{
+						tmp = window.in_value_box.get_string();
+						stringstream
+							ss (tmp);
+						ss 
+							>> sd.in_value;
+					}
+				}	
+
 
 				return 0;			
 			}
