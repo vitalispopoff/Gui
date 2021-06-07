@@ -3,7 +3,7 @@
 #include <sstream>
 #include <random>
 #include <chrono>
-//#include <thread>
+#include <list>
 #include <map>
 #include "../_add_libs/PPP2Code/Gui.h"
 
@@ -659,19 +659,19 @@ namespace ch16
 					load_data();
 				}
 				void load_data();
+				void load_rate(string s);
 				double operate();
 
 				string
 					filename;
 				vector <double>
-					rates,
+					rates;
+				list <double>
 					selected_rates {0., 0.};
 				vector <string>
 					symbols;
 				double
-					in_value {0.},
-					in_rate {0.},
-					out_rate {0.};
+					in_value {0.};
 			};
 
 			using namespace Graph_lib;

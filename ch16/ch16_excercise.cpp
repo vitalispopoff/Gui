@@ -609,9 +609,25 @@ namespace ch16
 				ifs.close();
 			}
 
+			void Stock_data::load_rate(string s)
+			{
+				int 
+					i {0};
+				for (string symbol : symbols)
+				{
+					if (s == symbol)
+					{
+						selected_rates.push_back(rates[i]);
+						selected_rates.pop_front();
+						break;
+					}
+					i++;
+				}
+			}
+				
 			double Stock_data::operate()
 			{
-				return in_value * selected_rates[0] / selected_rates[1];
+				return in_value * selected_rates.front() / selected_rates.back();
 			}
 
 			using namespace Graph_lib;
@@ -626,10 +642,10 @@ namespace ch16
 				stock_data {sd}
 			{
 				curr_menu.attach(new Button{{0, 0}, 0, 0, "CHF",
-					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("CHF");}
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).stock_data.load_rate("CHF");}
 				});
 				curr_menu.attach(new Button{{0, 0}, 0, 0, "EUR",
-					[] (Address, Address pw) {reference_to<Stock_window>(pw).act("EUR");}
+					[] (Address, Address pw) {reference_to<Stock_window>(pw).stock_data.load_rate("EUR");}
 				});
 				attach (curr_menu);
 				attach (in_value_box);
@@ -672,14 +688,15 @@ namespace ch16
 						}
 					}
 				};
-				if (stock_data.selected_rates[0] != 0.)
+				if (stock_data.selected_rates.front() != 0.)
 				{
-					load_rate (stock_data.selected_rates[1]);
+					load_rate (stock_data.selected_rates.back());
 					return;
 				}
 				for (string symbol : stock_data.symbols)
-					load_rate(stock_data.selected_rates[0]);
+					load_rate(stock_data.selected_rates.front());
 			}
+
 			int main()
 			{
 				string
@@ -704,7 +721,7 @@ namespace ch16
 							ss (window.in_value_box.get_string());
 						ss 
 							>> sd.in_value;
-						if (sd.in_value * sd.selected_rates[0] * sd.selected_rates[1] > 0)
+						if (sd.in_value * sd.selected_rates.front() * sd.selected_rates.back() > 0)
 						{
 							double
 								result = sd.operate();
