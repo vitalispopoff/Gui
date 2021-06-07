@@ -655,7 +655,9 @@ namespace ch16
 			{
 				Stock_data (string fn) :
 					filename {fn}
-				{}
+				{
+					load_data();
+				}
 				void load_data();
 				void operate();
 
@@ -671,33 +673,27 @@ namespace ch16
 			using Graph_lib::Window;
 			struct Stock_window : Window
 			{
+				bool
+					keep_open {true};
 				Menu
 					curr_menu;
 				In_box 
 					in_value_box;
-				Stock_window (Point p, int w, int h, string & t) :
-					Window {p, w, h, t},
-					curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, ""},
-					in_value_box {{60 , curr_menu.loc.y + 30},50, 20, "In"}
-				{
-					curr_menu.attach(new Button{{0, 0}, 0, 0, "CHF",
-						[] (Address, Address pw) {reference_to<Stock_window>(pw).act("CHF");}
-					});
-					curr_menu.attach(new Button{{0, 0}, 0, 0, "EUR",
-						[] (Address, Address pw) {reference_to<Stock_window>(pw).act("EUR");}
-					});
-					attach (curr_menu);			
-					attach (in_value_box);
-				}
+				Out_box
+					out_value_box;
+				Button
+					b_quit;
+				Stock_data
+					& stock_data;
+				
+				Stock_window (Point p, int w, int h, string & t, Stock_data & sd);
+
+				void exit();
 				void act(string s)
 				{
+					cout << s << endl;
 				}
 			};
-
-			void load_data();
-
-			void operate();
-
 			int main();
 		}
 	}

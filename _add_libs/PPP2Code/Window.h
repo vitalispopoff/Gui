@@ -47,6 +47,11 @@ namespace Graph_lib
 				label(s.c_str()); 
 			}
 
+			int	shapes_size()									//v/ added to make the menu management easier (ch16 e08)
+			{
+				return shapes.size();
+			}
+
 		protected:
 			void	draw		();
      

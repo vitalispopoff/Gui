@@ -591,13 +591,6 @@ namespace ch16
 
 		namespace e08
 		{
-			//string
-			//	filename {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
-			//vector <double>
-			//	rates;
-			//vector <string>
-			//	symbols;
-
 			void Stock_data::load_data()
 			{
 				ifstream
@@ -612,8 +605,8 @@ namespace ch16
 				{
 					rates.push_back (rate);
 					symbols.push_back (symbol);
-					cout << symbol << " (" << rate << ") added at : " << rates.size() - 1 << ".\n";
 				}
+				cout << "Loaded.\n";
 				ifs.close();
 			}
 
@@ -624,53 +617,52 @@ namespace ch16
 				int
 					in_rate_index,
 					out_rate_index;
-
 				while (cin >> in_value >> in_rate_index >> out_rate_index)
-				{
 					cout << (in_value * rates[in_rate_index] / rates[out_rate_index]) << endl;
-				}
 			}
 
 			using namespace Graph_lib;
 			using Graph_lib::Window;
 
+			Stock_window ::Stock_window (Point p, int w, int h, string & t, Stock_data & sd) :
+					Window {p, w, h, t},
+					curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, ""},
+					in_value_box {{60, curr_menu.loc.y + 35},50, 20, "In"},
+					out_value_box{{60, in_value_box.loc.y + 35}, 50, 20, "Out"},
+					b_quit {{x_max() - 15, 3}, 12, 12, "x", [] (Address, Address pw) {reference_to <Stock_window>(pw).exit();}},
+					stock_data {sd}
+				{
+					curr_menu.attach(new Button{{0, 0}, 0, 0, "CHF",
+						[] (Address, Address pw) {reference_to<Stock_window>(pw).act("CHF");}
+					});
+					curr_menu.attach(new Button{{0, 0}, 0, 0, "EUR",
+						[] (Address, Address pw) {reference_to<Stock_window>(pw).act("EUR");}
+					});
+					attach (curr_menu);			
+					attach (in_value_box);
+					attach (out_value_box);
+					attach (b_quit);
+				}
+			void Stock_window::exit()
+			{
+				keep_open = false;
+				Fl::wait(1);
+				hide();
+			}
+
 			int main()
 			{
-				//load_data();
-				Stock_data
-					sd {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"};
 				string
+					filename {"E:/_LAB/_C/Gui/_other/stock_exchange.txt"},
 					title;
+				Stock_data
+					sd {filename},
+					& sd_ref = sd ;
 				Stock_window
-					window {{2000, 500}, 600, 400, title};
-				//Menu
-				//	curr_menu {{10, 10}, 30, 20, Menu::Kind::horizontal, title};
-				//curr_menu.attach (
-				//	new Button {
-				//		{0, 0},
-				//		0, 
-				//		0, 
-				//		symbols[0],
-				//		[] (Address, Address pw) {reference_to<Window> (pw).hide();}
-				//	}
-				//);
-				//window.attach (curr_menu);
+					window {{2000, 500}, 320, 120, title, sd_ref};
 
-				//In_box 
-				//	in_value_box {
-				//	{curr_menu.loc.x + 50, curr_menu.loc.y + curr_menu.height + 10},
-				//	50,
-				//	20,
-				//	"In"
-				//};
-				//window.attach (in_value_box);
-
-
-				//operate();
-
-				while (true)
+				while (window.keep_open)
 				 Fl::wait();
-
 
 				return 0;			
 			}
