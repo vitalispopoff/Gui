@@ -730,5 +730,202 @@ namespace ch16
 				return 0;			
 			}
 		}
+
+		namespace e09
+		{
+			const char 
+				number = '8',
+				quit = 'q',
+				print = '=';
+			const string 
+				prompt = "> ",
+				result = "= ";
+
+			Token_stream::Token_stream() :
+				full(false), buffer(0) 
+			{}
+
+			void Token_stream::putback(Token t) 
+			{
+				if (full)
+					throw runtime_error("putback() into a full buffer");
+				buffer = t;
+				full = true;
+			}
+
+			Token Token_stream::get() 
+			{
+				if (full) 
+				{
+					full = false;
+					return buffer;
+				}
+				char 
+					ch;
+				cin 
+					>> ch;										/// $%^
+				switch (ch) 
+				{
+				case quit: case print: case '!': case '{': case '}': case '(': case ')' :
+					return Token(ch);
+
+				case '+': case '-':
+					return Token(ch);
+
+				case '*': case '/': case '%':
+					return Token(ch);
+
+				case '.': case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9' : 
+					cin.putback(ch);
+					double 
+						val;
+					cin >> val;									/// $%^
+					return Token(number, val);
+
+				default: 
+					throw runtime_error("Bad token");
+				}
+			}
+
+			Token_stream ts;
+
+			double expression();
+
+			double primary() 
+			{
+				Token
+					t = ts.get();
+				switch (t.kind) 
+				{
+				case '{': 
+					double
+						d = expression();
+					t = ts.get();
+					if (t.kind != '}')
+						throw runtime_error("'}' expected");
+					return d;
+
+				case '(': 
+					double
+						d = expression();
+					t = ts.get();
+					if (t.kind != ')')
+						throw runtime_error("')' expected");
+					return d;
+
+				case number:
+					return t.value;
+
+				case'-':
+					return -primary();
+
+				case'+':
+					return primary();
+
+				default:
+					throw runtime_error("primary expected");
+				}
+			}
+
+			double term() {
+				double
+					left = primary();
+				Token
+					t = ts.get();
+				while (true) 
+				{
+					switch (t.kind) 
+					{
+					case '*':
+						left *= primary();
+						t = ts.get();
+						break;
+
+					case '/': 
+						double
+							d = primary();
+						if (d == 0)
+							throw runtime_error("divide by zero");
+						left /= d;
+						t = ts.get();
+						break;
+
+					case '%': 
+						double 
+							d = primary();
+						if (d == 0) 
+							throw runtime_error("divide by zero");
+						left = fmod(left, d);
+						t = ts.get();
+						break;
+
+					default:
+						ts.putback(t);
+						return left;
+					}
+				}
+			}
+
+			double expression() {
+				double
+					left = term();
+				Token
+					t = ts.get();
+				while (true) 
+				{
+					switch (t.kind) 
+					{
+					case '+':
+						left += term();
+						t = ts.get();
+						break;
+
+					case '-':
+						left += term();
+						t = ts.get();
+						break;
+
+					default:
+						t.value = left;
+						ts.putback(t);
+						return left;
+					}
+				}
+			}
+
+			void calculate() {
+
+				while (cin) {
+					cout 
+						<< prompt;
+					Token
+						t = ts.get();
+					while (t.kind == print) 
+						t = ts.get();
+					if (t.kind == quit) 
+						return;
+					ts.putback(t);
+					cout 
+						<< result 
+						<< expression() 
+						<< endl;
+				}
+			}
+
+			int main() {
+				try {
+					calculate();
+					return 0;
+				}
+				catch (exception& e) {
+					cerr << "error: " << e.what() << '\n';
+					return 1;
+				}
+				catch (...) {
+					cerr << "Oops: unknown exception!\n";
+					return 2;
+				}
+			}	
+		}
 	}
 }
