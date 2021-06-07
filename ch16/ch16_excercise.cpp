@@ -733,199 +733,389 @@ namespace ch16
 
 		namespace e09
 		{
-			const char 
-				number = '8',
-				quit = 'q',
-				print = '=';
-			const string 
-				prompt = "> ",
-				result = "= ";
-
-			Token_stream::Token_stream() :
-				full(false), buffer(0) 
-			{}
-
-			void Token_stream::putback(Token t) 
+			double SymbolTable::get(string s)
 			{
-				if (full)
-					throw runtime_error("putback() into a full buffer");
+				for (const Variable & var : varTable)
+					if (var.name == s)
+						return var.value;
+				throw runtime_error("undefined name for a variable: " + s);
+			}
+
+			void SymbolTable::set(string s, double d, bool b)
+			{
+				for(Variable & var : varTable)
+				{
+					if (var.readOnly)
+					{
+						cout << "\n\tThis variable is read-only.\n";
+						return;
+					}
+					var.value = d;
+					var.readOnly = b;
+					return;
+				}
+				throw runtime_error("Undefined name for a variable to set: " + s);
+			}
+
+			bool SymbolTable::isDeclared(string s)
+			{
+				for (const Variable & var : varTable)
+					if (var.name == s)
+						return true;
+				return false;
+			}
+
+			void SymbolTable::declare(Variable v)
+			{
+				varTable.push_back(v);
+			}
+
+			const char 
+				let			{'L'},
+				name		{'a'},
+				number		{'8'},
+				print		{';'},
+				power		{'P'},
+				quit		{'Q'},
+				remember	{'#'},
+				root		{'R'};
+
+			istream & Token_stream::getInputStream()
+			{
+				return inputStream;
+			}
+
+			void Token_stream::unget(Token t)
+			{
 				buffer = t;
 				full = true;
 			}
 
-			Token Token_stream::get() 
+			Token Token_stream::get()
 			{
-				if (full) 
+				if(full)
 				{
 					full = false;
 					return buffer;
 				}
 				char 
-					ch;
-				cin 
-					>> ch;										/// $%^
-				switch (ch) 
+					c;
+				inputStream 
+					>> c;
+				switch (c)
 				{
-				case quit: case print: case '!': case '{': case '}': case '(': case ')' :
-					return Token(ch);
-
-				case '+': case '-':
-					return Token(ch);
-
-				case '*': case '/': case '%':
-					return Token(ch);
-
-				case '.': case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9' : 
-					cin.putback(ch);
-					double 
-						val;
-					cin >> val;									/// $%^
-					return Token(number, val);
-
-				default: 
-					throw runtime_error("Bad token");
-				}
-			}
-
-			Token_stream ts;
-
-			double expression();
-
-			double primary() 
-			{
-				Token
-					t = ts.get();
-				switch (t.kind) 
-				{
-				case '{': 
-					double
-						d = expression();
-					t = ts.get();
-					if (t.kind != '}')
-						throw runtime_error("'}' expected");
-					return d;
-
-				case '(': 
-					double
-						d = expression();
-					t = ts.get();
-					if (t.kind != ')')
-						throw runtime_error("')' expected");
-					return d;
-
-				case number:
-					return t.value;
-
-				case'-':
-					return -primary();
-
-				case'+':
-					return primary();
-
-				default:
-					throw runtime_error("primary expected");
-				}
-			}
-
-			double term() {
-				double
-					left = primary();
-				Token
-					t = ts.get();
-				while (true) 
-				{
-					switch (t.kind) 
-					{
-					case '*':
-						left *= primary();
-						t = ts.get();
-						break;
-
-					case '/': 
-						double
-							d = primary();
-						if (d == 0)
-							throw runtime_error("divide by zero");
-						left /= d;
-						t = ts.get();
-						break;
-
-					case '%': 
-						double 
-							d = primary();
-						if (d == 0) 
-							throw runtime_error("divide by zero");
-						left = fmod(left, d);
-						t = ts.get();
-						break;
+					case '(':	case '+':	case '*':
+					case ')':	case '-':	case '/':
+					case '=':	case ';':	case '%':
+					case '#':
+						return Token(c);
 
 					default:
-						ts.putback(t);
-						return left;
+					{
+						if(c == '.' || isdigit(c))
+						{
+							inputStream.unget();
+							double 
+								d;
+							inputStream 
+								>> d;
+							return Token(number,d);
+						};
+
+						if (c == '_' || isalpha(c))
+						{
+							string 
+								s;
+							s += c;
+							while (inputStream.get(c) && (isalpha(c) || isdigit(c) || c == '_'))
+								s += c;
+
+							inputStream.unget();
+							if (s == "let")
+								return Token(let);
+
+							if (s == "quit" || s == "exit")
+								return Token(quit);
+
+							if (s == "sqrt")
+								return Token(root);
+
+							if (s == "pow")
+								return Token(power);
+
+							return Token(name,s);
+						};
+						throw runtime_error("Bad token: ");
 					}
 				}
 			}
 
-			double expression() {
-				double
-					left = term();
-				Token
+			void Token_stream::ignore(char c)
+			{
+				full = false;
+				if (c == buffer.kind)
+					return;
+				char 
+					input;
+				while (inputStream >> input)
+					if (input == c)
+						return;
+			}
+
+			double primary(Token_stream & ts, SymbolTable & table)
+			{
+				Token 
 					t = ts.get();
-				while (true) 
+				switch (t.kind)
 				{
-					switch (t.kind) 
+					case '(':
+					{
+						double 
+							d = expression(ts, table);
+						t = ts.get();
+						if (t.kind != ')')
+							throw runtime_error("')' expected");
+						else
+							return d;
+					}
+
+					case power:
+					{
+						t = ts.get();
+						if (t.kind != '(')
+							throw runtime_error("'(' expected");
+
+						double 
+							d1 = expression(ts, table);
+						t = ts.get();
+						if (t.kind != ';')
+							throw runtime_error("';' expected");
+						double 
+							d2 = expression(ts, table);
+						t = ts.get();
+						if (t.kind != ')')
+							throw runtime_error("')' expected");
+						return pow(d1,d2);
+					}
+
+					case root:
+					{
+						double d = primary(ts, table);
+						if(d < 0)
+							throw runtime_error("positive number for the root expected (imaginary numbers are not supported).");
+						return sqrt(d);
+					}
+
+					case '-':
+						return -primary(ts, table);
+
+					case number:
+						return t.value;
+
+					case name:
+						return table.get(t.tokenName);
+
+					default:
+						throw runtime_error("primary expected");
+				}
+			}
+
+			double term(Token_stream & ts,SymbolTable & table)
+			{
+				double 
+					d = primary(ts, table);
+				while (true)
+				{
+					Token 
+						t = ts.get();
+					switch (t.kind)
+					{
+					
+					case '/':
+					{
+						double 
+							denominator = primary(ts, table);
+						if (denominator == 0)
+							throw runtime_error("divide by zero");
+						d /= denominator;
+						break;
+					}
+
+					case '*':
+						d *= primary(ts, table); 
+						break;
+
+					default:					
+						ts.unget(t);
+						return d;					
+					}
+				}
+			}
+
+			double expression(Token_stream & ts,SymbolTable & table)
+			{
+				double 
+					d = term(ts, table);
+				while (true)
+				{
+					Token 
+						t = ts.get();
+					switch (t.kind)
 					{
 					case '+':
-						left += term();
-						t = ts.get();
+						d += term(ts, table); 
 						break;
 
 					case '-':
-						left += term();
-						t = ts.get();
+						d -= term(ts, table); 
 						break;
 
 					default:
-						t.value = left;
-						ts.putback(t);
-						return left;
+						ts.unget(t);
+						return d;
 					}
 				}
 			}
 
-			void calculate() {
+			double declaration(Token_stream & ts, SymbolTable & table)
+			{
+				vector <string>
+					messages {
+					"name expected in declaration",
+					" declared twice",
+					"= missing in declaration of ",
+				};
+				Token 
+					t1 = ts.get();
+				if (t1.kind != 'a')
+					throw runtime_error(messages[0]);
+				string 
+					name = t1.tokenName;
+				if (table.isDeclared(name))
+					throw runtime_error(name + " " + messages[1]);
+				Token 
+					t2 = ts.get();
+				if (t2.kind != '=')
+					throw runtime_error(messages[2] + " " + name);
+				double 
+					d = expression(ts, table);
+				Variable 
+					v = Variable(name,d);
+				table.declare(v);
+				return d;
+			}
 
-				while (cin) {
-					cout 
-						<< prompt;
-					Token
+			double statement(Token_stream & ts, SymbolTable & table)
+			{
+				Token 
+					t = ts.get();
+				bool 
+					b {false};
+				while (true)
+				{
+					switch (t.kind)
+					{
+					case let:
+						return declaration(ts,table);
+
+					case remember:
 						t = ts.get();
-					while (t.kind == print) 
-						t = ts.get();
-					if (t.kind == quit) 
-						return;
-					ts.putback(t);
-					cout 
-						<< result 
-						<< expression() 
-						<< endl;
+						b = true;
+
+					case name:
+						char 
+							c;
+						if (cin >> c && c == '=' && table.isDeclared(t.tokenName))
+						{
+							double 
+								d = expression(ts, table);
+							table.set(t.tokenName,d,b);
+							return table.get(t.tokenName);
+						}
+						ts.getInputStream().unget();
+
+					default:
+						ts.unget(t);
+						return expression(ts, table);
+					};
 				}
 			}
 
-			int main() {
-				try {
-					calculate();
+			const string 
+				prompt = "> ",
+				result = "= ";
+
+			void setConstants(SymbolTable &table)
+			{
+				table.declare(Variable("pi", 3.141592628, true));
+			}
+
+			void calculate(Token_stream ts, SymbolTable & table)
+			{
+				while (true)
+				{
+					try
+					{
+						cout 
+							<< prompt;
+						Token 
+							t = ts.get();
+						while (t.kind == print)
+							t = ts.get();
+						if (t.kind == quit)
+							return;
+						ts.unget(t);
+						cout
+							<< result 
+							<< statement(ts, table) 
+							<< endl;
+						ts.get();
+					}
+					catch (runtime_error & e)
+					{
+						cerr
+							<< e.what() 
+							<< endl;
+						ts.ignore(print);
+					}
+				}
+			}
+
+			int main()
+			{
+				try
+				{
+					Token_stream 
+						ts;
+					SymbolTable 
+						table;
+					setConstants(table);
+					calculate(ts, table);
 					return 0;
 				}
-				catch (exception& e) {
-					cerr << "error: " << e.what() << '\n';
+				catch (exception & e)
+				{
+					cerr
+						<< "exception: " 
+						<< e.what() 
+						<< endl;
+					char 
+						c;
+					while (cin >> c && c != ';') 
+					{};
 					return 1;
 				}
-				catch (...) {
-					cerr << "Oops: unknown exception!\n";
+				catch(...)
+				{
+					cerr
+						<< "exception\n";
+					char 
+						c;
+					while (cin >> c && c != ';') 
+					{};
 					return 2;
 				}
-			}	
+			}
 		}
 	}
 }
