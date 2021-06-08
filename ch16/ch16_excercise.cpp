@@ -1081,10 +1081,79 @@ namespace ch16
 				}
 			}
 
+			int main_1()
+			{
+				stringstream
+					ss;
+				cin.rdbuf(ss.rdbuf());
+				ss << "dupa";
+				string s;
+				//ss >> s;
+				cout << s;
+				return 0;
+			}
+
+
+
 			int main()
+			{
+				using namespace Graph_lib;
+				string
+					t;
+				struct a_window : Graph_lib::Window
+				{
+					a_window (Point p, int w, int h, string & t) :
+						Window {p, w, h, t},
+						inbox {{10, 50}, 300, 20, ""},
+						outbox{{10, 90}, 300, 20, ""},
+						calculate {
+							{10, 10}, 20, 20, "=", 
+							[] (Address, Address pw) {reference_to<a_window>(pw).do_math();}
+						},
+						close {
+							{305, 3}, 12, 12, "x", 
+							[] (Address, Address pw) {reference_to<a_window>(pw).quit();}
+						}
+					{
+						attach(inbox);
+						attach(outbox);
+						attach(close);
+						attach(calculate);
+					}
+					void quit()
+					{
+						keep_open = false;
+						hide();
+					}
+					void do_math()
+					{
+						outbox.put (inbox.get_string() + " =");
+					}
+					bool
+						keep_open {true};
+					In_box
+						inbox;
+					Out_box
+						outbox;
+					Button
+						calculate,
+						close;
+				};
+
+				a_window
+					w {{2000, 500}, 320, 120, t};
+				while (w.keep_open)
+					Fl::wait();
+				return 0;
+			}
+
+
+
+			int main_()
 			{
 				try
 				{
+
 					Token_stream 
 						ts;
 					SymbolTable 
