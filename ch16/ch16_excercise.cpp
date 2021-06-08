@@ -799,7 +799,7 @@ namespace ch16
 					return buffer;
 				}
 				char 
-					c;
+					c /*(inputStream.get())*/;
 				inputStream 
 					>> c;
 				switch (c)
@@ -1050,7 +1050,7 @@ namespace ch16
 				table.declare(Variable("pi", 3.141592628, true));
 			}
 
-			void calculate(Token_stream ts, SymbolTable & table)
+			double /*void */calculate(Token_stream ts, SymbolTable & table)
 			{
 				while (true)
 				{
@@ -1063,13 +1063,9 @@ namespace ch16
 						while (t.kind == print)
 							t = ts.get();
 						if (t.kind == quit)
-							return;
+							return NAN;
 						ts.unget(t);
-						cout
-							<< result 
-							<< statement(ts, table) 
-							<< endl;
-						ts.get();
+						return statement (ts, table);
 					}
 					catch (runtime_error & e)
 					{
@@ -1077,25 +1073,57 @@ namespace ch16
 							<< e.what() 
 							<< endl;
 						ts.ignore(print);
+						throw e;
 					}
 				}
 			}
 
-			int main_1()
+			int main_3()
 			{
 				stringstream
+					ss {"a01234"};
+				cout << char(ss.get()) << endl;
+				ss.unget();
+				string s;
+				ss >> s;
+				cout << s;
+
+
+				return 0;
+
+			}
+
+			int main()
+			{
+				//stringstream
+				//	ss;
+				//cin.rdbuf(ss.rdbuf());
+				//ss << "dupa";
+				//string s;
+				////ss >> s;
+				//cout << s;
+				//return 0;
+
+				streambuf 
+					* cin_buff = cin.rdbuf();
+				stringstream 
 					ss;
 				cin.rdbuf(ss.rdbuf());
-				ss << "dupa";
-				string s;
-				//ss >> s;
-				cout << s;
+				Token_stream 
+					ts;
+				SymbolTable 
+					table;
+				setConstants(table);
+				string s {"1+1="};
+				ss 
+					<< s;
+				cout << calculate(ts, table);
+
 				return 0;
 			}
 
 
-
-			int main()
+			int main_2()
 			{
 				using namespace Graph_lib;
 				string
@@ -1128,6 +1156,7 @@ namespace ch16
 					void do_math()
 					{
 						outbox.put (inbox.get_string() + " =");
+						string s {inbox.get_string() + " ="};
 					}
 					bool
 						keep_open {true};
@@ -1147,13 +1176,10 @@ namespace ch16
 				return 0;
 			}
 
-
-
 			int main_()
 			{
 				try
 				{
-
 					Token_stream 
 						ts;
 					SymbolTable 
