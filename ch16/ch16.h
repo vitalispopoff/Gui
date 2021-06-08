@@ -863,8 +863,6 @@ namespace ch16
 				enum class Functions
 				{
 					LOG,
-					TAG,
-					COT,
 					PWR,
 					HIP,
 					SIN
@@ -873,6 +871,9 @@ namespace ch16
 					Window {p, w, h, t}
 				{
 					menu_functions.attach (new Button {{0, 0}, 0, 0, "log", [] (Address, Address pw) {reference_to<Prev_window> (pw).prev_function(Functions::LOG);}});
+					menu_functions.attach (new Button {{0, 0}, 0, 0, "pwr", [] (Address, Address pw) {reference_to<Prev_window> (pw).prev_function(Functions::PWR);}});
+					menu_functions.attach (new Button {{0, 0}, 0, 0, "hip", [] (Address, Address pw) {reference_to<Prev_window> (pw).prev_function(Functions::HIP);}});
+					menu_functions.attach (new Button {{0, 0}, 0, 0, "sin", [] (Address, Address pw) {reference_to<Prev_window> (pw).prev_function(Functions::SIN);}});
 					attach (menu_functions);
 					attach(x);
 					attach(y);
@@ -890,7 +891,10 @@ namespace ch16
 				Vector_ref<Function>
 					functions_available 
 					{
-						new Function {[] (double x){return log(x);}, -25., 25., {300, 200}, 100, 10., 10.}
+						new Function {[] (double x){return log(x);}, -25., 25., {300, 200}, 100, 10., 10.},
+						new Function {[] (double x){return x * x;},  -25., 25., {300, 200}, 100, 10., 10.},
+						new Function {[] (double x){return 1 / x;},  -25., 25., {300, 200}, 100, 10., 10.},
+						new Function {[] (double x){return sin(x);},  -25., 25., {300, 200}, 100, 10., 10.},
 					};
 				Button
 					b_quit {{x_max() - 15, 3}, 12, 12, "x", [] (Address, Address pw) {reference_to<Prev_window>(pw).quit();}};
@@ -922,9 +926,7 @@ namespace ch16
 						Fl::wait();
 					}
 				}
-
-			};
-			
+			};			
 			int main();			
 		}
 	}
