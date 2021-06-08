@@ -1069,7 +1069,8 @@ namespace ch16
 					}
 					catch (runtime_error & e)
 					{
-						cerr
+						cerr 
+							<< "caught by calculate(): "
 							<< e.what() 
 							<< endl;
 						ts.ignore(print);
@@ -1095,15 +1096,6 @@ namespace ch16
 
 			int main()
 			{
-				//stringstream
-				//	ss;
-				//cin.rdbuf(ss.rdbuf());
-				//ss << "dupa";
-				//string s;
-				////ss >> s;
-				//cout << s;
-				//return 0;
-
 				streambuf 
 					* cin_buff = cin.rdbuf();
 				stringstream 
@@ -1114,10 +1106,36 @@ namespace ch16
 				SymbolTable 
 					table;
 				setConstants(table);
-				string s {"1+1="};
-				ss 
-					<< s;
-				cout << calculate(ts, table);
+				bool 
+					keep_open {true};
+				string 
+					t, s;
+				Graph_lib::Window
+					w {{2000, 500}, 320, 120, t};
+				Graph_lib::In_box
+					inbox {{10, 50}, 300, 20, ""};
+				w.attach(inbox);
+				Graph_lib::Out_box
+					outbox {{10, 80}, 300, 20, ""};
+				w.attach(outbox);
+
+				while (keep_open)
+				{
+					Fl::wait();
+					if (s != inbox.get_string())
+					{
+						s = inbox.get_string();
+						ss.put(s.back());
+						if (s.back() == '=')
+						{ 
+							double 
+								d  = calculate (ts, table);
+							cout << "delivered " << d;
+							ss.ignore(s.size());
+							s = "";
+						}
+					}
+				}
 
 				return 0;
 			}
