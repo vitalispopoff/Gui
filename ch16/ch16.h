@@ -783,8 +783,70 @@ namespace ch16
 				void ignore(char);
 			};
 			
+			double primary (Token_stream &, SymbolTable &);
+			double term (Token_stream &, SymbolTable &);
 			double expression(Token_stream &, SymbolTable &);
+			double declaration (Token_stream &, SymbolTable &);
+			double statement (Token_stream &, SymbolTable &);
+			void setConstants (SymbolTable &);
+			double calculate (Token_stream &, SymbolTable &);
 
+			using namespace Graph_lib;
+			using Graph_lib::Window;
+			struct Calc_window : Window
+			{
+				Calc_window	(Point p, int w, int h, string & t) :
+					Window {p, w, h, t}				
+				{
+					cin.rdbuf(ss.rdbuf());
+					setConstants(table);
+					attach (b_quit);
+					attach (b_calc);
+					attach(outbox);
+					attach(inbox);
+				}
+				stringstream
+					ss;
+				Token_stream 
+					ts;
+				SymbolTable 
+					table;
+				bool
+					keep_open {true};
+				In_box
+					inbox {{10, 50}, 300, 20, ""};
+				Button
+					b_quit {{x_max() - 15, 3}, 12, 12, "x",[] (Address, Address pw) {reference_to<Calc_window>(pw).quit();}},
+					b_calc {{10, 10}, 20, 20, "=",[] (Address, Address pw) {reference_to<Calc_window>(pw).do_math();}};
+				Out_box
+					outbox {{10, 80}, 300, 20, ""};
+				void quit()
+				{
+					keep_open = false;
+					hide();
+				}
+				void do_math() 
+				{
+					bool has_equal_sign {false};
+					string s = inbox.get_string();
+					for (char c : s)
+					{
+						if (c == '=')
+							has_equal_sign = true;
+						ss.put(c);
+					}
+					if (! has_equal_sign)
+						ss.put('=');
+					double d = calculate(ts, table);
+					outbox.put(to_string(d));
+				}
+
+				void run_window()
+				{
+					while (keep_open)
+						Fl::wait();					
+				}
+			};
 			int main();
 		}
 	}

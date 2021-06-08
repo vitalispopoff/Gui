@@ -799,7 +799,7 @@ namespace ch16
 					return buffer;
 				}
 				char 
-					c /*(inputStream.get())*/;
+					c ;//(inputStream.get());
 				inputStream 
 					>> c;
 				switch (c)
@@ -1045,12 +1045,12 @@ namespace ch16
 				prompt = "> ",
 				result = "= ";
 
-			void setConstants(SymbolTable &table)
+			void setConstants(SymbolTable & table)
 			{
 				table.declare(Variable("pi", 3.141592628, true));
 			}
 
-			double /*void */calculate(Token_stream ts, SymbolTable & table)
+			double /*void */calculate(Token_stream & ts, SymbolTable & table)
 			{
 				while (true)
 				{
@@ -1079,6 +1079,57 @@ namespace ch16
 				}
 			}
 
+			int main()
+			{
+				//streambuf 
+				//	* cin_buff = cin.rdbuf();
+				//stringstream 
+				//	ss;
+				//cin.rdbuf(ss.rdbuf());
+				//Token_stream 
+				//	ts;
+				//SymbolTable 
+				//	table;
+				//setConstants(table);
+				//bool 
+				//	keep_open {true};
+				//Graph_lib::Window
+				//	w {{2000, 500}, 320, 120, t};
+				//Graph_lib::In_box
+				//	inbox {{10, 50}, 300, 20, ""};
+				//w.attach(inbox);
+				//Graph_lib::Out_box
+				//	outbox {{10, 80}, 300, 20, ""};
+				//w.attach(outbox);
+				string 
+					t, s;
+				Calc_window 
+					w {{2000, 500}, 320, 120, t};
+				w.run_window();
+
+
+				/*while (w.keep_open)
+				{
+					Fl::wait();
+					if (s != w.inbox.get_string())
+					{
+						s = w.inbox.get_string();
+						ss.put(s.back());
+						if (s.back() == '=')
+						{ 
+							double 
+								d  = calculate (ts, table);
+							cout 
+								<< "delivered " 
+								<< d;
+							ss.ignore(s.size());
+						}
+					}
+				}*/
+
+				return 0;
+			}
+			
 			int main_3()
 			{
 				stringstream
@@ -1093,53 +1144,6 @@ namespace ch16
 				return 0;
 
 			}
-
-			int main()
-			{
-				streambuf 
-					* cin_buff = cin.rdbuf();
-				stringstream 
-					ss;
-				cin.rdbuf(ss.rdbuf());
-				Token_stream 
-					ts;
-				SymbolTable 
-					table;
-				setConstants(table);
-				bool 
-					keep_open {true};
-				string 
-					t, s;
-				Graph_lib::Window
-					w {{2000, 500}, 320, 120, t};
-				Graph_lib::In_box
-					inbox {{10, 50}, 300, 20, ""};
-				w.attach(inbox);
-				Graph_lib::Out_box
-					outbox {{10, 80}, 300, 20, ""};
-				w.attach(outbox);
-
-				while (keep_open)
-				{
-					Fl::wait();
-					if (s != inbox.get_string())
-					{
-						s = inbox.get_string();
-						ss.put(s.back());
-						if (s.back() == '=')
-						{ 
-							double 
-								d  = calculate (ts, table);
-							cout << "delivered " << d;
-							ss.ignore(s.size());
-							s = "";
-						}
-					}
-				}
-
-				return 0;
-			}
-
 
 			int main_2()
 			{

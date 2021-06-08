@@ -18,7 +18,7 @@ namespace Graph_lib
 	class Widget												/// We try to keep our interface classes at arm's length from FLTK
 	{
 		public:
-			Widget(Point xy, int w, int h, const string& s, Callback cb)
+			Widget(Point xy, int w, int h, const string & s, Callback cb)
 				: loc(xy), width(w), height(h), label(s), do_it(cb)
 			{}
 
@@ -64,7 +64,7 @@ namespace Graph_lib
 
 		protected:
 			Window * own;										/// every Widget belongs to a Window
-			Fl_Widget *pw;
+			Fl_Widget * pw;
 		private:
 			Widget & operator = (const Widget &);				/// don't copy Widgets
 			Widget(const Widget &);
@@ -81,19 +81,19 @@ namespace Graph_lib
 
 	struct In_box : Widget 
 	{
-		In_box(Point xy, int w, int h, const string &s): 
+		In_box(Point xy, int w, int h, const string & s): 
 			Widget(xy, w, h, s, 0)
 		{}
 		int get_int();
 		string get_string();
 
-		void attach(Window& win);
+		void attach(Window & win);
 	};
 
 	struct Out_box : Widget 
 	{
 		//Out_box(Point xy, int w, int h, const string &s, Window& win)
-		Out_box(Point xy, int w, int h, const string &s) : 
+		Out_box(Point xy, int w, int h, const string & s) : 
 			Widget(xy, w, h, s, 0)
 		{}
 		
