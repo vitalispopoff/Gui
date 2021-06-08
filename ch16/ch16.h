@@ -862,7 +862,33 @@ namespace ch16
 			{
 				Prev_window (Point p, int w, int h, string & t) :
 					Window {p, w, h, t}
-				{}
+				{
+					attach(x);
+					attach(y);
+					attach (b_quit);
+				}
+				Axis
+				x	{Axis::Orientation::x, {10, 200}, 580, 58, ""},
+				y	{Axis::Orientation::y, {300, 390}, 380, 38, ""};
+
+				bool
+					keep_open {true};
+				Button
+					b_quit {{x_max() - 15, 3}, 12, 12, "x", [] (Address, Address pw) {reference_to<Prev_window>(pw).quit();}};
+				
+				void quit()
+				{
+					keep_open = false;
+					hide();
+				}
+				void run_window()
+				{
+					while (keep_open)
+					{
+						Fl::wait();
+					}
+				}
+
 			};
 			
 			int main();			
