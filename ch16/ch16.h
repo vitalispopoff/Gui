@@ -827,8 +827,10 @@ namespace ch16
 				}
 				void do_math() 
 				{
-					bool has_equal_sign {false};
-					string s = inbox.get_string();
+					bool 
+						has_equal_sign {false};
+					string 
+						s = inbox.get_string();
 					for (char c : s)
 					{
 						if (c == '=')
@@ -837,7 +839,8 @@ namespace ch16
 					}
 					if (! has_equal_sign)
 						ss.put('=');
-					double d = calculate(ts, table);
+					double 
+						d = calculate(ts, table);
 					outbox.put(to_string(d));
 				}
 
@@ -848,6 +851,21 @@ namespace ch16
 				}
 			};
 			int main();
+		}
+
+		namespace e10
+		{
+			using namespace Graph_lib;
+			using Graph_lib::Window;
+
+			struct Prev_window : Window
+			{
+				Prev_window (Point p, int w, int h, string & t) :
+					Window {p, w, h, t}
+				{}
+			};
+			
+			int main();			
 		}
 	}
 }

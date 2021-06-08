@@ -1234,5 +1234,20 @@ namespace ch16
 				}
 			}
 		}
+
+		namespace e10
+		{
+			
+			int main()
+			{
+				string t;
+				Prev_window
+					w {{2000, 500}, 600, 400, t};
+				while (true)
+					Fl::wait();
+
+				return 0;
+			}
+		}
 	}
 }
