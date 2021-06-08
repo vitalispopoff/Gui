@@ -1244,10 +1244,6 @@ namespace ch16
 				Prev_window
 					w {{2000, 500}, 600, 400, t};
 
-
-				//while (true)
-				//	Fl::wait();
-
 				w.run_window();
 				return 0;
 			}

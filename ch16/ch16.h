@@ -860,22 +860,56 @@ namespace ch16
 
 			struct Prev_window : Window
 			{
+				enum class Functions
+				{
+					LOG,
+					TAG,
+					COT,
+					PWR,
+					HIP,
+					SIN
+				};
 				Prev_window (Point p, int w, int h, string & t) :
 					Window {p, w, h, t}
 				{
+					menu_functions.attach (new Button {{0, 0}, 0, 0, "log", [] (Address, Address pw) {reference_to<Prev_window> (pw).prev_function(Functions::LOG);}});
+					attach (menu_functions);
 					attach(x);
 					attach(y);
 					attach (b_quit);
 				}
 				Axis
-				x	{Axis::Orientation::x, {10, 200}, 580, 58, ""},
-				y	{Axis::Orientation::y, {300, 390}, 380, 38, ""};
-
+				x	{Axis::Orientation::x, {10, 200}, 580, 0 * 58, ""},
+				y	{Axis::Orientation::y, {300, 390}, 380, 0 * 38, ""};
+				Menu
+					menu_functions {{3, 3}, 20, 20, Menu::Kind::horizontal, ""};
 				bool
 					keep_open {true};
+				vector<bool>
+					functions_to_prev {false, false, false, false, false, false}; // sadly fill constructor doesn't seem to be working (https://www.cplusplus.com/reference/vector/vector/vector/)
+				Vector_ref<Function>
+					functions_available 
+					{
+						new Function {[] (double x){return log(x);}, -25., 25., {300, 200}, 100, 10., 10.}
+					};
 				Button
 					b_quit {{x_max() - 15, 3}, 12, 12, "x", [] (Address, Address pw) {reference_to<Prev_window>(pw).quit();}};
-				
+				Function
+					f_log {[] (double x){return log(x);}, -25., 25., {300, 200}, 100, 10., 10.};
+				void prev_function(Functions f)
+				{
+					int 
+						index = static_cast<int>(f);
+					functions_to_prev[index] = ! functions_to_prev[index];
+					if(functions_to_prev[index])
+					{
+						attach(functions_available[index]);
+						Fl::redraw();
+						return;
+					}
+					detach(functions_available[index]);
+					Fl::redraw();
+				}
 				void quit()
 				{
 					keep_open = false;

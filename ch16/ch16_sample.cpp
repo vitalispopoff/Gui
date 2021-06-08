@@ -70,6 +70,7 @@ namespace ch16
 
 		namespace s08
 		{
+
 			Lines_window::Lines_window (Point xy, int w, int h, const string & title) :
 				Window {xy, w, h, title},
 				next_button {
@@ -144,6 +145,7 @@ namespace ch16
 
 		namespace s09
 		{
+
 			Lines_window::Lines_window (Point xy, int w, int h, const string & title) :
 				s08::Lines_window (xy, w, h, title),
 				color_menu {
