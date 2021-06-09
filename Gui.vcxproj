@@ -35,6 +35,7 @@
     <ClCompile Include="ch16\ch16_drill.cpp" />
     <ClCompile Include="ch16\ch16_excercise.cpp" />
     <ClCompile Include="ch16\ch16_sample.cpp" />
+    <ClCompile Include="ch17\ch17_samples.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Graph.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Gui.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="ch15\ch15_excercise.h" />
     <ClInclude Include="ch15\ch15_sample.h" />
     <ClInclude Include="ch16\ch16.h" />
+    <ClInclude Include="ch17\ch17.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="_add_libs\PPP2Code\fltk.h" />
     <ClInclude Include="_add_libs\PPP2Code\Graph.h" />
