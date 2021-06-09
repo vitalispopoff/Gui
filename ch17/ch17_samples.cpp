@@ -35,23 +35,11 @@ namespace ch17
 		}
 
 		namespace s02
-		{
-			class m_vector 
+		{		
+			int m_vector::size() const 
 			{
-				int
-					sz;
-				double
-					* elem;
-			public:
-				m_vector (int s) :
-					sz {s}
-				{}
-
-				int size() const 
-				{
-					return sz;
-				}
-			};
+				return sz;
+			}
 		}
 
 		namespace s03
@@ -267,7 +255,103 @@ namespace ch17
 
 				return keep_open();
 			}
+		}
 
+		namespace s08
+		{
+			void example_01()
+			{
+				char
+					* p = nullptr;
+				auto f = [&]
+				{
+					char
+						i = '@';
+					p = & i;
+				};
+				f();
+				cout << * p << endl;
+			}
+			void example_02()
+			{
+				int
+					* p = nullptr;
+				auto f = [&]
+				{
+					p = new int[1];
+				};
+				f();
+				cout << bool(p) << endl;
+				if (p)
+					cout 
+						<< p << " : "
+						<< * p 
+						<< endl;
+				delete p;
+				cout << bool(p) << endl;
+				if (p)
+					cout 
+						<< p << " : "
+						//<< * p	// exception : read access violation
+						<< endl;			
+			}
+
+			int main()
+			{
+				//example_01();
+				example_02();
+
+
+				return keep_open();
+			}
+		}
+
+		namespace s09
+		{
+			m_vector::m_vector (int s) :
+				sz {s},
+				elem {new double[s]}
+			{
+				for (int i = 0; i < s; ++i)
+					elem[i] = 0;
+			}
+
+			int m_vector::size() const 
+			{
+				return sz;
+			}
+		}
+
+		namespace s10
+		{
+			int main()
+			{
+				TB303
+					* tb303 = new TB303 {Bass::Wave::SQR, 43.65};
+				if(tb303)
+					cout 
+						<< static_cast<int>((*tb303).wave()) 
+						<< ", "
+						<< (*tb303).freq()
+						<< endl;
+				delete tb303;
+				//(* tb303).freq(); Exc : memory access violation
+				if (tb303)
+				{
+					TB303
+						cache;
+					tb303 = & cache;
+					cout 
+						<< static_cast<int>((*tb303).wave()) 
+						<< ", "
+						<< (*tb303).freq()
+						<< endl;
+				}
+				cout 
+					<< "getting cache freq out of scope: " 
+					<< (* tb303).freq();
+				return keep_open();
+			}
 		}
 	}
 }
