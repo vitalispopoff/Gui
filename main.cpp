@@ -7,9 +7,8 @@ int main()
 {	
 	try
 	{
+		return ch17::drill::d20::main();
 
-
-		return ch17::drill::d10::main();
 	}
 	catch (exception & e)
 	{

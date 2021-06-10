@@ -86,7 +86,6 @@ namespace ch17
 							: ".");
 				return os;
 			}
-
 			int main()
 			{
 				int 
@@ -187,6 +186,130 @@ namespace ch17
 				cout 
 					<< endl;
 				return keep_open();
+			}
+		}
+
+		namespace d11
+		{
+			using d07::print_array;
+			int main()
+			{
+				int
+					len {10},
+					* i = new int (7),
+					* p1 = i;
+				cout 
+					<< p1 
+					<< " : " 
+					<< & p1;
+			/// drill 13
+				int
+					l {7},
+					* a = new int[l];
+				auto populate = [] (int * p, const int & len)
+				{
+					for (int index = 0; index < len; ++index)
+						p[index] = 1 << index;
+				};
+				populate(a, l);
+			/// drill 14
+				print_array(cout, a, l);
+				cout << endl;
+				int
+					* p2 = a;
+				cout << & p2 << endl;
+				print_array(cout, p2, l);
+			/// drill 15
+				int 
+					* p3 = p2;
+			/// drill 16
+				p1 = p2;
+			/// drill 17
+				p3 = p2;
+			/// drill 18
+				cout 
+					<< p1 << " : " << * p1 << endl
+					<< p2 << " : " << * p2 << endl;
+			/// drill 19
+				delete i;
+				i = nullptr;
+				p3 = nullptr;
+				p2 = nullptr;
+				p1 = nullptr;
+				delete [] a;
+				a = nullptr;
+			/// drill 20
+				l = 10;
+				a = new int[l];
+				populate(a, l);
+				p1 = a;
+				int
+					* a1 = new int[l];
+				p2 = a1;
+				for(int index = 0; index < l; ++index)
+				{
+					p2[index] = p1[index];
+				}
+				print_array (cout, p1, 10);
+				cout << endl;
+				print_array (cout, p2, 10);
+				p2 = nullptr;
+				p1 = nullptr;
+				delete [] a1;
+				a1 = nullptr;
+				delete [] a;
+				a = nullptr;
+				return keep_open();
+			}
+		}
+
+		namespace d20
+		{
+			int main()
+			{
+				auto populate = [] (vector<int> * p)
+				{
+					int val = 1;
+					for (int & i : * p)
+					{
+						i = val;
+						val += val;
+					}
+				};
+				auto print_vector = [] (vector<int> * p)
+				{
+					int
+						last = p -> back();
+					for (int i : * p)
+						cout 
+							<< i 
+							<< (i != last 
+								? ", "
+								: ".");
+				};
+				int
+					l = 10;
+				vector<int>
+					* v1 = new vector<int>(l);
+				populate(v1);
+				print_vector(v1);
+				cout 
+					<< endl;
+				vector<int>
+					* p1 = v1,
+					* v2 = new vector<int>(l),
+					* p2 = v2;
+				for(int index = 0; index < l; ++index)
+					(* p2) [index] = (* p1) [index];
+				print_vector(p1);			
+				cout 
+					<< endl;
+				print_vector(p2);
+				p2 = nullptr;
+				p1 = nullptr;
+				delete (v2);
+				delete (v1);
+				return keep_open();				
 			}
 		}
 	}

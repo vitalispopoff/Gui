@@ -293,5 +293,15 @@ namespace ch17
 		{
 			int main();
 		}
+
+		namespace d11
+		{
+			int main();
+		}
+
+		namespace d20
+		{
+			int main();
+		}
 	}
 }
