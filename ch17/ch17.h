@@ -1,11 +1,14 @@
 #pragma once
-
 #include <iostream>
+
 namespace ch17
 {
+	using namespace std;
+	int keep_open();
+
 	namespace sample
 	{
-		using namespace std;
+		//using namespace std;
 
 		namespace s01
 		{
@@ -254,6 +257,41 @@ namespace ch17
 					* succ;
 			};
 
+		}
+	}
+
+	namespace drill
+	{
+		namespace d01
+		{
+			int main();
+		}
+
+		namespace d04
+		{
+			ostream & print_array10 (ostream & os, int * a);
+			int main();
+		}
+
+		namespace d06
+		{
+			int main();
+		}
+
+		namespace d07
+		{
+			ostream & print_array (ostream & os, int * a, int n);
+			int main();
+		}
+		
+		namespace d08
+		{			
+			int main();
+		}
+
+		namespace d10
+		{
+			int main();
 		}
 	}
 }

@@ -7,7 +7,7 @@
 namespace ch17
 {
 	using namespace std;
-	int keep_open ()
+		int keep_open ()
 	{
 		int
 			in_;
@@ -28,7 +28,6 @@ namespace ch17
 				age[1] = 22.0;
 				age[2] = 27.2;
 				age[3] = 54.2;
-
 				return 0;
 			}
 		}
@@ -618,10 +617,10 @@ namespace ch17
 				if (!this)
 					return n;
 				n -> succ = this;
-				if (this -> prev)
-					this -> prev -> succ = n;
-				n -> prev = this -> prev;
-				this -> prev = n;
+				if (prev)
+					prev -> succ = n;
+				n -> prev = prev;
+				prev = n;
 				return n;
 			}
 			m_Link * m_Link::add (m_Link * n)
@@ -631,21 +630,21 @@ namespace ch17
 				if (!this)
 					return n;
 				n -> prev = this;
-				if (this -> succ)
-					this -> succ -> prev = n;
-				n -> succ = this -> succ;
-				this -> succ = n;
+				if (succ)
+					succ -> prev = n;
+				n -> succ = succ;
+				succ = n;
 				return n;
 			}
 			m_Link * m_Link::erase ()
 			{
 				if (!this)
 					return nullptr;
-				if (this -> succ)
-					this -> succ -> prev = this -> prev;
-				if (this -> prev)
-					this -> prev -> succ = this -> succ;
-				return this -> succ;
+				if (succ)
+					succ -> prev = prev;
+				if (prev)
+					prev -> succ = succ;
+				return succ;
 			}
 			m_Link * m_Link::find (const string & s)
 			{

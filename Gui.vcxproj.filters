@@ -108,7 +108,10 @@
     <ClCompile Include="ch16\ch16_excercise.cpp">
       <Filter>Source Files\ch16</Filter>
     </ClCompile>
-    <ClCompile Include="ch17\ch17_samples.cpp">
+    <ClCompile Include="ch17\ch17_drill.cpp">
+      <Filter>Source Files\ch17</Filter>
+    </ClCompile>
+    <ClCompile Include="ch17\ch17_sample.cpp">
       <Filter>Source Files\ch17</Filter>
     </ClCompile>
   </ItemGroup>
