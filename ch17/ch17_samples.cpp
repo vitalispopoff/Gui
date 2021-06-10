@@ -608,5 +608,90 @@ namespace ch17
 				return keep_open();
 			}
 		}
+
+		namespace s18
+		{
+		m_Link * m_Link::insert(m_Link * n)
+			{
+				if (!n)
+					return this;
+				if (!this)
+					return n;
+				n -> succ = this;
+				if (this -> prev)
+					this -> prev -> succ = n;
+				n -> prev = this -> prev;
+				this -> prev = n;
+				return n;
+			}
+			m_Link * m_Link::add (m_Link * n)
+			{
+				if (!n)
+					return this;
+				if (!this)
+					return n;
+				n -> prev = this;
+				if (this -> succ)
+					this -> succ -> prev = n;
+				n -> succ = this -> succ;
+				this -> succ = n;
+				return n;
+			}
+			m_Link * m_Link::erase ()
+			{
+				if (!this)
+					return nullptr;
+				if (this -> succ)
+					this -> succ -> prev = this -> prev;
+				if (this -> prev)
+					this -> prev -> succ = this -> succ;
+				return this -> succ;
+			}
+			m_Link * m_Link::find (const string & s)
+			{
+				m_Link
+					* p = this;
+				while (p)
+				{
+					if (p -> value == s)
+						return p;
+					p = p -> succ;
+				}
+				return nullptr;
+			}
+			m_Link * m_Link::advance (int n)
+			{
+				m_Link
+					* p = this;
+				if (!p) 
+					return nullptr;
+				if (n > 0)
+					while (n--)
+					{
+						if (!(p -> succ))
+							return nullptr;
+						p = p -> succ;
+					}
+				if (n < 0)
+					while (n++)
+					{
+						if (!(p -> prev))
+							return nullptr;
+						p = p -> prev;
+					}
+				return p;
+			}
+			void m_Link::print_all ()
+			{
+				m_Link
+					* p = this;
+				while (p)
+				{
+					cout << p -> value;
+					if (p = p -> succ)
+						cout << ", ";
+				}
+			}
+		}
 	}
 }

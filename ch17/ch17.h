@@ -224,5 +224,36 @@ namespace ch17
 			///to be declared outside the m_Link class...
 			int main();
 		}
+
+		namespace s18
+		{
+			/// some of s16::m_Link functions seem to have unnecessary overgrown input lists...
+
+			struct m_Link
+			{
+				string
+					value;
+				m_Link (const string & v, m_Link * p = nullptr, m_Link * s = nullptr) :
+					value {v},
+					prev {p},
+					succ {s}
+				{}
+				m_Link * insert (m_Link * n);
+				m_Link * add (m_Link * n);
+				m_Link * erase ();
+				m_Link * find (const string & s);
+				const m_Link * find(const string & s) const; 
+				m_Link * advance (int n);
+				m_Link * next () const;
+				m_Link * previous () const;
+
+				void print_all();
+			protected :
+				m_Link
+					* prev,
+					* succ;
+			};
+
+		}
 	}
 }
