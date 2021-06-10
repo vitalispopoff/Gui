@@ -145,5 +145,84 @@ namespace ch17
 
 			int main();
 		}
+
+		namespace s11
+		{
+			class m_vector
+			{
+				int
+					sz;
+				double
+					* elem;
+			public :
+				m_vector (int s);
+				~m_vector() 
+				{
+					delete[] elem;
+				}
+					
+				int size() const;
+				double get(int n) const
+				{
+					return elem[n];
+				}
+				void set(int n, double d) 
+				{
+					elem[n] = d;
+				}
+			};
+		}
+
+		namespace s12
+		{
+			int main();
+		}
+
+		namespace s13
+		{
+			int main();
+		}
+
+		namespace s14
+		{
+			int main();
+		}
+
+		namespace s15
+		{
+			int main();
+		}
+
+		namespace s16
+		{
+			struct m_Link
+			{
+				string
+					value;
+				m_Link
+					* prev,
+					* succ;
+				m_Link (const string & v, m_Link * p = nullptr, m_Link * s = nullptr) :
+					value {v},
+					prev {p},
+					succ {s}
+				{}
+				/// https://github.com/vitalispopoff/DSA_LectureAnalysis/wiki/3.2-Doubly-linked-lists
+				m_Link * insert (m_Link * p, m_Link * n);
+				m_Link * add (m_Link * p, m_Link * n);
+				m_Link * erase (m_Link * p);
+				m_Link * find (m_Link * p, const string & s);
+				m_Link * advance (m_Link * p, int n);
+				void print_all(m_Link * p);
+			};
+			int main();
+		}
+
+		namespace s17
+		{
+			/// m_Link functions (at least part of em) may have been thought 
+			///to be declared outside the m_Link class...
+			int main();
+		}
 	}
 }

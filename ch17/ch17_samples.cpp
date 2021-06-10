@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 
-
 namespace ch17
 {
 	using namespace std;
@@ -350,6 +349,262 @@ namespace ch17
 				cout 
 					<< "getting cache freq out of scope: " 
 					<< (* tb303).freq();
+				return keep_open();
+			}
+		}
+
+		namespace s11
+		{
+			m_vector::m_vector (int s) :
+				sz {s},
+				elem {new double[s]}
+			{
+				for (int i = 0; i < s; ++i)
+					elem[i] = 0;
+			}
+
+			int m_vector::size() const 
+			{
+				return sz;
+			}
+		}
+
+		namespace s12
+		{
+			int main()
+			{
+				using s11::m_vector;
+				m_vector
+					* v = new m_vector(2);
+				int 
+					index = v->size();
+				double
+					tmp {-1};
+				v -> set(index - 1, tmp);
+				double
+					d = v -> get(index - 1);
+				cout 
+					<< (d == tmp ? "yep" : "nope");
+				return ! (d == tmp);	// check the output log.
+			}
+		}
+
+		namespace s13
+		{
+			int main()
+			{		
+				srand(time(NULL));
+				auto 
+					f = []{return (rand() & 0x7F);};	/// like % 128, but looks way cooler;
+				int
+					i = f();
+				void 
+					* v1= & i;			
+				cout 
+					<< static_cast<int *> (v1)			
+					<< endl
+					<< * static_cast<int *> (v1);
+				/// both work : and static_cast, and reinterpret_cast 
+
+				return keep_open();
+			}
+		}
+
+		namespace s14
+		{
+			int main()
+			{
+				const int 
+					i = 1,
+					* i_r1 = & i;
+				int 
+					* i_r2 = const_cast<int *> (& i);
+				(* i_r2)--;
+				cout
+					<< i_r1 << " : " << * i_r1 << endl;
+				cout 
+					<< i_r2 << " : " << * i_r2 << endl;
+				cout 
+					<< i << endl;
+				return keep_open();
+			}
+			/// there's something interesting there going on.
+		}
+
+		namespace s15
+		{
+			int main()
+			{
+				int 
+					i = 0,
+					* i_ref = & i,
+					j = ++ (* i_ref);
+				cout 
+					<< i 
+					<< ", " 
+					<< j 
+					<< endl;					
+				return keep_open();
+			}
+		}
+
+		namespace s16
+		{
+			m_Link * m_Link::insert(m_Link * lnk_2, m_Link * tb_lnkd)
+			{
+				if (!tb_lnkd)
+					return lnk_2;
+				if (!lnk_2)
+					return tb_lnkd;
+				tb_lnkd -> succ = lnk_2;
+				if (lnk_2 -> prev)
+					lnk_2 -> prev -> succ = tb_lnkd;
+				tb_lnkd -> prev = lnk_2 -> prev;
+				lnk_2	-> prev = tb_lnkd;
+				return tb_lnkd;
+			}
+			m_Link * m_Link::add (m_Link * lnk_2, m_Link * tb_lnkd)
+			{
+				if (!tb_lnkd)
+					return lnk_2;
+				if (!lnk_2)
+					return tb_lnkd;
+				tb_lnkd -> prev = lnk_2;
+				if (lnk_2 -> succ)
+					lnk_2 -> succ -> prev = tb_lnkd;
+				tb_lnkd -> succ = lnk_2 -> succ;
+				lnk_2	-> succ = tb_lnkd;
+				return tb_lnkd;
+			}
+			m_Link * m_Link::erase (m_Link * p)
+			{
+				if (!p)
+					return nullptr;
+				if (p -> succ)
+					p -> succ -> prev = p -> prev;
+				if (p -> prev)
+					p -> prev -> succ = p -> succ;
+				return p -> succ;
+			}
+			m_Link * m_Link::find (m_Link * p, const string & s)
+			{
+				while (p)
+				{
+					if (p -> value == s)
+						return p;
+					p = p -> succ;
+				}
+				return nullptr;
+			}
+			m_Link * m_Link::advance (m_Link * p, int n)
+			{
+				if (!p) 
+					return nullptr;
+				if (n > 0)
+					while (n--)
+					{
+						if (!(p -> succ))
+							return nullptr;
+						p = p -> succ;
+					}
+				if (n < 0)
+					while (n++)
+					{
+						if (!(p -> prev))
+							return nullptr;
+						p = p -> prev;
+					}
+				return p;
+			}
+			void m_Link::print_all (m_Link * p)
+			{
+				while (p)
+				{
+					cout << p -> value;
+					if (p = p -> succ)
+						cout << ", ";
+				}
+			}
+			int main()
+			{
+				m_Link 
+					* norse_gods = new m_Link{"Odin"},				
+					* flag = norse_gods;
+				auto f = [&]
+				{ 					
+					while (flag)
+					{
+						cout << flag -> value << endl;
+						flag = flag -> succ;
+					}
+				};
+				norse_gods = (* norse_gods).insert(norse_gods, new m_Link{"Freia"});
+				norse_gods = (* norse_gods).insert(norse_gods, new m_Link{"Thor"});
+				norse_gods = (* norse_gods).insert(norse_gods, new m_Link{"Loki"});
+
+				f();
+				cout << "\non the other hand... join() \n";
+				delete norse_gods;
+				norse_gods = new m_Link{"Odin"};
+				flag = & (* norse_gods);
+				norse_gods = (* norse_gods).add(norse_gods, new m_Link{"Freia"});
+				norse_gods = (* norse_gods).add(norse_gods, new m_Link{"Thor"});
+				norse_gods = (* norse_gods).add(norse_gods, new m_Link{"Loki"});
+				f();
+				return keep_open();
+			}
+		}
+
+		namespace s17
+		{
+			using s16::m_Link;
+			int main()
+			{
+				auto f = [&] (m_Link * l) 
+				{
+					while (l)
+					{
+						cout << l -> value << (l -> succ ? ", " : "");
+						l = l -> succ;
+					}
+					cout << endl;
+				};
+				m_Link 
+					* norse_gods = new m_Link {"Odin"},
+					* greek_gods = new m_Link {"Hera"};
+				norse_gods = norse_gods -> insert (norse_gods, new m_Link{"Freia"});
+				norse_gods = norse_gods -> insert (norse_gods, new m_Link{"Zeus"});
+				norse_gods = norse_gods -> insert (norse_gods, new m_Link{"Thor"});
+				norse_gods = norse_gods -> insert (norse_gods, new m_Link{"Loki"});
+				greek_gods = greek_gods -> insert (greek_gods, new m_Link{"Athena"});
+				greek_gods = greek_gods -> insert (greek_gods, new m_Link{"Mars"});
+				greek_gods = greek_gods -> insert (greek_gods, new m_Link{"Poseidon"});
+				
+				f(norse_gods);
+				f(greek_gods);
+				m_Link
+					* p = greek_gods -> find(greek_gods, "Mars");
+				if (p)
+				{
+					string
+						ares {"Ares"};
+					cout 
+						<< "\t... changing " << p -> value << " to " + ares << endl;
+					p -> value = ares;
+				}
+				f(greek_gods);
+
+				p = norse_gods -> find(norse_gods, "Zeus");
+				if (p)
+				{
+					if (p == norse_gods)
+						norse_gods = p -> succ;
+					norse_gods -> erase(p);
+					greek_gods = greek_gods -> insert(greek_gods, p);
+				}
+				f(norse_gods);
+				f(greek_gods);
+
 				return keep_open();
 			}
 		}
