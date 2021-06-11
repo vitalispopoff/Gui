@@ -150,27 +150,25 @@ namespace ch17
 			int main()
 			{
 				int
-					len = 1;
+					len {0};
 				char
 					c {0},
 					* c1 = nullptr,
 					* c2 = nullptr;
 				while (cin >> c && c != '!')
-				{
-					if (len & 1)
-					{
-						c1 = new char[len + 1];					//v/ additional byte for the char(0)
-						if (c2)
-							for (int i = 0 ; i < len; ++i)
-								c1[i] = c2[i];
-						c1[len * bool(c2)] = c;
-						c1[len + 1] = '\0';
-						//delete [] c2
-						c2 = c1;
-						c1 = nullptr;
-					}
+				{				
+					len++;
+					c1 = new char[len];
+					for (int i = 0; i < len - 1; ++i)
+						c1[i] = c2[i];
+					c1[len - 1] = c;
+					delete [] c2;
+					c2 = c1;
 				}
-				
+
+				for (int i = 0; i < len; ++i)
+					cout << c2[i];
+				cout << endl;
 				return keep_open();
 			}
 		}
