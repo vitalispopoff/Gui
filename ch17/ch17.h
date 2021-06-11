@@ -312,9 +312,37 @@ namespace ch17
 
 	namespace excercise
 	{
-		namespace e01
+		namespace e02
+		{
+			int main();
+		}
+
+		namespace e03
 		{
 			void to_lower(char *s);
+			int main();
+		}
+
+		namespace e04
+		{
+			char * strdup(const char *);
+			int main();
+		}
+
+		namespace e05
+		{
+			char * findx(const char * s, const char * x);
+			int main();
+		}
+
+		namespace e06
+		{
+			/// just don't run it, ok?
+			int main();
+		}
+
+		namespace e07
+		{
 			int main();
 		}
 	}
