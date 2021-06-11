@@ -189,5 +189,120 @@ namespace ch17
 				return keep_open();
 			}
 		}
+
+		namespace e09
+		{
+			int main()
+			{
+				int
+					c1 {0},
+					c2 {1},
+					c3 {2};
+				cout 
+					<< "\nstack :\n"
+					<< & c1 << endl
+					<< & c2 << endl
+					<< & c3 << endl;
+				int
+					* d1 = new int (0),
+					* d2 = new int (1),
+					* d3 = new int (2);
+				cout 
+					<< "\nheap :\n"
+					<< & d1 << endl
+					<< & d2 << endl
+					<< & d3 << endl;
+				delete d1;
+				delete d2;
+				delete d3;
+				d1 = d2 = d3 = nullptr;
+				return keep_open();
+			}
+		}
+
+		namespace e12
+		{
+			m_Link * m_Link::insert(m_Link * n)
+			{
+				if (!n)
+					return this;
+				if (!this)
+					return n;
+				n -> succ = this;
+				if (prev)
+					prev -> succ = n;
+				n -> prev = prev;
+				prev = n;
+				return n;
+			}
+			m_Link * m_Link::add (m_Link * n)
+			{
+				if (!n)
+					return this;
+				if (!this)
+					return n;
+				n -> prev = this;
+				if (succ)
+					succ -> prev = n;
+				n -> succ = succ;
+				succ = n;
+				return n;
+			}
+			m_Link * m_Link::erase ()
+			{
+				if (!this)
+					return nullptr;
+				if (succ)
+					succ -> prev = prev;
+				if (prev)
+					prev -> succ = succ;
+				return succ;
+			}
+			m_Link * m_Link::find (const string & s)
+			{
+				m_Link
+					* p = this;
+				while (p)
+				{
+					if (p -> value == s)
+						return p;
+					p = p -> succ;
+				}
+				return nullptr;
+			}
+			m_Link * m_Link::advance (int n)
+			{
+				m_Link
+					* p = this;
+				if (!p) 
+					return nullptr;
+				if (n > 0)
+					while (n--)
+					{
+						if (!(p -> succ))
+							return nullptr;
+						p = p -> succ;
+					}
+				if (n < 0)
+					while (n++)
+					{
+						if (!(p -> prev))
+							return nullptr;
+						p = p -> prev;
+					}
+				return p;
+			}
+			void m_Link::print_all ()
+			{
+				m_Link
+					* p = this;
+				while (p)
+				{
+					cout << p -> value;
+					if (p = p -> succ)
+						cout << ", ";
+				}
+			}
+		}
 	}
 }

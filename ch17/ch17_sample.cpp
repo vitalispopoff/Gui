@@ -610,7 +610,7 @@ namespace ch17
 
 		namespace s18
 		{
-		m_Link * m_Link::insert(m_Link * n)
+			m_Link * m_Link::insert(m_Link * n)
 			{
 				if (!n)
 					return this;

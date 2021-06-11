@@ -245,7 +245,7 @@ namespace ch17
 				m_Link * add (m_Link * n);
 				m_Link * erase ();
 				m_Link * find (const string & s);
-				const m_Link * find(const string & s) const; 
+				const m_Link * find (const string & s) const; 
 				m_Link * advance (int n);
 				m_Link * next () const;
 				m_Link * previous () const;
@@ -256,7 +256,6 @@ namespace ch17
 					* prev,
 					* succ;
 			};
-
 		}
 	}
 
@@ -349,6 +348,39 @@ namespace ch17
 		namespace e08
 		{
 			int main();
+		}
+
+		namespace e09
+		{
+			int main();
+		}
+
+		namespace e12
+		{
+			struct m_Link
+			{
+				string
+					value;
+				m_Link (const string & v, m_Link * p = nullptr, m_Link * s = nullptr) :
+					value {v},
+					prev {p},
+					succ {s}
+				{}
+				m_Link * insert (m_Link * n);
+				m_Link * add (m_Link * n);
+				m_Link * erase ();
+				m_Link * find (const string & s);
+				const m_Link * find (const string & s) const; 
+				m_Link * advance (int n);
+				m_Link * next () const;
+				m_Link * previous () const;
+
+				void print_all();
+			protected :
+				m_Link
+					* prev,
+					* succ;
+			};
 		}
 	}
 }
