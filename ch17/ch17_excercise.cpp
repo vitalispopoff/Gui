@@ -172,5 +172,22 @@ namespace ch17
 				return keep_open();
 			}
 		}
+
+		namespace e08
+		{
+			int main()
+			{
+				char 
+					c {0};
+				string
+					* s1 = new string;
+				while (cin >> c && c != '!')
+					s1->push_back (c);
+				cout 
+					<< * s1 
+					<< endl;
+				return keep_open();
+			}
+		}
 	}
 }

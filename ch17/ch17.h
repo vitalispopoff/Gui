@@ -345,5 +345,10 @@ namespace ch17
 		{
 			int main();
 		}
+
+		namespace e08
+		{
+			int main();
+		}
 	}
 }
