@@ -36,6 +36,7 @@
     <ClCompile Include="ch16\ch16_excercise.cpp" />
     <ClCompile Include="ch16\ch16_sample.cpp" />
     <ClCompile Include="ch17\ch17_drill.cpp" />
+    <ClCompile Include="ch17\ch17_excercise.cpp" />
     <ClCompile Include="ch17\ch17_sample.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Graph.cpp" />

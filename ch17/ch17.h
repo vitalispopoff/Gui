@@ -303,5 +303,19 @@ namespace ch17
 		{
 			int main();
 		}
+
+		namespace d21
+		{
+			int main();
+		}
+	}
+
+	namespace excercise
+	{
+		namespace e01
+		{
+			void to_lower(char *s);
+			int main();
+		}
 	}
 }

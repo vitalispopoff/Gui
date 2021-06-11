@@ -114,6 +114,9 @@
     <ClCompile Include="ch17\ch17_sample.cpp">
       <Filter>Source Files\ch17</Filter>
     </ClCompile>
+    <ClCompile Include="ch17\ch17_excercise.cpp">
+      <Filter>Source Files\ch17</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

@@ -312,5 +312,22 @@ namespace ch17
 				return keep_open();				
 			}
 		}
+
+		namespace d21
+		{
+			int main()
+			{
+				int
+					i = 0;
+				cout << & i << endl;
+				int 
+					* b = & i;
+				cout << b << ", " << & i << endl;
+				cout << & b << endl;
+
+
+				return keep_open();
+			}
+		}
 	}
 }
