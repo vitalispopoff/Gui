@@ -220,8 +220,17 @@ namespace ch17
 			}
 		}
 
-		namespace e12
+		namespace e13
 		{
+			ostream & operator << (ostream & os,const God & g)
+			{
+				os 
+					<< g.name << ", "
+					<< int(g.mythology) << ", "
+					<< g.vehicle << ", "
+					<< g.weapon;
+				return os;
+			}
 			m_Link * m_Link::insert(m_Link * n)
 			{
 				if (!n)
@@ -258,13 +267,13 @@ namespace ch17
 					prev -> succ = succ;
 				return succ;
 			}
-			m_Link * m_Link::find (const string & s)
+			m_Link * m_Link::find (const God & g)
 			{
 				m_Link
 					* p = this;
 				while (p)
 				{
-					if (p -> value == s)
+					if (p -> god.name == g.name)
 						return p;
 					p = p -> succ;
 				}
@@ -298,11 +307,22 @@ namespace ch17
 					* p = this;
 				while (p)
 				{
-					cout << p -> value;
+					cout << p -> god;
 					if (p = p -> succ)
 						cout << ", ";
 				}
 			}
+
+			int main()
+			{
+				string 
+					s1 {"abcd"},
+					s2 {"abdc"};
+				cout << (s1 < s2);
+				
+				return keep_open();
+			}
 		}
+
 	}
 }

@@ -355,22 +355,47 @@ namespace ch17
 			int main();
 		}
 
-		namespace e12
+		namespace e13
 		{
+			struct God
+			{
+				enum class Mythology
+				{
+					GREEK,
+					ROMAN,
+					SLAVIC,
+					CELTIC,
+					NORSE,
+					INDIAN,
+					EGYPTIAN
+				};
+				string
+					name,
+					vehicle,
+					weapon;
+				Mythology
+					mythology;
+				God (string n, Mythology m, string v, string w) :
+					name {n},
+					mythology {m}
+				{}
+			};
+			ostream & operator << (ostream & os, const God & g);
+
 			struct m_Link
 			{
-				string
-					value;
-				m_Link (const string & v, m_Link * p = nullptr, m_Link * s = nullptr) :
-					value {v},
+				God
+					god;
+				m_Link (const God & g, m_Link * p = nullptr, m_Link * s = nullptr) :
+					god {g},
 					prev {p},
 					succ {s}
 				{}
 				m_Link * insert (m_Link * n);
 				m_Link * add (m_Link * n);
 				m_Link * erase ();
-				m_Link * find (const string & s);
-				const m_Link * find (const string & s) const; 
+				m_Link * find (const God & g);
+				const m_Link * find (const God & g) const; 
 				m_Link * advance (int n);
 				m_Link * next () const;
 				m_Link * previous () const;
@@ -381,6 +406,8 @@ namespace ch17
 					* prev,
 					* succ;
 			};
+
+			int main();
 		}
 	}
 }
