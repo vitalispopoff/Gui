@@ -256,6 +256,16 @@ namespace ch17
 				}
 				return nullptr;
 			}
+
+			m_Link * m_Link::next() const
+			{
+				return succ;
+			}
+
+			m_Link * m_Link::previous() const
+			{
+				return prev;
+			}
 			
 			m_Link * m_Link::advance (int n)
 			{
@@ -289,7 +299,7 @@ namespace ch17
 				while (p)
 				{
 					cout 
-						<< p -> god 
+						<< * (p -> god)
 						<< endl;
 					p = p -> next();
 				}
@@ -297,6 +307,7 @@ namespace ch17
 
 			m_Link * m_Link::add_ordered(m_Link * to)
 			{
+				
 				if (god -> name < to -> god -> name)
 					while (god -> name < to -> god -> name && to -> succ)
 						to = to -> succ;
@@ -304,6 +315,11 @@ namespace ch17
 					while (god -> name > to -> god -> name && to -> prev)
 						to = to -> prev;
 				return insert (to);
+			}
+
+			m_Link * m_Link::remove ()
+			{
+
 			}
 			
 			m_Link * m_Link::insert(m_Link * n)
@@ -338,39 +354,25 @@ namespace ch17
 
 			int main()
 			{
-				God
-					* g = new God {"Zeus", God::Mythology::GREEK,"", "lightning"},
-					g1 {"Zephyr", God::Mythology::GREEK, "Air", ""},
 
-					* g_r = & g1;
 				m_Link
-					* main_list = new m_Link {g},
-					//* main_list = new m_Link {new God {"Zeus", God::Mythology::GREEK,"", "lightning"}},
-					* entry = nullptr;
-					//entry = new m_Link{new God {"Zephyr", God::Mythology::GREEK, "Air", ""}};
-
+					* main_list = new m_Link {new God {"Zeus", God::Mythology::GREEK,"", "lightning"}},
+					* entry = new m_Link{new God {"Zephyr", God::Mythology::GREEK, "Air", ""}};
 				entry -> add_ordered (main_list);
-				//entry = new m_Link {
-				//	* new God {"Mars", God::Mythology::ROMAN, "", "Nerio"}
-				//};
-				//entry -> add_ordered (main_list);
-				//entry = new m_Link {* new God {"Apollo", God::Mythology::GREEK, "chariot", "bow and lyre"}};
-				//entry -> add_ordered (main_list);
-				//entry = new m_Link {* new God {"Baldur", God::Mythology::NORSE, "", ""}};
-				//entry -> add_ordered (main_list);
-				//entry = new m_Link {* new God {"Fulla", God::Mythology::NORSE, "", "Frigg's eski"}};
-				//entry -> add_ordered (main_list);
-				//entry = new m_Link {* new God {"Quirinus", God::Mythology::ROMAN, "", ""}};
-				//entry -> add_ordered (main_list);
-				//while (main_list -> previous())
-				//	main_list = main_list -> previous();
-				//main_list -> print_all();
-				//m_Link
-				//	* greek_list,
-				//	* roman_list,
-				//	* norse_list;
+				entry = new m_Link {new God {"Mars", God::Mythology::ROMAN, "", "Nerio"}};
+				entry -> add_ordered (main_list);
+				entry = new m_Link {new God {"Apollo", God::Mythology::GREEK, "chariot", "bow and lyre"}};
+				entry -> add_ordered (main_list);
+				entry = new m_Link {new God {"Baldur", God::Mythology::NORSE, "", ""}};
+				entry -> add_ordered (main_list);
+				entry = new m_Link {new God {"Fulla", God::Mythology::NORSE, "", "Frigg's eski"}};
+				entry -> add_ordered (main_list);
+				entry = new m_Link {new God {"Quirinus", God::Mythology::ROMAN, "", ""}};
+				entry -> add_ordered (main_list);
+				while (main_list -> previous())
+					main_list = main_list -> previous();
+				main_list -> print_all();
 
-				
 				return keep_open();
 			}
 		}

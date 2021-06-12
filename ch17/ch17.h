@@ -399,6 +399,7 @@ namespace ch17
 				m_Link * advance (int n);
 				void print_all();
 				m_Link * add_ordered(m_Link * to);
+				m_Link * remove ();
 			protected :
 				m_Link
 					* prev,
