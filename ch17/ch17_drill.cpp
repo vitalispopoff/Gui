@@ -134,6 +134,7 @@ namespace ch17
 					<< (i != last
 						? ", " 
 						: ".");
+				return os;
 			}
 			void re_drill_05()
 			{

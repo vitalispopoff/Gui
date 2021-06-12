@@ -392,7 +392,7 @@ namespace ch17
 		{
 			int main()
 			{		
-				srand(time(NULL));
+				srand(unsigned int (time(NULL)));
 				auto 
 					f = []{return (rand() & 0x7F);};	/// like % 128, but looks way cooler;
 				int

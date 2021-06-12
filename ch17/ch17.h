@@ -372,7 +372,7 @@ namespace ch17
 				string
 					name,
 					vehicle,
-					weapon;
+					attribute;
 				Mythology
 					mythology;
 				God (string n, Mythology m, string v, string w) :
@@ -385,26 +385,26 @@ namespace ch17
 			struct m_Link
 			{
 				God
-					god;
-				m_Link (const God & g, m_Link * p = nullptr, m_Link * s = nullptr) :
+					* god;
+				m_Link (God * g, m_Link * p = nullptr, m_Link * s = nullptr) :
 					god {g},
 					prev {p},
 					succ {s}
 				{}
-				m_Link * insert (m_Link * n);
-				m_Link * add (m_Link * n);
 				m_Link * erase ();
-				m_Link * find (const God & g);
-				const m_Link * find (const God & g) const; 
-				m_Link * advance (int n);
+				m_Link * find (const God * g);
+				const m_Link * find (const God * g) const; 
 				m_Link * next () const;
 				m_Link * previous () const;
-
+				m_Link * advance (int n);
 				void print_all();
+				m_Link * add_ordered(m_Link * to);
 			protected :
 				m_Link
 					* prev,
 					* succ;
+				m_Link * insert (m_Link * n);
+				m_Link * add (m_Link * n);
 			};
 
 			int main();
