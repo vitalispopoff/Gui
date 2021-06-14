@@ -43,6 +43,9 @@
     <Filter Include="Source Files\ch17">
       <UniqueIdentifier>{8167be83-43d9-4af6-9095-afb72e1f9b4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ch18">
+      <UniqueIdentifier>{a7e51d0a-d0c3-4fa1-aa52-eb3b14f89ac2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Appendix_D_test\test.cpp">
@@ -117,6 +120,9 @@
     <ClCompile Include="ch17\ch17_excercise.cpp">
       <Filter>Source Files\ch17</Filter>
     </ClCompile>
+    <ClCompile Include="ch18\ch18_sample.cpp">
+      <Filter>Source Files\ch18</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -168,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ch17\ch17.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ch18\ch18.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
