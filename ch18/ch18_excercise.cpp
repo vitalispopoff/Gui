@@ -315,5 +315,94 @@ namespace ch18
 				return 0;
 			}
 		}
+
+		namespace e08
+		{
+			bool is_palindrome_1 (const string & s)
+			{
+				string
+					reversed;
+				for (int i = 0; i < s.size(); ++i)
+					reversed += s[s.size() - 1 - i];
+				for(int i = 0; i < s.size(); ++i)
+					if (s[i] != reversed[i])
+						return false;
+				return true;
+			}
+
+			bool is_palindrome_2 (const char s[], int n)
+			{
+				char
+					* reversed = new char[n];
+				for (int i = 0; i < n; ++i)
+					reversed[n - 1 - i] = s[i];
+				for (int i = 0; i < n; ++i)
+					if (reversed[i] != s[i])
+					{
+						delete [] reversed;
+						return false;
+					}
+				delete [] reversed;
+				return true;
+			}
+
+			bool is_palindrome_3 (const char * first, const char * last)
+			{
+				int
+					len {0};
+				while (first[len++] != * last);
+				char
+					* reversed = new char[len],
+					* rev_p = reversed;
+				while (len > 0)
+					* (rev_p ++) = first[(len--) - 1];
+				rev_p = nullptr;
+				while (first[len++] != * last)
+					if (reversed[len] != first[len])
+					{
+						delete [] reversed;
+						return false;
+					}
+				delete [] reversed;
+				return true;
+			}
+
+			int main()
+			{
+				string
+					s1 {"kajak"},
+					s2 {"kayax"};
+				cout 
+					<< "kajak : "
+					<< (is_palindrome_1(s1) ? "yep" : "nope")
+					<< endl
+					<< "kayax : "
+					<< (is_palindrome_1(s2) ? "yep" : "nope")
+					<< endl;
+				char
+					c1 [] {"kajak"},
+					c2 [] {"kayax"};
+				cout
+					<< "kajak : "
+					<< (is_palindrome_2(c1, 5) ? "yep" : "nope")
+					<< endl
+					<< "kayax : "
+					<< (is_palindrome_2(c2, 5) ? "yep" : "nope")
+					<< endl;
+				char
+					* start1 = & c1[0],
+					* end1 = & c1[4],
+					* start2 = & c2[0],
+					* end2 = & c2[4];
+				cout
+					<< "kajak : "
+					<< (is_palindrome_3(start1, end1) ? "yep" : "nope")
+					<< endl
+					<< "kayax : "
+					<< (is_palindrome_3(start2, end2) ? "yep" : "nope")
+					<< endl;
+				return 0;
+			}
+		}
 	}
 }

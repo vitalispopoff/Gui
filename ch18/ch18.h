@@ -314,5 +314,10 @@ namespace ch18
 		{
 			int main();
 		}
+
+		namespace e08
+		{
+			int main();
+		}
 	}
 }
