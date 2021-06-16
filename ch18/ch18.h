@@ -3,6 +3,7 @@
 #include <initializer_list>		
 #include <algorithm>			/// for the copy 
 #include <string>				/// for the s06
+#include <vector>				/// for the d05
 
 namespace ch18
 {
@@ -255,10 +256,23 @@ namespace ch18
 
 	namespace drill
 	{
+		using namespace std;
+
 		namespace d01
 		{
+			int main();
+		}
 
+		namespace d02
+		{
+			void f (int arr [], int len);
+			int main();
+		}
 
+		namespace d05
+		{
+			void f (vector<int>);
+			int main();
 		}
 	}
 }
