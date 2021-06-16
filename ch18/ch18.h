@@ -123,7 +123,6 @@ namespace ch18
 			public :
 				m_vector (m_vector &&);
 				m_vector & operator = (m_vector && v);
-
 			};
 		}
 
@@ -150,6 +149,116 @@ namespace ch18
 				}
 			};
 			int main();
+		}
+
+		namespace s07
+		{
+			class m_vector
+			{
+				int
+					sz;
+				double
+					* elem;
+			public :
+				m_vector (int s = 0) :
+					sz {s},
+					elem {new double[s]}
+				{}
+				m_vector (m_vector &&);
+				m_vector & operator = (m_vector && v);
+				double operator [] (int n)
+				{
+					return elem[n];
+				}
+			};
+
+			int main();
+		}
+
+		namespace s08
+		{
+			class m_vector
+			{
+				int
+					sz;
+				double
+					* elem;
+			public :
+				m_vector (int s = 0) :
+					sz {s},
+					elem {new double[s]}
+				{}
+				m_vector (m_vector &&);
+				m_vector & operator = (m_vector && v);
+				int size()
+				{
+					return sz;
+				}
+				double & operator [] (int n)
+				{
+					return elem[n];
+				}
+				double operator [] (int n) const
+				{
+					return elem[n];
+				}
+			};
+			int main();
+		}
+
+		namespace s09
+		{
+			int main();
+		}
+
+		namespace s10
+		{
+		/// char[] 
+			int main();
+		}
+
+		namespace s11
+		{
+			int main();
+		}
+
+		namespace s12
+		{
+			int main();
+		}
+
+		namespace s13
+		{
+			int main();	
+		}
+
+		namespace s14
+		{
+			int main();
+		}
+
+		namespace s15
+		{
+			int main();
+		}
+
+		namespace s16
+		{
+			int main();
+		}
+
+		namespace s17
+		{
+			int main();
+		}
+	}
+
+	namespace drill
+	{
+		namespace d01
+		{
+
+
 		}
 	}
 }
