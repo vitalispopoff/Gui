@@ -275,4 +275,44 @@ namespace ch18
 			int main();
 		}
 	}
+
+	namespace excercise
+	{
+		using namespace std;
+		
+		namespace e01
+		{
+			int main();
+		}
+
+		namespace e02
+		{
+			int main();
+		}
+
+		namespace e03
+		{
+			int main();
+		}
+
+		namespace e04
+		{
+			int main();
+		}
+
+		namespace e05
+		{
+			int main();
+		}
+
+		namespace e06
+		{
+			int main();
+		}
+
+		namespace e07
+		{
+			int main();
+		}
+	}
 }
