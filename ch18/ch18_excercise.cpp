@@ -404,5 +404,111 @@ namespace ch18
 				return 0;
 			}
 		}
+
+		namespace e09
+		{			
+			void lambdas ()
+			{
+				auto f1 = []{};
+				auto f2 = []{};
+				auto * f1p = & f1;
+				auto * f2p = & f2;
+				cout 
+					<< "lambdas :\n" 
+					<< f1p << endl
+					<< f2p << endl
+					<< "-----------\n";
+			}
+			auto * f0 = & lambdas;
+			//const auto * f_1 = f0;		/// eventually these two got reported as wrong
+			//constexpr auto * f_2 = f0;
+			constexpr double 
+				d1 {0};
+			const double
+				d2 {0};
+			const double
+				* d3 = new double {0};
+			double
+				* d4 = new double {0};
+			int main()
+			{
+				double
+					d5 {0},
+					d6 {0},
+					d7 [3],
+					* d10 = new double{0},
+					* d11 = new double[4];				
+				lambdas();
+				cout
+					<< "function pointers as globals and consts :\n"
+					<< f0 << endl
+					//<< f_1 << endl
+					//<< f_2 << endl
+					<< "-----------\n"
+					<< "globals : \n"
+					<< & d1 << endl
+					<< & d2 << endl
+					<< "globals by 'new': \n"
+					<< d3 << endl
+					<< d4 << endl
+					<< "-----------\n"
+					<< "locals on stack :\n"
+					<< & d5 << endl
+					<< & d6 << endl
+					<< & d7 << endl
+					<< "-----------\n"
+					<< "locals on heap :\n"
+					<< d10 << endl
+					<< d11 << endl;				
+				return 0;
+			}
+		}
+
+		namespace e10
+		{
+			bool is_palindrome (const char s[], int n)
+			{
+				int
+					first {0},
+					last = n - 1;
+				while (first < last)
+				{
+					if (s[first] != s[last])
+						return false;
+					++first;
+					--last;
+				}
+				return true;				
+			}
+
+			istream & read_word (istream & is, char * buffer, int max)
+			{
+				is.width (max);
+				is 
+					>> buffer;
+				return is;
+			}
+			void m1 ()
+			{
+				constexpr int
+					max = 128;
+				for (char s[max]; read_word(cin, s, max); )
+				{
+					cout
+						<< s 
+						<< " is";
+					if (! is_palindrome (s, strlen (s)))
+						cout
+							<< " not";
+					cout
+						<< " a palindome\n";
+				}
+			}
+
+			int main()
+			{
+				return 0;
+			}
+		}
 	}
 }

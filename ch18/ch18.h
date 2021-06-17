@@ -319,5 +319,15 @@ namespace ch18
 		{
 			int main();
 		}
+
+		namespace e09
+		{
+			int main();
+		}
+
+		namespace e10
+		{
+			int main();
+		}
 	}
 }
