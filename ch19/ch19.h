@@ -160,6 +160,7 @@ namespace ch19
 				{
 					delete [] elem;
 				}
+				
 				double & operator [] (int n)
 				{
 					return elem [n];
@@ -168,6 +169,7 @@ namespace ch19
 				{
 					return elem [n];
 				}
+				
 				int size () const
 				{
 					return sz;
@@ -176,8 +178,73 @@ namespace ch19
 				{
 					return space;
 				}
+
 				void resize (int new_size);
 				void puch_back (double d);
+				void reserve (int new_alloc);
+			};
+		}
+
+		namespace s09
+		{
+			template <typename T> 
+				class m_vector
+			{
+				int
+					sz,
+					space;
+				T * elem;
+			public : 
+				m_vector ();
+				//:
+				//	sz {0},
+				//	elem {nullptr},
+				//	space {0}
+				//{}
+
+				/// "The explicit specifier may only appear within the decl-specifier-seq 
+				///	of the declaration of a constructor or conversion function (since C++11) 
+				///	within its class definition."
+				/// https://en.cppreference.com/w/cpp/language/explicit
+				explicit m_vector (int s); 
+				//:
+				//	sz {s},
+				//	elem {new T [s]},
+				//	space{s}
+				//{
+				//	for (int i = 0; i < sz; ++i)
+				//		elem [i] = 0;
+				//}
+				m_vector (const m_vector &);
+				m_vector & operator = (const m_vector &);
+
+				m_vector (m_vector &&);
+				m_vector & operator = (m_vector &&);
+
+				~ m_vector ();
+				//{
+				//	delete [] elem;
+				//}
+
+				T & operator [] (int n);
+				//{
+				//	return elem [n];
+				//}
+				const T & operator [] (int n) const;
+				//{
+				//	return elem [n];
+				//}
+				int size () const;
+				//{
+				//	return sz;
+				//}
+				int capacity () const;
+				//{
+				//	return space;
+				//}
+
+				void resize (int new_size);
+				void push_back (const T & d);
 				void reserve (int new_alloc);
 			};
 		}
