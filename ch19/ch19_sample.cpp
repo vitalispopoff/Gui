@@ -206,6 +206,27 @@ namespace ch19
 				void m_vector<T>::reserve (int new_alloc)
 			{}
 
+			int main()
+			{
+				m_vector<char>
+					c (1);
+				cout
+					<< int(c[0]) 
+					<< endl;					
+				c[0] = '@';
+				cout
+					<< c[0] 
+					<< endl;
+				return 0;
+			}
+		}
+
+		namespace s10
+		{
+			int main()
+			{
+				return 0;
+			}
 		}
 	}
 }

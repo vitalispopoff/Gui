@@ -48,13 +48,21 @@ namespace ch18
 		namespace s04
 		{
 			using namespace std;
+													/// let's go through this one, shall we?
+													/// take 'this' and assing it as 'a'
 			m_vector & m_vector::operator = (const m_vector & a)
 			{
+													///define new array of 'a' operational size
 				double
 					* p = new double[a.sz];
+													///copy content of the operational part of a's array
+													/// to this's hitherto array 
 				copy (a.elem, a.elem + a.sz, elem);
+													/// delete the array
 				delete [] elem;
+													///assign that newly defined array on its place
 				elem = p;
+													///updated this' fields
 				sz = a.sz;
 				return * this;
 			}
