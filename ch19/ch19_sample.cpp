@@ -339,8 +339,6 @@ namespace ch19
 		{}
 
 		namespace s19
-		{
-
-		}
+		{}
 	}
 }

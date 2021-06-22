@@ -395,7 +395,13 @@ namespace ch19
 			template <typename T, typename A = allocator<T>> 
 				class m_vector
 			{
-				A alloc;
+				int
+					sz,
+					space;
+				T
+					* elem;
+				A 
+					alloc;
 
 			public :
 
@@ -446,19 +452,28 @@ namespace ch19
 			{
 			public :
 
-				const T & at (int n) const			
+				int
+					sz;
+				T
+					* elem;
+
+				const T & at (int n) const	
 			
-				T & at (int n)				
+				//T & at (int n)				
+				//{
+				//	if (n , 0 || sz <= n)
+				//		throw out_of_range();
+				//	return elem[n];
+				//}
+				//T & operator[] (int n)
+				//{
+				//	return elem[n];
+				//}
+				//const T & operator[] (int n) const
 				{
-					if (n , 0 || sz <= n)
-						throw out_of_range();
+					/*...*/
+					return * elem; // just to silence err C4716
 				}
-				T & operator[] (int n)
-				{
-					return elem[n];
-				}
-				const T & operator[] (int n) const
-				{/*...*/}
 			};
 			void print_some (m_vector<int> & v);
 		}
@@ -509,28 +524,28 @@ namespace ch19
 
 		namespace s18
 		{
-			vector<int> * make_vec_1()
-			{
-																/// unique_ptr is a std class that owns the pointer,
-																/// as it's a local variable, it will be destroyed by default 
-																///	anihilating the pointer's appointed structure
-																/// and leaving the pointer set to nullptr - well, does it tho?
-				unique_ptr <vector<int>>	
-					p {new vector<int>};												
-				///...
-				return p.release();
-			}
-																/// declaring unique_ptr a function output 
-			unique_ptr <vector<int>> make_vec()
-			{
-				unique_ptr <vector<int>>
-					p {new vector<int>};
-				///...
-				return p;
-			}
+			//vector<int> * make_vec_1()
+			//{
+			//													/// unique_ptr is a std class that owns the pointer,
+			//													/// as it's a local variable, it will be destroyed by default 
+			//													///	anihilating the pointer's appointed structure
+			//													/// and leaving the pointer set to nullptr - well, does it tho?
+			//	unique_ptr <vector<int>>	
+			//		p {new vector<int>};												
+			//	///...
+			//	return p.release();
+			//}
+			//													/// declaring unique_ptr a function output 
+			//unique_ptr <vector<int>> make_vec_2()
+			//{
+			//	unique_ptr <vector<int>>
+			//		p {new vector<int>};
+			//	///...
+			//	return p;
+			//}
 		}
 
-		/// 19.5.6
+		/// 19.5.6 - ccc933ef4601ac8c829daaeea3bda43300cdef8e
 		namespace s19
 		{
 			template <typename T, typename A>
@@ -553,41 +568,184 @@ namespace ch19
 				{
 					alloc.deallocate (elem, space);
 				}
-
 			};
-
-
 			template <typename T, typename A = allocator<T>>
-				//class m_vector
 				class vector : private vector_base <T, A>
 			{
-				//int
-				//	space;
-				//T
-				//	* elem;
-				//A
-				//	alloc;
+				int
+					sz,
+					space;
+				A
+					alloc;
 			public :
 				void reserve (int new_alloc)
 				{
 					if (new_alloc <= space)
 						return;
-					//T 
-					//	* p = alloc.allocate (new_alloc);
 					vector_base <T, A> 
 						b (this -> alloc, new_alloc);
 					uninitialized_copy (b.elem, & b.elem [this -> sz], this -> elem);	/// https://www.cplusplus.com/reference/memory/uninitialized_copy/
-					//for (int i = 0; i < sz; ++i)
-					//	alloc.construct (& p[i], elem [i]);
 					for (int i = 0; i < sz; ++i)
-						//alloc.destroy (& elem[i]);
 						this -> alloc.destroy (& this -> elem[i]);
-					//alloc.deallocate (elem, space);
-					//elem = p;
-					//space = new_alloc;
-					swap <vector_base <T, A>> (* this, b);	/// https://www.cplusplus.com/reference/algorithm/swap/ ?
+					swap <vector_base <T, A>> (* this, b);		/// https://www.cplusplus.com/reference/algorithm/swap/ ?
 				}
 			};
+		}
+	}
+
+	namespace drill
+	{
+		namespace d01
+		{
+			template <typename T>
+				struct S
+			{
+				T
+					val;			
+			};
+			int main ();
+		}
+
+		namespace d02
+		{
+			template <typename T>
+				struct S
+			{
+				T
+					val;
+				S (T v = T()) :
+					val {v}
+				{}
+			};
+			int main();
+		}
+
+		namespace d03
+		{
+			using d02::S;		 
+			int main();
+		}
+
+		namespace d05
+		{
+			template <typename T>
+				struct S
+			{
+				T
+					val;
+				S (T v = T()) :
+					val {v}
+				{}
+				T get()
+				{
+					return val;
+				}
+			};
+			int main();
+		}
+
+		namespace d06
+		{
+			template <typename T>
+				struct S
+			{	
+				T
+					val;
+				S (T v = T()) :
+					val {v}
+				{}
+				T get();
+			};
+			int main();
+		}
+
+		namespace d07
+		{
+			template <typename T>
+				struct S
+			{
+				S (T v = T()) :
+					val {v}
+				{}
+				T get();
+			private :
+				T 
+					val;
+			};
+			int main();
+		}
+
+		namespace d08
+		{
+			using d07::S;
+			int main();
+		}
+
+		namespace d09
+		{
+			template <typename T>
+				struct S
+			{
+				S (T v = T()) :
+					val {v}
+				{}
+				T get();
+				void set(T v);
+			private :
+				T
+					val;
+			};
+				int main();
+		}
+		
+		namespace d10
+		{
+			template <typename T>
+				struct S
+			{
+				S (T v = T()) :
+					val {v}
+				{}
+				T get();
+				S<T> & operator = (const T &);
+			private :
+				T
+					val;
+			};
+			int main();
+		}
+
+		namespace d11
+		{
+			template <typename T>
+				struct S
+			{
+				S (T v = T()) :
+					val {v}
+				{}
+				T get();
+				const T & get () const;
+				S<T> & operator = (const T &);
+			private :
+				T
+					val;
+			};
+
+			int main();
+		}
+
+		namespace d12
+		{
+			using d11::S;
+			template <typename T> void read_val (T & v);
+			int main();
+		}
+
+		namespace d13
+		{
+			using d11::S;
+			using d12::read_val;
+			int main();
 		}
 	}
 }
