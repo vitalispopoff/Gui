@@ -1,6 +1,6 @@
 #include "ch19.h"
-#include <vector>
-#include <iostream>
+//#include <vector>
+//#include <iostream>
 namespace ch19
 {
 	namespace sample
@@ -227,6 +227,120 @@ namespace ch19
 			{
 				return 0;
 			}
+		}
+
+		namespace s11
+		{}
+
+		namespace s12
+		{
+			using s11::m_array;
+
+			//template <typename C>
+			//	void printout (const C & c)
+			//{
+			//	for (int i = 0; i < c.size(); ++i)				/// c2228
+			//		cout
+			//			<< c[i]
+			//			<< '\n';
+			//}
+
+			int main()
+			{
+				double
+					d [1];
+				vector <double>
+					dv (1);
+				m_array<double, 1>
+					dm;
+
+				//printout (d);
+				//cout
+				//	<< "\n-------------\n";
+				//printout (dv);
+				//cout
+				//	<< "\n-------------\n";
+				//printout (dm);
+				//cout
+				//	<< "\n-------------\n";
+				return 0;
+			}
+		}
+
+		namespace s13
+		{}
+
+		namespace s14
+		{}
+
+		namespace s15
+		{
+			void print_some (m_vector<int> & v)
+			{
+				int
+					i = -1;
+				while (cin >> i && i != -1)
+				try
+				{
+					cout
+						<< "v["
+						<< i
+						<< "]=="
+						<< v.at(i)
+						<<	'\n';
+				}
+				catch (out_of_range)
+				{
+					cout
+						<< "bad index: "
+						<< i 
+						<< "\n";
+				}
+			}		
+		}
+
+		namespace s16
+		{}
+
+		namespace s17
+		{
+			using s16::Vector;
+			void suspcious (int s, int x)
+			{
+				int
+					* p = new int[s];
+				Vector<int> 
+					v1();
+				try
+				{
+					if (x && x < s) // added the end range verifier
+					{
+						//p[x] = v1.at(x);
+						//p[x] = v1;
+					}
+				}
+				catch (...) ///everything
+				{
+					delete[] p;
+					p = nullptr; /// better off with updating pointer, right?
+					throw;		/// it's said to rethrow caught exception
+				}
+
+				///...
+				int * q = new int[s];
+				Vector<double> v2();
+				///...
+				delete[] p;
+				delete[] q;
+			}
+		}
+
+		namespace s18
+		{}
+
+		namespace s19
+		{
+
 		}
 	}
 }
