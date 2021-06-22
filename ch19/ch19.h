@@ -748,4 +748,12 @@ namespace ch19
 			int main();
 		}
 	}
+
+	namespace excercise
+	{
+		namespace e01
+		{
+
+		}
+	}
 }

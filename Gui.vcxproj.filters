@@ -138,6 +138,9 @@
     <ClCompile Include="ch19\ch19_drill.cpp">
       <Filter>Source Files\ch19</Filter>
     </ClCompile>
+    <ClCompile Include="ch19\ch19_excercise.cpp">
+      <Filter>Source Files\ch19</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
