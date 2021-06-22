@@ -558,28 +558,34 @@ namespace ch19
 
 
 			template <typename T, typename A = allocator<T>>
-				class m_vector
+				//class m_vector
+				class vector : private vector_base <T, A>
 			{
-				int
-					space;
-				T
-					* elem;
-				A
-					alloc;
+				//int
+				//	space;
+				//T
+				//	* elem;
+				//A
+				//	alloc;
 			public :
 				void reserve (int new_alloc)
 				{
 					if (new_alloc <= space)
 						return;
-					T 
-						* p = alloc.allocate (new_alloc);
+					//T 
+					//	* p = alloc.allocate (new_alloc);
+					vector_base <T, A> 
+						b (this -> alloc, new_alloc);
+					uninitialized_copy (b.elem, & b.elem [this -> sz], this -> elem);	/// https://www.cplusplus.com/reference/memory/uninitialized_copy/
+					//for (int i = 0; i < sz; ++i)
+					//	alloc.construct (& p[i], elem [i]);
 					for (int i = 0; i < sz; ++i)
-						alloc.construct (& p[i], elem [i]);
-					for (int i = 0; i < sz; ++i)
-						alloc.destro (& elem[i]);
-					alloc.deallocate (elem, space);
-					elem = p;
-					space = new_alloc;
+						//alloc.destroy (& elem[i]);
+						this -> alloc.destroy (& this -> elem[i]);
+					//alloc.deallocate (elem, space);
+					//elem = p;
+					//space = new_alloc;
+					swap <vector_base <T, A>> (* this, b);	/// https://www.cplusplus.com/reference/algorithm/swap/ ?
 				}
 			};
 		}
