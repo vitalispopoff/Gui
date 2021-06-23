@@ -807,9 +807,9 @@ namespace ch19
 					attribute {a},
 					locomotion {l}
 				{}
+				bool operator == (const God & g) const;
 				bool operator < (const God & g) const;
 				bool operator > (const God & g) const;
-				bool operator == (const God & g) const;
 			};
 			int main();
 		}

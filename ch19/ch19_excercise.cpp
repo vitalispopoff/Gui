@@ -93,18 +93,21 @@ namespace ch19
 		{
 			bool God::operator == (const God & g) const
 			{
-				//const God 
-				//	* in_question = this,
-				//	* simile = & g;
-				//return in_question == simile;
-				
 				if (this == & g)
 					return true;
-				if (
-					this -> name == g.name 
-					&& this -> attribute == g.attribute 
-					&& this -> locomotion == g.locomotion
-				)
+				if (this -> name == g.name && this -> attribute == g.attribute && this -> locomotion == g.locomotion)
+					return true; 
+				return false;
+			}
+			bool God::operator > (const God & g) const
+			{
+				if (name > g.name)
+					return true;
+				return false;
+			}
+			bool God::operator < (const God & g) const
+			{
+				if (name < g.name)
 					return true;
 				return false;
 			}
@@ -161,26 +164,53 @@ namespace ch19
 			}
 			template <typename T> Link<T> * Link<T>::add_ordered(Link<T> * n)
 			{
+				Link
+					* anchor = this;
+				while (anchor)
+				{
+					if (anchor -> value < n -> value)
+					{
+						if (n -> value < anchor -> succ -> value)
+						{
+							break;
+						}
+						else
+							if (anchor -> succ)
+							{
+								anchor = anchor -> succ;
+							}
+							else
+							{
+								break;
+							}
+					}
+					else
+						if (anchor -> prev)
+						{
+							anchor = anchor -> prev;
+						}
+						else
+							break;
+				}
+				//anchor.push_back (n);
+				return anchor;
 			}
 
 			int main()
 			{
 				Link<God>
-					greek {God{"Zeus", "lightning", "subway"}},
+					greek {God {"aaaaaab", "", ""}},
 					apollo {God {"Apollo", "Lyre", "chariot"}},
-					dionysus {God{"Dionysus", "wine", ""}};
-				greek.push_back (& apollo);
-				greek.push_back (& dionysus);
+					dionysus {God{"Dionysus", "wine", ""}},
+					zeus {God{"Zeus", "lightning", "subway"}};
+				//greek.push_back (& apollo);
+				apollo.push_back (& dionysus);
+				apollo.push_back (& zeus);
 
 				Link<God>
-					* last = greek.ff();
+					* the = dionysus.add_ordered(& greek);
 
-				//cout
-				//	<< (greek.value == apollo.value);
-				God
-					zeus {"Zeus", "lightning", "subway"};
-				cout
-					<< (greek.value == zeus);
+
 
 
 
