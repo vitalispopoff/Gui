@@ -91,19 +91,25 @@ namespace ch19
 
 		namespace e04
 		{
-			template <typename T> Link<T> * Link<T>::insert (Link<T> * n)
+			bool God::operator == (const God & g) const
 			{
-				if (!n)
-					return this;
-				n -> succ = this;
-				if (prev)
-					prev -> succ = n;
-				n -> prev = prev;
-				prev = n;
-				return n;
+				//const God 
+				//	* in_question = this,
+				//	* simile = & g;
+				//return in_question == simile;
+				
+				if (this == & g)
+					return true;
+				if (
+					this -> name == g.name 
+					&& this -> attribute == g.attribute 
+					&& this -> locomotion == g.locomotion
+				)
+					return true;
+				return false;
 			}
 
-			template <typename T> Link<T> * Link<T>::rew ()
+			template <typename T> Link<T> * Link<T>::rew		()
 			{
 				if (! prev)
 					return this;
@@ -117,7 +123,7 @@ namespace ch19
 				}
 				return anchor;
 			}
-			template <typename T> Link<T> * Link<T>:: ff()
+			template <typename T> Link<T> * Link<T>::ff			()
 			{
 				if (! succ)
 					return this;
@@ -131,8 +137,18 @@ namespace ch19
 				}
 				return anchor;
 			}
-
-			template <typename T> Link<T> * Link<T>::push_back(Link<T> * n)
+			template <typename T> Link<T> * Link<T>::insert		(Link<T> * n)
+			{
+				if (!n)
+					return this;
+				n -> succ = this;
+				if (prev)
+					prev -> succ = n;
+				n -> prev = prev;
+				prev = n;
+				return n;
+			}
+			template <typename T> Link<T> * Link<T>::push_back	(Link<T> * n)
 			{
 				if (n == this)
 					return this;					
@@ -142,6 +158,9 @@ namespace ch19
 				anchor -> succ = n;
 				anchor = rew();
 				return anchor;
+			}
+			template <typename T> Link<T> * Link<T>::add_ordered(Link<T> * n)
+			{
 			}
 
 			int main()
@@ -155,9 +174,16 @@ namespace ch19
 
 				Link<God>
 					* last = greek.ff();
+
+				//cout
+				//	<< (greek.value == apollo.value);
+				God
+					zeus {"Zeus", "lightning", "subway"};
 				cout
-					<< last->value.name 
-					<< '\n';				
+					<< (greek.value == zeus);
+
+
+
 				return 0;
 			}
 		}

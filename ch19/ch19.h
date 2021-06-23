@@ -792,6 +792,7 @@ namespace ch19
 				Link * ff();
 				Link * insert (Link * n);
 				Link * push_back (Link * n);
+				Link * add_ordered(Link * n);
 
 
 			};
@@ -805,7 +806,10 @@ namespace ch19
 					name {n},
 					attribute {a},
 					locomotion {l}
-				{}			
+				{}
+				bool operator < (const God & g) const;
+				bool operator > (const God & g) const;
+				bool operator == (const God & g) const;
 			};
 			int main();
 		}
