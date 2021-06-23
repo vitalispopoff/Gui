@@ -751,9 +751,46 @@ namespace ch19
 
 	namespace excercise
 	{
+		using namespace std;
+		
 		namespace e01
 		{
+			int main();
+		}
 
+		namespace e03
+		{
+			template <typename T, typename U> struct Pair
+			{
+				T
+					val_t;
+				U 
+					val_u;
+				Pair (T t = T(), U u = U()) :
+					val_t {t},
+					val_u {u}
+				{}
+			};			
+			int main();
+		}
+
+		namespace e04
+		{
+			struct Link
+			{
+				string
+					value;
+				Link 
+					* prev,
+					* succ;
+				Link (const string & v, Link * p = nullptr, Link * s = nullptr) :
+					value {v},
+					prev {p},
+					succ {s}
+				{}
+				Link * insert (Link * p, Link * n);
+			};
+			int main();
 		}
 	}
 }
