@@ -91,23 +91,73 @@ namespace ch19
 
 		namespace e04
 		{
-			Link * Link::insert (Link * p, Link * n)
+			template <typename T> Link<T> * Link<T>::insert (Link<T> * n)
 			{
 				if (!n)
-					return p;
-				if (!p)
-					return n;
-				n -> succ = p;
-				if (p -> prev)
-					p -> prev -> succ = n;
-				n -> prev = p -> prev;
-				p -> prev = n;
+					return this;
+				n -> succ = this;
+				if (prev)
+					prev -> succ = n;
+				n -> prev = prev;
+				prev = n;
 				return n;
+			}
+
+			template <typename T> Link<T> * Link<T>::rew ()
+			{
+				if (! prev)
+					return this;
+				Link
+					* anchor = this -> prev;
+				while (anchor -> prev)
+				{
+					anchor = anchor -> prev;
+					if (anchor == this)
+						break;
+				}
+				return anchor;
+			}
+			template <typename T> Link<T> * Link<T>:: ff()
+			{
+				if (! succ)
+					return this;
+				Link
+					* anchor = this -> succ;
+				while (anchor -> succ)
+				{
+					anchor = anchor -> succ;
+					if (anchor == this)
+						break;
+				}
+				return anchor;
+			}
+
+			template <typename T> Link<T> * Link<T>::push_back(Link<T> * n)
+			{
+				if (n == this)
+					return this;					
+				Link
+					* anchor = ff();
+				n -> prev = anchor;
+				anchor -> succ = n;
+				anchor = rew();
+				return anchor;
 			}
 
 			int main()
 			{
+				Link<God>
+					greek {God{"Zeus", "lightning", "subway"}},
+					apollo {God {"Apollo", "Lyre", "chariot"}},
+					dionysus {God{"Dionysus", "wine", ""}};
+				greek.push_back (& apollo);
+				greek.push_back (& dionysus);
 
+				Link<God>
+					* last = greek.ff();
+				cout
+					<< last->value.name 
+					<< '\n';				
 				return 0;
 			}
 		}

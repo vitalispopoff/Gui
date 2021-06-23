@@ -776,19 +776,36 @@ namespace ch19
 
 		namespace e04
 		{
-			struct Link
+			template <typename T> struct Link
 			{
-				string
+				T
 					value;
 				Link 
 					* prev,
 					* succ;
-				Link (const string & v, Link * p = nullptr, Link * s = nullptr) :
+				Link (const T & v, Link * p = nullptr, Link * s = nullptr) :
 					value {v},
 					prev {p},
 					succ {s}
 				{}
-				Link * insert (Link * p, Link * n);
+				Link * rew();
+				Link * ff();
+				Link * insert (Link * n);
+				Link * push_back (Link * n);
+
+
+			};
+			struct God
+			{
+				string	
+					name,
+					attribute,
+					locomotion;
+				God (string n ="", string a ="", string l ="") :
+					name {n},
+					attribute {a},
+					locomotion {l}
+				{}			
 			};
 			int main();
 		}
