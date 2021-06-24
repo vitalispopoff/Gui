@@ -1,9 +1,13 @@
 #pragma once
 
+#include <iostream>
+
 namespace ch19
 {
+	using namespace std;
 	namespace sample
 	{
+		/// copied from ch18
 		namespace s00
 		{
 			class m_vector
@@ -19,9 +23,9 @@ namespace ch19
 					elem {new double [s]}
 				{}
 			/// copy constructor
-				m_vector (m_vector &&);
+				m_vector (m_vector &&);					//wrn C26439
 			/// assignment operator 
-				m_vector & operator = (m_vector && v);
+				m_vector & operator = (m_vector && v);		//wrn C26439
 			/// vector size getter
 				int size ()
 				{
@@ -38,6 +42,37 @@ namespace ch19
 				{
 					return elem [n];
 				}
+			};
+			int main();
+		}
+
+		namespace s01
+		{}
+
+		/// 19.2 - vector resizing
+		namespace s02
+		{
+			/// some of the resizing functionalities of vector
+
+			// vector<double> v(n); // size assignment at construction
+
+			// v.resize (10);		// explicit resizing function
+
+			// v.push_back (7)		// explicitly adding an element at the end of the vector
+
+			// v = v2;				// assigning another vector, by copy (depending on a assignment operator implementation)
+		}
+
+		/// 19.2.1 - optimizing resize 
+		namespace s03
+		{
+			class m_vector
+			{
+				int
+					sz,			// inner array space currently used
+					space;		// inner array actual length
+				double 
+					* elem;		// inner array pointer.
 			};
 		}
 	}

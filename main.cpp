@@ -7,7 +7,7 @@ int main()
 {	
 	try
 	{
-		return ch19::excercise::e04::main();
+		return ch19::sample::s00::main();
 	}
 	catch (exception & e)
 	{

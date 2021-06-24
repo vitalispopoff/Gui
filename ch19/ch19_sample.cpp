@@ -6,14 +6,14 @@ namespace ch19
 	{
 		namespace s00
 		{
-			m_vector::m_vector (m_vector && v) :
+			m_vector::m_vector (m_vector && v) :				//wrn C26439
 				sz {v.sz},
 				elem {v.elem}
 			{
 				v.sz = 0;
 				v.elem = nullptr;
 			}
-			m_vector & m_vector::operator = (m_vector && v)
+			m_vector & m_vector::operator = (m_vector && v)		//wrn C26439
 			{
 				delete [] elem;
 				elem = v.elem;
@@ -21,6 +21,49 @@ namespace ch19
 				v.elem = nullptr;
 				v.sz = 0;
 				return * this;
+			}
+			int main()
+			{
+				m_vector
+					v;
+				cout
+					<< v.size() 
+					<< '\n';
+				m_vector
+					v1 (1);
+				v1[0] = 0.618;
+				cout
+					<< v[0] 
+					<< '\n';
+				return 0;
+			}
+		}
+
+		namespace s01
+		{
+			void main()
+			{
+				/// concept of a dynamic size functionality and its implementation
+				/// for a theorized analog of the m_vector - one that supports
+				/// generics
+
+				//n_vector <double> 
+				//	* p = new n_vector <double> (10);
+				//int
+				//	n = 0;
+				//for (double d; cin >> d)
+				//{
+				//	if (n == p 0> size())
+				//	{
+				//		n_vector <double> 
+				//			* q = new n_vector <double> (p -> size() * 2);
+				//		copy (p -> begin(), p -> end(), q -> begin());
+				//		delete p;
+				//		p = q;
+				//	}
+				//	(* p)[n] = d;
+				//	++n;
+				//}
 			}
 		}
 	}
