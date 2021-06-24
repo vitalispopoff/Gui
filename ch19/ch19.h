@@ -73,7 +73,80 @@ namespace ch19
 					space;		// inner array actual length
 				double 
 					* elem;		// inner array pointer.
+			public :
+				/// default constructor defines an empty vector w/ the inner array not even initialized
+				m_vector () :
+					sz {0},
+					elem {nullptr},
+					space {0}
+				{}
+				/// the getters are added for testing purpose only.
+				int get_size() const
+				{
+					return sz;
+				}
+				int get_space() const
+				{
+					return space;
+				}
+				double * get_elem() const
+				{
+					return elem;
+				}
 			};
+			int main();
+		}
+
+		/// 19.2.2 reserve and capacity
+		namespace s04
+		{
+			class m_vector
+			{
+			/// as before:
+				int
+					sz,
+					space;
+				double 
+					* elem;
+			public :
+				m_vector () :
+					sz {0},
+					elem {nullptr},
+					space {0}
+				{}
+				/// takes care of organizing additional free space in the inner array
+				void reserve (int new_alloc);
+
+				int capacity () const
+				{
+					return space;
+				}
+
+				/// getters for testing only:
+				int get_size() const
+				{
+					return sz;
+				}
+				int get_space() const
+				{
+					return space;
+				}
+				double * get_elem() const
+				{
+					return elem;
+				}
+			};
+			int main();
+		}
+
+		namespace s05
+		{
+			class m_vector
+			{
+
+
+			};
+			int main();			
 		}
 	}
 }

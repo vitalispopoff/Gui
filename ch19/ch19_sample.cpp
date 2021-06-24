@@ -66,6 +66,78 @@ namespace ch19
 				//}
 			}
 		}
+		
+		namespace s03
+		{
+
+			int main()
+			{
+				m_vector
+					v;
+				cout 
+					<< v.get_size() 
+					<< '\n'
+					<< v.get_space()
+					<< '\n'
+					<< v.get_elem()
+					<< '\n';
+				return 0;	
+			}
+		}
+
+		namespace s04
+		{
+			void m_vector::reserve (int new_alloc)
+			{
+				/// size may only grow 
+				if (new_alloc <= space)
+					return;
+
+				/// allocating array on the heap - this will hurt
+				double
+					* p = new double [new_alloc];
+
+				/// copying elem value to the new array
+				/// only the 'sz' number of elements is initialized in the new array
+				for (int i = 0; i < sz; ++i)
+					p[i] = elem [i];
+
+				delete [] elem;
+				elem = p;
+				space = new_alloc;
+			}
+
+			int main()
+			{
+				m_vector
+					v;
+				cout 
+					<< v.get_size() 
+					<< '\n'
+					<< v.get_space()
+					<< '\n'
+					<< v.get_elem()
+					<< '\n';
+				v.reserve(1);
+				cout 
+					<< v.get_size() 
+					<< '\n'
+					<< v.get_space()
+					<< '\n'
+					<< v.get_elem()
+					<< '\n';
+				return 0;
+			}
+		}
+
+		namespace s05
+		{
+
+			int main()
+			{
+				return 0;
+			}
+		}
 	}
 }
 
