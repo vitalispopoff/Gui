@@ -462,14 +462,17 @@ namespace ch18
 			vector<int> & f()
 			{
 				vector<int> 
-					x (7);
-				return x;
+					//x (7); // wrn C4172
+				//return x;
+					* x = new vector<int>(7);	// this instead
+				return * x;		// gotta this thos
 			}
 			int main()
 			{
 				vector<int> 
 					& p = f();
 				//p[4] = 15;	// expression vector subscript out of range
+				delete & p; // trying preventing memory leak
 				return 0;
 			}
 		}
@@ -555,8 +558,9 @@ namespace ch18
 					cout 
 						<< " a palindrome\n";
 
-					return 0;
+					//return 0;		// wrn C4715
 				}
+				return 0;
 			}
 		}
 

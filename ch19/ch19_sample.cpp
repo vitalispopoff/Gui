@@ -132,6 +132,275 @@ namespace ch19
 
 		namespace s05
 		{
+		/// as before:
+			void m_vector::reserve (int new_alloc)
+			{
+				if (new_alloc <= space)
+					return;
+				double
+					* p = new double [new_alloc];
+				for (int i = 0; i < sz; ++i)
+					p[i] = elem [i];
+				delete [] elem;
+				elem = p;
+				space = new_alloc;
+			}
+		
+		/// new stuff:
+			void m_vector::resize (int new_size)
+			{
+				/// takes care of securing the required space
+				reserve (new_size);
+
+				/// forced initalization of a leftovers
+				for (int i = sz; i < new_size; ++i)
+					elem [i] = 0;
+				/// establishing whole array to be publicly recognized as available
+				sz = new_size;
+			}
+
+			int main()
+			{
+				m_vector
+					v;
+				cout 
+					<< v.get_size() << '\n'
+					<< v.get_space() << '\n'
+					<< v.get_elem() << '\n';
+				v.resize(1);
+				cout 
+					<< v.get_size() << '\n'
+					<< v.get_space() << '\n'
+					<< v.get_elem() << '\n';
+				cout
+					<< "-----------\n";
+				m_vector
+					v1;
+				//v1.resize(-1);				// unsurprisingly this one doesn't work.
+				cout 
+					<< v1.get_size() << '\n'
+					<< v1.get_space() << '\n'
+					<< v1.get_elem() << '\n';
+				v1.resize(0);
+				cout 
+					<< v1.get_size() << '\n'
+					<< v1.get_space() << '\n'
+					<< v1.get_elem() << '\n';
+				return 0;
+			}
+		}
+
+		namespace s06
+		{
+		/// as before:
+			void m_vector::reserve (int new_alloc)
+			{
+				if (new_alloc <= space)
+					return;
+				double
+					* p = new double [new_alloc];
+				for (int i = 0; i < sz; ++i)
+					p[i] = elem [i];
+				delete [] elem;		/// what when elem == nullptr
+				elem = p;
+				space = new_alloc;
+			}		
+			void m_vector::resize (int new_size)
+			{
+				reserve (new_size);
+				for (int i = sz; i < new_size; ++i)
+					elem [i] = 0;
+				sz = new_size;
+			}
+		
+		/// new stuff:
+			
+			void m_vector::push_back (double d)
+			{
+				if (space == 0)
+					reserve (8);
+				else
+					if (sz == space)
+						reserve (space * 2);
+				elem [sz] = d;
+				++sz;
+			}			
+			int main()
+			{
+				m_vector
+					v;
+				v.reserve (1);
+				v.push_back(-1);
+				cout	
+					<< v.get_size()
+					<< " : "
+					<< * v.get_elem()
+					<< '\n';
+				return 0;
+			}
+		}
+
+		namespace s07
+		{
+		/// as before :
+			
+			void m_vector::reserve (int new_alloc)
+			{
+				if (new_alloc <= space)
+					return;
+				double
+					* p = new double [new_alloc];
+				for (int i = 0; i < sz; ++i)
+					p[i] = elem [i];
+				delete [] elem;		/// what when elem == nullptr
+				elem = p;
+				space = new_alloc;
+			}		
+			void m_vector::resize (int new_size)
+			{
+				reserve (new_size);
+				for (int i = sz; i < new_size; ++i)
+					elem [i] = 0;
+				sz = new_size;
+			}
+			void m_vector::push_back (double d)
+			{
+				if (space == 0)
+					reserve (8);
+				else
+					if (sz == space)
+						reserve (space * 2);
+				elem [sz] = d;
+				++sz;
+			}
+
+		/// new stuff :
+			m_vector & m_vector::operator = (const m_vector & a)
+			{
+				// allocating exactly as much as is used in the input variable's elem
+				double
+					* p = new double [a.sz];
+
+				// copying the input variable elem content
+				for (int i = 0; i < a.sz; ++i)
+					p[i] = a.elem[i];
+				
+				//update own elem
+				delete [] elem;
+				elem = p;
+
+				// update other member variables
+				space = sz = a.sz;
+
+				return * this;
+			}
+
+			int main()
+			{
+				m_vector
+					v1,
+					v2;
+				v1.push_back (-1);
+				v2.push_back (-2);
+				cout
+					<< * v1.get_elem()
+					<< '\n';
+				cout
+					<< * v2.get_elem()
+					<< '\n';
+				v2 = v1;
+				cout
+					<< * v2.get_elem()
+					<< '\n';							
+				return 0;
+			}
+		}
+
+		namespace s08
+		{
+		/// as before :
+			
+			void m_vector::reserve (int new_alloc)
+			{
+				if (new_alloc <= space)
+					return;
+				double
+					* p = new double [new_alloc];
+				for (int i = 0; i < sz; ++i)
+					p[i] = elem [i];
+				delete [] elem;		/// what when elem == nullptr
+				elem = p;
+				space = new_alloc;
+			}		
+			void m_vector::resize (int new_size)
+			{
+				reserve (new_size);
+				for (int i = sz; i < new_size; ++i)
+					elem [i] = 0;
+				sz = new_size;
+			}
+			void m_vector::push_back (double d)
+			{
+				if (space == 0)
+					reserve (8);
+				else
+					if (sz == space)
+						reserve (space * 2);
+				elem [sz] = d;
+				++sz;
+			}
+
+		/// new stuff :
+			m_vector & m_vector::operator = (const m_vector & a)
+			{
+				// self-assignment case
+				if (this == & a)
+					return * this;
+
+				// input's elem fits in own elem - no need for reallocation
+				if (a.sz <= space)
+				{
+					for (int i = 0; i < a.sz; ++i)
+						elem [i] = a.elem [i];
+					sz = a.sz;
+					return * this;
+				}
+				
+				/// old stuff :
+				double
+					* p = new double [a.sz];
+				for (int i = 0; i < a.sz; ++i)
+					p[i] = a.elem[i];				
+				delete [] elem;
+				elem = p;
+				space = sz = a.sz;
+				return * this;
+			}
+
+			int main()
+			{
+				m_vector
+					v1,
+					v2;
+				v1.push_back (-1);
+				v2.push_back (-2);
+				cout
+					<< * v1.get_elem()
+					<< '\n';
+				cout
+					<< * v2.get_elem()
+					<< '\n';
+				v2 = v1;
+				cout
+					<< * v2.get_elem()
+					<< '\n';							
+				return 0;
+			}
+		}
+
+		namespace s09
+		{
+
 
 			int main()
 			{

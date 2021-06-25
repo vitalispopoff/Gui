@@ -410,7 +410,8 @@ namespace ch15
 						cout << peeps[index].name() << " saved under index " << index << endl;
 					}
 				}
-				catch (exception & e)
+				//catch (exception & e)		// wrn C4101
+				catch (...)					// hence catch anything 
 				{
 					for(Person p : peeps)
 						cout << p << endl;

@@ -304,7 +304,7 @@ namespace ch18
 					* cp = c;
 				cout
 					<< endl;
-				while (* cp)
+				while (bool (* cp))
 					cout
 						<< * (cp++);
 				cout 
@@ -322,9 +322,11 @@ namespace ch18
 			{
 				string
 					reversed;
-				for (int i = 0; i < s.size(); ++i)
-					reversed += s[s.size() - 1 - i];
-				for(int i = 0; i < s.size(); ++i)
+				int 
+					size = int (s.size());
+				for (int i = 0; i < size; ++i)
+					reversed += s[size - 1 - i];
+				for(int i = 0; i < size; ++i)
 					if (s[i] != reversed[i])
 						return false;
 				return true;

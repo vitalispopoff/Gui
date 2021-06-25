@@ -103,17 +103,13 @@ namespace ch19
 			class m_vector
 			{
 			/// as before:
-				int
-					sz,
-					space;
-				double 
-					* elem;
+				int sz, space;
+				double * elem;
 			public :
-				m_vector () :
-					sz {0},
-					elem {nullptr},
-					space {0}
-				{}
+				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+
+			/// new stuff:
+
 				/// takes care of organizing additional free space in the inner array
 				void reserve (int new_alloc);
 
@@ -122,19 +118,10 @@ namespace ch19
 					return space;
 				}
 
-				/// getters for testing only:
-				int get_size() const
-				{
-					return sz;
-				}
-				int get_space() const
-				{
-					return space;
-				}
-				double * get_elem() const
-				{
-					return elem;
-				}
+			/// getters for testing only:
+				int get_size() const {return sz;}
+				int get_space() const {return space;}
+				double * get_elem() const{return elem;}
 			};
 			int main();
 		}
@@ -143,10 +130,137 @@ namespace ch19
 		{
 			class m_vector
 			{
+			/// as before:
+				int sz, space;
+				double * elem;
+			public :
+				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				void reserve (int new_alloc); 
 
+			/// new stuff: 
 
+				/// explicit size management interface
+				void resize (int new_size);
+
+			/// for testing only:
+				int get_size() const {return sz;}
+				int get_space() const {return space;}
+				double * get_elem() const {return elem;}
 			};
-			int main();			
+			int main();
+		}
+
+		/// 19.2.4.
+		namespace s06
+		{
+			class m_vector
+			{
+			/// as before:
+				int sz, space;
+				double * elem;
+			public :
+				m_vector () : sz{0}, elem {nullptr}, space {0} {}
+				void reserve (int new_alloc);
+				void resize (int new_size);
+
+			/// new stuff:
+				void push_back (double d);
+
+			/// for testing only:
+				int get_size() const {return sz;}
+				int get_space() const {return space;}
+				double * get_elem() const {return elem;}
+			};
+			int main();
+		}
+
+		/// 19.2.5 assignemt operator
+		namespace s07
+		{
+			class m_vector
+			{
+			/// as before:
+				int sz, space;
+				double * elem;
+			public :
+				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				void reserve (int new_alloc);
+				void resize (int new_size);
+				void push_back (double d);
+
+			/// new stuff :
+				m_vector & operator = (const m_vector & a);
+
+			/// for testing only:
+				int get_size() const {return sz;}
+				int get_space() const {return space;}
+				double * get_elem() const {return elem;}				
+			};
+			int main();
+		}
+
+		namespace s08
+		{
+			class m_vector
+			{
+			/// as before:
+				int sz, space;
+				double * elem;
+			public :
+				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				void reserve (int new_alloc);
+				void resize (int new_size);
+				void push_back (double d);
+
+			/// reimplementing :
+				m_vector & operator = (const m_vector & a);
+
+			/// for testing only:
+				int get_size() const {return sz;}
+				int get_space() const {return space;}
+				double * get_elem() const {return elem;}				
+			};
+			int main();
+		}
+
+		namespace s09
+		{
+			class m_vector
+			{
+			/// as before:
+				int sz, space;
+				double * elem;
+			public :
+				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				void reserve (int new_alloc);
+				void resize (int new_size);
+				void push_back (double d);
+				m_vector & operator = (const m_vector & a);	/// copy assignment
+
+			/// new stuff :
+
+				explicit m_vector (int s) : sz {s}, elem {new double [s]}, space {s}
+				{
+					for (int i = 0; i < sz; ++i)
+						elem [i] = 0;
+				}
+				m_vector (const m_vector &);				/// copy constructor
+
+				m_vector (m_vector &&);						/// move constructor
+				m_vector & operator = (m_vector &&);		/// move assignment
+
+				~m_vector () {delete [] elem;}
+				double & operator [] (int n) {return elem [n];}
+				const double & operator [] (int n) const {return elem [n];}
+
+				int size() const {return sz;}
+				int capacity() const {return space;}
+
+			/// for testing only:
+				double * get_elem() const {return elem;}				
+			};
+
+		int main();
 		}
 	}
 }
