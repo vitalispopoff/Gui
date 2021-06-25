@@ -400,8 +400,63 @@ namespace ch19
 
 		namespace s09
 		{
+		/// as before :
+			
+			void m_vector::reserve (int new_alloc)
+			{
+				if (new_alloc <= space)
+					return;
+				double
+					* p = new double [new_alloc];
+				for (int i = 0; i < sz; ++i)
+					p[i] = elem [i];
+				delete [] elem;
+				elem = p;
+				space = new_alloc;
+			}		
+			void m_vector::resize (int new_size)
+			{
+				reserve (new_size);
+				for (int i = sz; i < new_size; ++i)
+					elem [i] = 0;
+				sz = new_size;
+			}
+			void m_vector::push_back (double d)
+			{
+				if (space == 0)
+					reserve (8);
+				else
+					if (sz == space)
+						reserve (space * 2);
+				elem [sz] = d;
+				++sz;
+			}
+			m_vector & m_vector::operator = (const m_vector & a)
+			{
+				if (this == & a)
+					return * this;
+				if (a.sz <= space)
+				{
+					for (int i = 0; i < a.sz; ++i)
+						elem [i] = a.elem [i];
+					sz = a.sz;
+					return * this;
+				}
+				double
+					* p = new double [a.sz];
+				for (int i = 0; i < a.sz; ++i)
+					p[i] = a.elem[i];				
+				delete [] elem;
+				elem = p;
+				space = sz = a.sz;
+				return * this;
+			}
 
-
+		/// new stuff (not properly implemented tho) :
+			m_vector::m_vector (const m_vector & v) {}
+			m_vector::m_vector (m_vector && v) {}
+			m_vector & m_vector::operator = (m_vector && v) {}
+			
 			int main()
 			{
 				return 0;
