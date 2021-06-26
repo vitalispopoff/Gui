@@ -260,7 +260,50 @@ namespace ch19
 				double * get_elem() const {return elem;}				
 			};
 
-		int main();
+			int main();
+		}
+
+		/// 19.3 templates
+		namespace s10
+		{
+			template <typename T> 
+				class m_vector
+			{
+				int
+					sz,
+					space;
+				T 
+					* elem;
+			public :
+				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				
+				explicit m_vector (int s) : sz {s}, elem {new T [s]}, space {s}
+				{
+					for (int i = 0; i < sz; ++i)
+						elem [i] = 0;
+				}
+				/// copy constructor and assignment
+				m_vector (const m_vector &);
+				m_vector & operator = (const m_vector &);
+
+				/// move constructor and assignment
+				m_vector (m_vector &&);
+				m_vector & operator = (m_vector &&);
+
+				~m_vector () {delete [] elem;}
+
+				T & operator [] (int n) {return elem [n];}
+				const T & operator [] (int n) const {return elem [n];}
+
+				int size () const {return sz;}
+				int capacity () const {return space;}
+
+				void resize (int new_size);
+				void push_back (const T & d);
+				void reserve (int new_alloc);
+			};
+
+			int main();
 		}
 	}
 }
