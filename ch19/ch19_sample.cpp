@@ -452,13 +452,118 @@ namespace ch19
 				return * this;
 			}
 
-		/// new stuff (not properly implemented tho) :
-			m_vector::m_vector (const m_vector & v) {}
-			m_vector::m_vector (m_vector && v) {}
-			m_vector & m_vector::operator = (m_vector && v) {}
+		/// new stuff (implementations based on 18.3.4) :
+			m_vector::m_vector (const m_vector & v) : 
+				sz {v.sz}, elem {new double[v.sz]}, space {v.sz}
+			{
+				for (int i = 0 ; i < v.size();  ++i)
+					elem[i] = v[i];
+			}
+			m_vector::m_vector (m_vector && v) :
+				sz {v.sz}, elem {v.elem}, space {v.space}
+			{
+				v.sz = v.space = 0;
+				v.elem = nullptr;
+			}
+			m_vector & m_vector::operator = (m_vector && v) 
+			{
+				// snatch input's elem
+				delete [] elem;
+				elem = v.elem;
+
+				// update other members
+				sz = v.sz;
+				space = v.space;
+
+				// clean input
+				v.elem = nullptr;
+				v.sz = v.space = 0;		
+
+				return * this;
+			}
 			
+			void test_1()
+			{
+				m_vector
+					v1(2),
+					v2 = v1;
+				cout
+					<< v1.get_elem() 
+					<< " : "
+					<< v1.size()
+					<<'\n';
+				cout
+					<< v2.get_elem()
+					<< " : "
+					<< v2.size()
+					<< '\n';
+			}
+
+			void test_2()
+			{
+				m_vector
+					v1(2),
+					v2 = v1;
+				m_vector
+					v3 (v2);
+				cout
+					<< v1.get_elem() 
+					<< " : "
+					<< v1.size()
+					<<'\n';
+				cout
+					<< v2.get_elem()
+					<< " : "
+					<< v2.size()
+					<< '\n';
+				cout
+					<< v3.get_elem()
+					<< " : "
+					<< v3.size()
+					<< '\n';
+			}
+			void test_3()
+			{
+				m_vector
+					v1(2);
+				m_vector
+					v3 (v1);
+				cout
+					<< v1.get_elem() 
+					<< " : "
+					<< v1.size()
+					<<'\n';
+				cout
+					<< v3.get_elem()
+					<< " : "
+					<< v3.size()
+					<< '\n';
+				/// how do you force the move constructor then ?
+			}
+
+			void test_0()
+			{
+				int x = -1,
+					* y = & x,
+					&& z = int(x);
+				//cout
+				//	<< y	<< '\n'
+				//	<< & x	<< '\n'
+				//	<< & z	<< '\n'
+				//	<< * (& z)	<< '\n';
+
+				cout
+					<< "x    :\t" << typeid(z).name() << "\t" << & z << '\n'
+					<< "y (*):\t" << typeid(* y).name() << "\t" << & y << '\n'
+					<< "y    :\t" << typeid(y).name() << "\t" << & y << '\n'
+					<< "y (&):\t" << typeid(& y).name() << "\t" << & y <<'\n'
+					<< "z (&):\t" << typeid(& z).name() << "\t" << & z << '\n';
+			}
+
 			int main()
 			{
+				test_3();
+
 				return 0;
 			}
 		}
