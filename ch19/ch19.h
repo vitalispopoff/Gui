@@ -246,6 +246,10 @@ namespace ch19
 				}
 				m_vector (const m_vector &);				/// copy constructor
 
+
+			/// both use an rvalue reference, which apparently is a big deal by itself:
+			/// http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2010/n3055.pdf
+			/// http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2010/n3092.pdf > 3.10
 				m_vector (m_vector &&);						/// move constructor
 				m_vector & operator = (m_vector &&);		/// move assignment
 
