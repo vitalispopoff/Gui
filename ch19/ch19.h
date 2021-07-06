@@ -270,7 +270,16 @@ namespace ch19
 		/// 19.3 templates
 		namespace s10
 		{
-			template <typename T> 
+		/// C++14 additional definition of the type <T> understandable the compiler
+		/// it's called a "concept", which at compile time returns bool for the compiler 
+		/// in order to generate actual code from the template.
+			// template <typename T> requires Element <t> () class m_vector {}
+
+		/// C++14 respects also a shorter syntax
+			// template <Element T> class m_vector{}
+
+		/// C++11 doesn't have these kind of additional definitions tho
+			template <typename T> 											
 				class m_vector
 			{
 				int

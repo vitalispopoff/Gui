@@ -1,4 +1,5 @@
 #include "ch19.h"
+#include <vector>
 
 namespace ch19
 {
@@ -637,7 +638,7 @@ namespace ch19
 				if (new_alloc <= space)
 					return;
 				T
-					* p = new double [new_alloc];
+					* p = new T [new_alloc];
 				for (int i = 0; i < sz; ++i)
 					p[i] = elem [i];
 				delete [] elem;
@@ -668,6 +669,15 @@ namespace ch19
 
 			int main()
 			{
+				m_vector <int>
+					m_v;
+				m_v.push_back(1);
+				cout
+					<< m_v.size();
+				m_v.resize(2);
+				cout
+					<< "\n--------\n"
+					<< m_v.size();
 				return 0;
 			}
 		}
