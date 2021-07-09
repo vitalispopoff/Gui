@@ -681,6 +681,43 @@ namespace ch19
 				return 0;
 			}
 		}
+
+		namespace s11
+		{
+			template <typename T, int N> 
+				T & m_array<T, N>::operator[] (int n)
+			{
+				return elem[n];
+			}
+
+			template <typename T, int N> 
+				const T & m_array<T, N>::operator[] (int n) const
+			{
+				return elem[n];
+			}
+			
+			int main()
+			{
+
+				m_array<int, 3>
+					arr;
+				cout
+					<< arr.size() << '\n';
+				arr[0] = 1;
+				arr[1] = -1;
+				arr [2] = 0;
+				for (int i = 0; i < arr.size(); ++i)
+					cout
+						<< arr[i]
+						<< '\n';
+				cout
+					<< endl;
+				
+					
+
+				return 0;
+			}
+		}
 	}
 }
 

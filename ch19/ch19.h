@@ -318,6 +318,31 @@ namespace ch19
 
 			int main();
 		}
+
+		namespace s11
+		{
+			template <typename T, int N>
+				struct m_array
+			{
+				T
+					elem [N];
+				T & operator[] (int n);
+				const T & operator[] (int n) const;
+				T * data ()
+				{
+					return elem;
+				}
+				const T * data() const 
+				{
+					return elem;
+				}
+				int size() const
+				{
+					return N;
+				}
+			};
+			int main();
+		}
 	}
 }
 
