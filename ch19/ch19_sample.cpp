@@ -5,6 +5,7 @@ namespace ch19
 {
 	namespace sample
 	{
+		/// m_vector
 		namespace s00
 		{
 			m_vector::m_vector (m_vector && v) :				//wrn C26439
@@ -86,6 +87,7 @@ namespace ch19
 			}
 		}
 
+		/// m_vector::reserve
 		namespace s04
 		{
 			void m_vector::reserve (int new_alloc)
@@ -131,6 +133,7 @@ namespace ch19
 			}
 		}
 
+		/// m_vector::resize
 		namespace s05
 		{
 		/// as before:
@@ -191,6 +194,7 @@ namespace ch19
 			}
 		}
 
+		/// m_vector::push_back
 		namespace s06
 		{
 		/// as before:
@@ -241,6 +245,7 @@ namespace ch19
 			}
 		}
 
+		/// m_vector::operator =
 		namespace s07
 		{
 		/// as before :
@@ -317,6 +322,7 @@ namespace ch19
 			}
 		}
 
+		/// m_vector::operator = 
 		namespace s08
 		{
 		/// as before :
@@ -399,6 +405,8 @@ namespace ch19
 			}
 		}
 
+		/// m_vector::m_vector
+		/// m_vector::operator =
 		namespace s09
 		{
 		/// as before :
@@ -569,6 +577,7 @@ namespace ch19
 			}
 		}
 
+		/// template m_vector
 		namespace s10
 		{
 
@@ -682,6 +691,7 @@ namespace ch19
 			}
 		}
 
+		/// template m_vector::operator []
 		namespace s11
 		{
 			template <typename T, int N> 
@@ -717,6 +727,98 @@ namespace ch19
 
 				return 0;
 			}
+		}
+
+		namespace s12
+		{
+			using s11::m_array;
+
+			m_array <int, 256> 
+				gb;
+			m_array <double, 6>
+				ad = {0., 1.1, 2.2, 3.3, 4.4, 5.5};
+			const int
+				max = 16; //1024; // a bit too long to list
+
+			template <typename C> void printout (const C & c)
+			{
+				for (int i = 0; i < c.size(); ++i)
+					cout
+						<< c[i] << '\n';
+			}
+
+			void some_fct (int n)
+			{
+				m_array<char, max> 
+					loc = {'a'};
+				printout (loc);
+				cout
+					<< "\n-------------\n";
+
+				m_array <char, max> 
+					loc2 = loc;
+				loc[0] = 'b';
+				printout (loc);
+				cout
+					<< "\n-------------\n";
+				loc = loc2;
+				printout (loc);
+				cout
+					<< "\n-------------\n";
+			}
+
+			int main()
+			{
+				some_fct(2);
+				return 0;
+			}
+		}
+
+		namespace s13
+		{
+			using s11::m_array;
+			using s12::printout;
+
+			template <class T, int N> 
+				void fill (m_array <T, N> & b, const T & val)
+			{
+				for (int i = 0; i < N; ++i)	// N is by definition a constant at compile time already
+					b[i] = val;
+			}
+
+			int main()
+			{
+				m_array <char, 16>
+					buf;
+				fill (buf, 'x');
+				printout (buf);
+				cout
+					<< "\n--------------\n";
+				m_array <double, 8>
+					b2;
+				// fill <char, 16> (buf, 'x')	// is a proper statement here, and said to be an overkill on a daily basis
+				fill (b2, .0);					// this shortcut is usually enough specific
+				printout (b2);
+				cout
+					<< "\n--------------\n";
+				return 0;
+			}
+		}
+
+		/// 19.3.7
+		/// template m_vector::	
+		///		push_back
+		///		resize
+		///		reserve
+		namespace s14
+		{
+
+
+			int main()
+			{
+				return 0;
+			}
+
 		}
 	}
 }

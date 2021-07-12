@@ -319,6 +319,7 @@ namespace ch19
 			int main();
 		}
 
+		/// 19.3.5
 		namespace s11
 		{
 			template <typename T, int N>
@@ -326,6 +327,9 @@ namespace ch19
 			{
 				T
 					elem [N];
+
+				//m_array () {}			// empty constructor seems to mess things up only
+
 				T & operator[] (int n);
 				const T & operator[] (int n) const;
 				T * data ()
@@ -341,6 +345,25 @@ namespace ch19
 					return N;
 				}
 			};
+			int main();
+		}
+
+		namespace s12
+		{
+			using s11::m_array;
+			
+			template <typename C> 
+				void printout (const C &);
+			int main();
+		}
+
+		namespace s13
+		{
+			using s11::m_array;
+			using s12::printout;
+
+			template <class T, int N>
+				void fill(m_array <T, N> &, const T &);
 			int main();
 		}
 	}
