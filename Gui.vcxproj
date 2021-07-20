@@ -45,6 +45,7 @@
     <ClCompile Include="ch19\ch19_excercise.cpp" />
     <ClCompile Include="ch19\ch19_sample.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="scratch_book.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Graph.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Gui.cpp" />
     <ClCompile Include="_add_libs\PPP2Code\Window.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="ch18\ch18.h" />
     <ClInclude Include="ch19\ch19.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="scratch_book.h" />
     <ClInclude Include="_add_libs\PPP2Code\fltk.h" />
     <ClInclude Include="_add_libs\PPP2Code\Graph.h" />
     <ClInclude Include="_add_libs\PPP2Code\Gui.h" />

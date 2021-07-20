@@ -5,7 +5,7 @@ namespace ch19
 {
 	namespace sample
 	{
-		/// m_vector
+
 		namespace s00
 		{
 			m_vector::m_vector (m_vector && v) :				//wrn C26439
@@ -87,7 +87,6 @@ namespace ch19
 			}
 		}
 
-		/// m_vector::reserve
 		namespace s04
 		{
 			void m_vector::reserve (int new_alloc)
@@ -133,7 +132,6 @@ namespace ch19
 			}
 		}
 
-		/// m_vector::resize
 		namespace s05
 		{
 		/// as before:
@@ -194,7 +192,6 @@ namespace ch19
 			}
 		}
 
-		/// m_vector::push_back
 		namespace s06
 		{
 		/// as before:
@@ -245,7 +242,6 @@ namespace ch19
 			}
 		}
 
-		/// m_vector::operator =
 		namespace s07
 		{
 		/// as before :
@@ -322,7 +318,6 @@ namespace ch19
 			}
 		}
 
-		/// m_vector::operator = 
 		namespace s08
 		{
 		/// as before :
@@ -405,8 +400,6 @@ namespace ch19
 			}
 		}
 
-		/// m_vector::m_vector
-		/// m_vector::operator =
 		namespace s09
 		{
 		/// as before :
@@ -577,7 +570,6 @@ namespace ch19
 			}
 		}
 
-		/// template m_vector
 		namespace s10
 		{
 
@@ -655,6 +647,7 @@ namespace ch19
 				space = new_alloc;
 			}		
 			
+			/// the below three will be discussed in s14
 			template <typename T>
 				void m_vector<T>::resize (int new_size)
 			{
@@ -691,7 +684,6 @@ namespace ch19
 			}
 		}
 
-		/// template m_vector::operator []
 		namespace s11
 		{
 			template <typename T, int N> 
@@ -805,20 +797,206 @@ namespace ch19
 			}
 		}
 
-		/// 19.3.7
-		/// template m_vector::	
-		///		push_back
-		///		resize
-		///		reserve
 		namespace s14
 		{
+			template <typename T, typename A>
+				void m_vector<T, A>::resize (int new_size)
+			{
+				reserve (new_size);
+				for (int i = sz; i < new_size; ++i)
+					elem [i] = 0;
+				sz = new_size;
+			}
+			template <typename T, typename A>
+				void m_vector<T, A>::push_back (const T & d)
+			{
+				if (space == 0)
+					reserve (8);
+				else
+					if (sz == space)
+						reserve (space * 2);
+				elem [sz] = d;
+				++sz;
+			}
+			template <typename T, typename A>
+				m_vector<T,A> & m_vector<T, A>::operator = (const m_vector & a)
+			{
+				if (this == & a)
+					return * this;
+				if (a.sz <= space)
+				{
+					for (int i = 0; i < a.sz; ++i)
+						elem [i] = a.elem [i];
+					sz = a.sz;
+					return * this;
+				}				
+				double
+					* p = new double [a.sz];
+				for (int i = 0; i < a.sz; ++i)
+					p[i] = a.elem[i];				
+				delete [] elem;
+				elem = p;
+				space = sz = a.sz;
+				return * this;
+			}
 
+		///	reimplementing
+			template <typename T, typename A>
+				void m_vector<T,A>::reserve (int new_alloc)
+			{
+				if (new_alloc <= space)
+					return;
+				T * p = alloc.allocate(new_alloc);
+				for (int i = 0; i < sz; ++i)
+					alloc.construct (&p[i], elem [i]);
+				for (int i = 0; i < sz; ++i)
+					alloc.destroy (& elem [i]);
+				alloc.deallocate (elem, space);
+				elem = p;
+				space = new_alloc;
+			}		
+
+			int main()
+			{
+				m_vector <int>
+					m;
+				auto print_out = [&]{
+					cout
+					<< "capacity\t" << m.capacity() << '\n'
+					<< "get_size\t" << m.get_size() << '\n'
+					<< "get_space\t" << m.get_space() << '\n';	
+				};
+
+				print_out();
+				m.reserve(1);
+				cout 
+					<< "\tafter reserve() \n";
+				print_out();
+				return 0;
+			}
+		}
+
+		namespace s15
+		{
+		/// as before :
+			template <typename T, typename A>
+				void m_vector<T,A>::reserve (int new_alloc)
+			{
+				if (new_alloc <= space)
+					return;
+				T * p = alloc.allocate(new_alloc);
+				for (int i = 0; i < sz; ++i)
+					alloc.construct (&p[i], elem [i]);
+				for (int i = 0; i < sz; ++i)
+					alloc.destroy (& elem [i]);
+				alloc.deallocate (elem, space);
+				elem = p;
+				space = new_alloc;
+			}
+			template <typename T, typename A>
+				void m_vector<T, A>::resize (int new_size)
+			{
+				reserve (new_size);
+				for (int i = sz; i < new_size; ++i)
+					elem [i] = 0;
+				sz = new_size;
+			}
+			template <typename T, typename A>
+				void m_vector<T, A>::push_back (const T & d)
+			{
+				if (space == 0)
+					reserve (8);
+				else
+					if (sz == space)
+						reserve (space * 2);
+				elem [sz] = d;
+				++sz;
+			}
+			template <typename T, typename A>
+				m_vector<T,A> & m_vector<T, A>::operator = (const m_vector & a)
+			{
+				if (this == & a)
+					return * this;
+				if (a.sz <= space)
+				{
+					for (int i = 0; i < a.sz; ++i)
+						elem [i] = a.elem [i];
+					sz = a.sz;
+					return * this;
+				}				
+				double
+					* p = new double [a.sz];
+				for (int i = 0; i < a.sz; ++i)
+					p[i] = a.elem[i];				
+				delete [] elem;
+				elem = p;
+				space = sz = a.sz;
+				return * this;
+			}
+
+		/// new stuff:
+			template <typename T, typename A> 
+				T & m_vector <T, A> :: operator [] (int n)
+			{
+				return elem [n];
+			}
+			template <typename T, typename A>
+				T & m_vector <T, A> :: at (int n)
+			{
+				if (n < 0 || sz <= n)
+					throw out_of_range();
+				return elem [n];
+			}
+			
+			int main()
+			{
+				m_vector<int>
+					m;
+				m.push_back (0);
+				m.push_back (1);
+				m.push_back (-1);
+				cout
+					<< m.at (2);
+
+				return 0;
+			}
+		}
+
+		namespace s16
+		{
+
+			int main()
+			{
+				m_vector <int> m (1);
+				cout
+					<< m[0];
+
+				return 0;
+			}
+		}
+
+		namespace s17
+		{
+			void suspicious (vector <int> & v, int s)
+			{
+				int 
+					* p = new int[s];
+				vector <int>
+					v1;
+				//...
+				int 
+					* q = new int [s];
+				vector <double>
+					v2;
+				//...
+				delete [] p;
+				delete [] q;
+			}
 
 			int main()
 			{
 				return 0;
 			}
-
 		}
 	}
 }

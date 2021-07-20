@@ -141,6 +141,9 @@
     <ClCompile Include="ch19\ch19_excercise.cpp">
       <Filter>Source Files\ch19</Filter>
     </ClCompile>
+    <ClCompile Include="scratch_book.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -198,6 +201,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ch19\ch19.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scratch_book.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

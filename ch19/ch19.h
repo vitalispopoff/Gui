@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 namespace ch19
 {
@@ -8,6 +9,7 @@ namespace ch19
 	namespace sample
 	{
 		/// copied from ch18
+		/// m_vector
 		namespace s00
 		{
 			class m_vector
@@ -43,6 +45,7 @@ namespace ch19
 					return elem [n];
 				}
 			};
+
 			int main();
 		}
 
@@ -98,6 +101,7 @@ namespace ch19
 		}
 
 		/// 19.2.2 reserve and capacity
+		/// m_vector::reserve
 		namespace s04
 		{
 			class m_vector
@@ -109,14 +113,10 @@ namespace ch19
 				m_vector () : sz {0}, elem {nullptr}, space {0} {}
 
 			/// new stuff:
+				int capacity () const {return space;}
 
 				/// takes care of organizing additional free space in the inner array
 				void reserve (int new_alloc);
-
-				int capacity () const
-				{
-					return space;
-				}
 
 			/// getters for testing only:
 				int get_size() const {return sz;}
@@ -126,6 +126,7 @@ namespace ch19
 			int main();
 		}
 
+		/// m_vector::resize
 		namespace s05
 		{
 			class m_vector
@@ -135,10 +136,10 @@ namespace ch19
 				double * elem;
 			public :
 				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				int capacity() const {return space;}
 				void reserve (int new_alloc); 
 
 			/// new stuff: 
-
 				/// explicit size management interface
 				void resize (int new_size);
 
@@ -150,7 +151,8 @@ namespace ch19
 			int main();
 		}
 
-		/// 19.2.4.
+		/// 19.2.4
+		/// m_vector::push_back
 		namespace s06
 		{
 			class m_vector
@@ -160,6 +162,7 @@ namespace ch19
 				double * elem;
 			public :
 				m_vector () : sz{0}, elem {nullptr}, space {0} {}
+				int capacity() const {return space;}
 				void reserve (int new_alloc);
 				void resize (int new_size);
 
@@ -175,6 +178,7 @@ namespace ch19
 		}
 
 		/// 19.2.5 assignemt operator
+		/// m_vector::operator =
 		namespace s07
 		{
 			class m_vector
@@ -184,6 +188,7 @@ namespace ch19
 				double * elem;
 			public :
 				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				int capacity() const {return space;}
 				void reserve (int new_alloc);
 				void resize (int new_size);
 				void push_back (double d);
@@ -199,6 +204,7 @@ namespace ch19
 			int main();
 		}
 
+		/// m_vector::operator = 
 		namespace s08
 		{
 			class m_vector
@@ -212,6 +218,8 @@ namespace ch19
 				void resize (int new_size);
 				void push_back (double d);
 
+				int capacity() const {return space;}
+
 			/// reimplementing :
 				m_vector & operator = (const m_vector & a);
 
@@ -223,6 +231,8 @@ namespace ch19
 			int main();
 		}
 
+		/// m_vector::m_vector
+		/// m_vector::operator =
 		namespace s09
 		{
 			class m_vector
@@ -232,13 +242,13 @@ namespace ch19
 				double * elem;
 			public :
 				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				int capacity() const {return space;}	// moved from "new stuff" because it already was in s06, and so added to following namespaces too.
 				void reserve (int new_alloc);
 				void resize (int new_size);
 				void push_back (double d);
 				m_vector & operator = (const m_vector & a);	/// copy assignment
 
 			/// new stuff :
-
 				explicit m_vector (int s) : sz {s}, elem {new double [s]}, space {s}
 				{
 					for (int i = 0; i < sz; ++i)
@@ -258,7 +268,6 @@ namespace ch19
 				const double & operator [] (int n) const {return elem [n];}
 
 				int size() const {return sz;}
-				int capacity() const {return space;}
 
 			/// for testing only:
 				double * get_elem() const {return elem;}				
@@ -268,10 +277,11 @@ namespace ch19
 		}
 
 		/// 19.3 templates
+		/// template m_vector
 		namespace s10
 		{
-		/// C++14 additional definition of the type <T> understandable the compiler
-		/// it's called a "concept", which at compile time returns bool for the compiler 
+		/// C++14 additional definition of the type <T> understandable for the compiler
+		/// it's called a "concept", which at compile time returns bool for the compiler (right?)
 		/// in order to generate actual code from the template.
 			// template <typename T> requires Element <t> () class m_vector {}
 
@@ -320,6 +330,7 @@ namespace ch19
 		}
 
 		/// 19.3.5
+		/// template m_array::operator []
 		namespace s11
 		{
 			template <typename T, int N>
@@ -364,6 +375,129 @@ namespace ch19
 
 			template <class T, int N>
 				void fill(m_array <T, N> &, const T &);
+			int main();
+		}
+
+		namespace s14
+		{
+			template <typename T, typename A = allocator <T>>
+				class m_vector
+			{
+			/// new stuff:
+				A alloc;
+			/// as before:
+				int sz, space;
+				T * elem;
+			public :
+				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+
+				void resize (int new_size);
+				void push_back (const T & d);
+
+				int capacity() const {return space;}
+
+				m_vector & operator = (const m_vector & a);
+
+			/// reimplementing to generic 
+				void reserve (int new_alloc);
+
+
+			/// for testing only:
+				int get_size() const {return sz;}
+				int get_space() const {return space;}
+				T * get_elem() const {return elem;}				
+			};
+
+			int main();
+		}
+
+		/// 19.4
+		namespace s15
+		{
+			/// new stuff
+			struct out_of_range
+			{
+				string 
+					message;
+				out_of_range (){}
+				out_of_range (string s) :
+					message (s)
+				{}
+			};
+
+			struct Range_error : out_of_range
+			{
+				int
+					index;
+				Range_error (int i) :
+					out_of_range ("Range error"), index (i)
+				{}
+			};
+
+			/// as before:
+			template <typename T, typename A = allocator <T>>
+				class m_vector
+			{
+				A alloc;
+				int sz, space;
+				T * elem;
+			public :
+				m_vector () : sz {0}, elem {nullptr}, space {0} {}
+				void reserve (int new_alloc);
+				void resize (int new_size);
+				void push_back (const T & d);
+
+				int capacity() const {return space;}
+
+				m_vector & operator = (const m_vector & a);
+			
+			/// new stuff:
+				T & operator [] (int n);
+				const T & operator [] (int n) const;
+				T & at (int n);
+				const T & at (int n) const;
+
+			/// for testing only:
+				int get_size() const {return sz;}
+				int get_space() const {return space;}
+				T * get_elem() const {return elem;}				
+			};
+
+
+		int main();
+		}
+
+		namespace s16
+		{
+			using s15::Range_error;
+
+			template <typename T> 
+				struct m_vector : public std::vector <T>
+				{
+					using size_type = typename std::vector <T>::size_type;
+					using vector<T>::vector;
+					
+					T & operator [] (size_type i)
+					{
+						if (i < 0 || this -> size() <= i)
+							throw Range_error (i);
+						return std::vector <T>::operator [] (i);
+					}
+
+					const T & operator [] (size_type i) const
+					{
+						if (i < 0 || this -> size () <= i)
+							throw Range_error (i);
+						return std::vector <T>::operator [] (i);
+					}
+				};
+
+			int main();
+		}
+
+		/// 19.5.1 - "try this"
+		namespace s17
+		{
 			int main();
 		}
 	}

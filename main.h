@@ -1,5 +1,7 @@
 //#include "_Appendix_D_test/test.h"
 
+#include "scratch_book.h"
+
 //#include "ch12\ch12.h"
 //#include "ch13\ch13.h"	ch13 causes err c2011 in Simple_window (Simple_window.h)
 //#include "ch14\ch14.h"	ch14 causes err c2011 in Simple_window (Simple_window.h)
