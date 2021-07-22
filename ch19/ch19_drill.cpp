@@ -10,9 +10,7 @@ namespace ch19
 		using namespace std;
 
 		namespace d03
-		{
-		
-		
+		{			
 			int main()
 			{
 				S <int>
@@ -40,6 +38,302 @@ namespace ch19
 				return 0;
 			}
 		}
+
+		namespace d05
+		{
+			int main ()
+			{
+				S <int> 
+					s {1};
+				cout
+					<< s.val << '\n'
+					<< s.get() << '\n';
+				return 0;
+			}
+		}
+
+		namespace d06
+		{
+			template <typename T> 
+				T & S<T>::get()
+			{
+				return val;
+			}
+
+			int main ()
+			{
+				S <int>
+					s {-1};
+				cout
+					<< s.get() << '\n';				
+				return 0;
+			}
+		}
+
+		namespace d08
+		{
+			template <typename T>
+				T & S<T>::get()
+			{
+				return val;
+			}
+
+			int main ()
+			{
+				S <int>
+					s_i {-1};
+				S <char>
+					s_c {'@'};
+				S <double>
+					s_d {.01};
+				S <string>
+					s_s {"letters"};
+				S <vector <int>>
+					s_v {{0, 1}};
+				cout
+					<< "s_i : \t" << s_i.get() << '\n'
+					<< "s_c : \t" << s_c.get() << '\n'
+					<< "s_d : \t" << s_d.get() << '\n'
+					<< "s_s : \t" << s_s.get() << '\n'
+					<< "s_v : \t";
+				for (int i : s_v.get())
+					cout 
+						<< i << ", ";
+				cout 
+					<< '\n';
+
+
+
+
+				return 0;
+			}
+		}
+
+		namespace d09
+		{
+			template <typename T>
+				T & S<T>::get()
+			{
+				return val;
+			}
+
+			template <typename T>
+				void S<T>::set (T t)
+			{
+				val = t;
+			}
+
+			int main()
+			{
+				S <int>
+					s {-1};
+				s.set (1);
+				cout
+					<< s.get() << '\n';
+				return 0;
+			}
+		}
+
+		namespace d10
+		{
+			template <typename T> 
+				T & S <T>::get() {return val;}
+			template <typename T> 
+				S <T> & S <T>::operator = (const T & t)
+			{
+				val = t;
+				return * this;
+			}
+
+			int main ()
+			{
+				S <int>
+					s {1};
+				s = S <int> (2);
+				cout
+					<< s.get() << '\n';
+				return 0;
+			}
+		}
+
+		namespace d11
+		{
+			template <typename T> 
+				T & S <T>::get () { return val;}
+			template <typename T>
+				S <T> & S <T>::operator = (const T & t)
+			{
+				val = t;
+				return * this;
+			}
+			template <typename T>
+				const S <T> & S <T>::operator = (const T & t) const
+			{
+				val = t;
+				return * this;
+			}
+
+			int main()
+			{
+				S <int>
+					s {1},
+					t {-1};
+				s = t;
+
+				cout 
+					<< s.get() << '\n';
+
+				return 0;
+			}
+
+
+		}
+
+		namespace d12
+		{
+			template <typename T>
+				T & S <T>::get () {return val;}
+			template <typename T>
+				S <T> & S <T>::operator = (const T & t)
+			{
+				val = t;
+				return * this;
+			}
+			template <typename T>
+				const S <T> & S <T>::operator = (const T & t) const
+			{
+				val = t;
+				return * this;
+			}
+			template <typename T>
+				T & read_val (T & v)
+			{
+				cin 
+					>> v;
+				return v;
+			}
+
+			int main ()
+			{
+				int
+					i;
+				S <int>
+					s = read_val(i);
+				
+				cout
+					<< s.get() << '\n';
+
+				return 0;
+			}
+		}
+
+		namespace d13
+		{
+			template <typename T>
+				T & S <T>::get () {return val;}
+			template <typename T>
+				S <T> & S <T>::operator = (const T & t)
+			{
+				val = t;
+				return * this;
+			}
+			template <typename T>
+				const S <T> & S <T>::operator = (const T & t) const
+			{
+				val = t;
+				return * this;
+			}
+			template <typename T>
+				T & read_val (T & v)
+			{
+				cin 
+					>> v;
+				return v;
+			}
+
+			int main()
+			{
+				int
+					i;
+				S <int>
+					s_i = read_val (i);
+				char
+					c;
+				S <char>
+					s_c = read_val (c);
+				double
+					d;
+				S <double>
+					s_d = read_val (d);
+				string
+					s;
+				S <string>
+					s_s = read_val (s);
+
+				cout
+					<< "s_i :\t" <<	s_i.get() << '\n'
+					<< "s_c :\t" <<	s_c.get() << '\n'
+					<< "s_d :\t" <<	s_d.get() << '\n'
+					<< "s_s :\t" <<	s_s.get() << '\n';
+				return 0;
+			}
+		}
+
+		namespace d14
+		{
+			template <typename T>
+				T & S <T>::get () {return val;}
+			template <typename T>
+				S <T> & S <T>::operator = (const T & t)
+			{
+				val = t;
+				return * this;
+			}
+			template <typename T>
+				const S <T> & S <T>::operator = (const T & t) const
+			{
+				val = t;
+				return * this;
+			}
+
+			template <typename T>
+				T & read_val (T & v)
+			{
+				cin 
+					>> v;
+				return v;
+			}
+
+			template <typename T>
+				istream & operator >> (istream & is, vector <T> & v)
+			{
+				T v1;
+				cin 
+					>> v1;				
+				v.push_back (v1);
+				return is;
+			}
+			template <typename T>
+				ostream & operator << (ostream & os, vector <T> & v)
+			{
+				for (T t : v)
+					os << t;
+				return os;
+			}
+
+			int main()
+			{
+				vector <int>
+					v;
+				S <vector <int>>
+					s_v = read_val(v);
+				cout 
+					<< s_v.get();
+				return 0;
+			}
+
+		}
+
 	}
 }
 

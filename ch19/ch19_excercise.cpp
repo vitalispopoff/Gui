@@ -1,4 +1,104 @@
+#include "ch19.h"
 
+#include <vector>
+#include <iostream>
+
+namespace ch19
+{
+	namespace excercise
+	{
+		using namespace std;
+
+		namespace e01
+		{
+			template <typename T> 
+				vector <T> & f (vector <T> & v1, vector <T> & v2)
+			{
+				for (int i = 0; i < (int) v1.size() && i < (int) v2.size(); ++i)
+					v1 [i] += v2 [i];
+				return v1;
+			}
+
+			int main ()
+			{
+				vector <int>
+					v1 {0, 1, 2, 3, 4},
+					v2 {-1, -2, -3, -4};
+				f (v1, v2);
+
+				for (int i : v1)
+					cout
+						<< i << ", ";
+				cout
+					<< '\n';		
+				return 0;
+			}
+
+		}
+
+		namespace e02
+		{
+			template <typename T> T f (vector <T> & v1, vector <T> & v2)
+			{
+				T result {0};
+
+				for (int i = 0; i < (int) v1.size() && i < (int) v2.size(); ++i)
+					result += ( v1 [i] * v2 [i]);
+
+				return result;
+			}
+
+			int main ()
+			{
+				vector <int>
+					v1 {0, 1, 2, 3},
+					v2 {1};
+				cout
+					<< f (v1, v2);
+
+				return 0;
+			}
+		}
+
+		namespace e03
+		{
+			int main ()
+			{
+				vector <Pair <char>>
+					v_p;
+				Pair <char>
+					p ('c', 'd');
+				v_p.push_back (p);
+
+				for (Pair <char> p : v_p)
+					cout 
+						<< p;
+				cout
+					<< '\n';
+				return 0;
+			}
+		}
+
+		namespace e04
+		{
+			Link * insert (Link * p, Link * n)
+			{
+				if (n == nullptr)
+					return p;
+				if (p == nullptr)
+					return n;
+				n -> succ = p;
+				if (p -> prev)
+					p -> prev -> succ = n;
+				n -> prev = p -> prev;
+				p -> prev = n;
+				return n;
+			}
+
+
+		}
+	}
+}
 
 /// first reading round
 

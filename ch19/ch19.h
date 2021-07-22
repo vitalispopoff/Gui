@@ -6,6 +6,7 @@
 namespace ch19
 {
 	using namespace std;
+
 	namespace sample
 	{
 		/// copied from ch18
@@ -567,6 +568,224 @@ namespace ch19
 
 			int main();
 		}
+
+		namespace d05
+		{
+			template <typename T>
+				struct S
+			{
+				T val;
+				S () : val {T()} {}
+				S (T t) : val {t} {}
+
+				T & get () {return val;}
+			};
+
+			int main ();
+		}
+
+		namespace d06
+		{
+
+			template <typename T>
+				struct S
+			{
+				S () : val {T ()} {}
+				S (T t) : val {t} {}
+				T & get ();
+
+			private :
+				T val;
+			};
+
+			int main ();
+		}
+
+		namespace d08
+		{
+			template <typename T>
+				struct S
+			{
+				S () : val {T ()} {}
+				S (T t) : val {t} {}
+				T & get ();
+			private :
+				T val;
+			};
+			int main();
+		}
+
+		namespace d09
+		{
+			template <typename T>
+				struct S
+			{
+				S () : val {T()} {}
+				S (T t) : val {t} {}
+				T & get ();
+				void set (T t);
+			private :
+				T val;
+			};
+			int main();
+		}
+
+		namespace d10
+		{
+			template <typename T>
+				struct S
+			{
+				S () : val {T ()} {}
+				S (T t) : val {t} {}
+				T & get();
+				S<T> & operator = (const T &);
+			private :
+				T val;
+			};
+			int main();
+		}
+
+		namespace d11
+		{
+			template <typename T>
+				struct S
+			{
+				S () : val {T ()} {}
+				S (T t) : val {t} {}
+				T & get();
+				S <T> & operator = (const T &);
+				const S <T> & operator = (const T &) const;
+			private :
+				T val;
+			};
+
+			int main ();
+		}
+
+		namespace d12
+		{
+			template <typename T>
+				struct S
+			{
+				S () : val {T ()} {}
+				S (T t) : val {t} {}
+				T & get();
+				S <T> & operator = (const T &);
+				const S <T> & operator = (const T &) const;
+			private :
+				T val;
+			};
+
+			template <typename T> 
+				T & read_val (T & v);
+
+			int main ();
+		}
+
+		namespace d13
+		{
+			template <typename T>
+				struct S
+			{
+				S () : val {T ()} {}
+				S (T t) : val {t} {}
+				T & get();
+				S <T> & operator = (const T &);
+				const S <T> & operator = (const T &) const;
+			private :
+				T val;
+			};
+
+			template <typename T> 
+				T & read_val (T & v);
+
+			int main();
+		}
+
+		namespace d14
+		{
+			template <typename T>
+				struct S
+			{
+				S () : val {T ()} {}
+				S (T t) : val {t} {}
+				T & get();
+				S <T> & operator = (const T &);
+				const S <T> & operator = (const T &) const;
+			private :
+				T val;
+			};
+
+			template <typename T> 
+				T & read_val (T & v);
+
+			template <typename T>
+				istream & operator >> (istream & is, vector <T> & v);
+			template <typename T>
+				ostream & operator << (ostream & os, vector <T> & v);
+
+			int main();
+		}	
+	}
+
+	namespace excercise
+	{
+		namespace e01
+		{
+			template <typename T> 
+				vector <T> & f (vector <T> & v1, vector <T> & v2);
+
+			int main ();
+		}
+
+		namespace e02
+		{
+			template <typename T>
+				T f (vector <T> & v1, vector <T> & v2);
+
+			int main();		
+		}
+
+		namespace e03
+		{
+			template <typename T>
+				class Pair
+			{
+				T s1, s2;
+			public :
+				Pair () : s1 {T ()}, s2 {T ()} {}
+				Pair (T t1, T t2) : s1 {t1}, s2 {t2} {}
+				T get_s1() {return s1;}
+				T get_s2() {return s2;}
+
+			};
+			template <typename T> 
+				ostream & operator << (ostream & os, Pair<T> & p)
+			{
+				os << p.get_s1() << ", " << p.get_s2();
+				return os;
+			}
+
+			int main();
+		}
+
+		namespace e04
+		{
+			struct Link
+			{
+				string value;
+				Link * prev, * succ;
+				Link (const string & v, Link * p = nullptr, Link * s = nullptr) :
+					value {v},
+					prev {p},
+					succ {s}
+				{}
+			};
+			Link * insert (Link * p, Link * n);
+
+			int main();
+		}
+
 	}
 }
 
