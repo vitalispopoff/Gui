@@ -1,4 +1,47 @@
+#include "ch19.h"
 
+#include <iostream>
+#include <vector>
+
+namespace ch19
+{
+	namespace drill
+	{
+		using namespace std;
+
+		namespace d03
+		{
+		
+		
+			int main()
+			{
+				S <int>
+					s_i {-1};
+				S <char>
+					s_c {'@'};
+				S <double>
+					s_d {.01};
+				S <string>
+					s_s {"letters"};
+				S <vector <int>>
+					s_v {{0, 1}};
+				
+				cout
+					<< "s_i : \t" << s_i.val <<'\n'
+					<< "s_c : \t" << s_c.val <<'\n'
+					<< "s_d : \t" << s_d.val <<'\n'
+					<< "s_s : \t" << s_s.val <<'\n'
+					<< "s_v : \t";
+				for (int i : s_v.val)
+					cout
+						<< i << ", ";
+				cout
+					<< '\n';
+				return 0;
+			}
+		}
+	}
+}
 
 
 /// first reading round

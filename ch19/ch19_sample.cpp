@@ -980,24 +980,165 @@ namespace ch19
 			void suspicious (vector <int> & v, int s)
 			{
 				int 
-					* p = new int[s];
+					* p = nullptr;
+				try
+				{
+					p = new int[s];
+				}
+				catch (...)
+				{
+
+				}
 				vector <int>
 					v1;
+
 				//...
+
 				int 
-					* q = new int [s];
+					* q = nullptr;
+				try
+				{
+					q = new int [s];
+				}
+				catch (...)
+				{
+					if (p != nullptr) 
+					{
+						delete [] p;
+						cout << "p freed";
+					}
+				}
 				vector <double>
 					v2;
+
 				//...
-				delete [] p;
-				delete [] q;
+
+				if (p != nullptr) 
+				{
+					delete [] p;
+					cout << "\np freed\n";
+				}
+				if (q != nullptr) 
+				{
+					delete [] q;
+					cout << "\nq freed\n";
+				}
 			}
 
 			int main()
 			{
+				vector<int>
+					v (1);
+				suspicious (v, 2);
+
 				return 0;
 			}
 		}
+
+		namespace s18
+		{
+			const int 
+				x = 1000;
+
+			vector <int> * make_vec ()
+			{
+				vector <int> * 
+					v = new vector <int>;
+				try
+				{
+					// whatever code that fills v
+					for (int i = 0; i < x; ++i)
+						v-> push_back (i);
+
+					return v;
+				}
+				catch (...)
+				{
+					delete v;
+					v = nullptr; // guess we should do this as well
+					throw;
+				}
+			}
+
+			int main()
+			{
+				for (int i : * make_vec ())
+					cout 
+						<< i << ", ";
+				return 0;
+			}
+		}
+
+		namespace s19
+		{
+			const int 
+				x {1000};
+
+			vector <int> * make_vec ()
+			{
+				unique_ptr <vector <int>> 
+					p {new vector <int>};
+			
+				// part of code that fills p
+				try
+				{
+					for (int i = 0; i < x; ++i)
+						p -> push_back (i);
+				}
+				catch (...)
+				{
+					// ???
+					throw;
+				}
+
+				return p.release();			
+			}
+
+			unique_ptr <vector <int>> make_vec_1 ()
+			{
+				unique_ptr <vector <int>> 
+					p {new vector <int>};
+				//...
+				try
+				{
+					for (int i = 0; i < x; ++i)
+						p -> push_back (i);
+				}
+				catch (...)
+				{
+					// ???
+					throw;
+				}
+					
+				return p;
+			}
+
+			vector <int> make_vec_2 ()
+			{
+				vector <int>
+					res;
+				//...
+				try
+				{
+					for (int i = 0; i < x; ++i)
+						res.push_back(i);
+				}
+				catch (...)
+				{
+					// ???
+					throw;
+				}
+				
+				return res;
+			}
+			
+			int main ()
+			{
+				return 0;
+			}
+		}
+
+
 	}
 }
 

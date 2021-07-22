@@ -500,6 +500,73 @@ namespace ch19
 		{
 			int main();
 		}
+
+		/// guaranties:
+		/// basic guarantee : no leaks
+		/// strong guarantee : no flaws (in used resources)
+		/// no-throw guarantee : no throws
+		namespace s18
+		{
+
+			int main();
+		}
+		
+		/// unique_ptr
+		namespace s19
+		{
+			/// returns a pointer
+			vector <int> * make_vec();
+
+			/// returns a pointer container
+			unique_ptr <vector <int>> make_vec_1();
+
+			/// returns a vector 
+			/// as is said to use a move constructor implemented straight in the vector
+			vector <int> make_vec_2();
+
+			int main ();
+		}
+
+	
+	}
+
+	namespace drill
+	{
+		namespace d01
+		{
+			template <typename T>
+				struct S
+			{
+				T val;
+			};
+		}
+
+		namespace d02
+		{
+			template <typename T>
+				struct S
+			{
+				T val;
+				S (T t) :
+					val {t}
+				{}
+			};
+		}
+
+		namespace d03
+		{
+			template <typename T>
+				struct S
+			{
+				T val;
+				S () : val {T()} {}	// gotta add empty constructor
+				S (T t) :
+					val {t}
+				{}
+			};
+
+			int main();
+		}
 	}
 }
 

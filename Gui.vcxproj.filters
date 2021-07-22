@@ -13,30 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\_add_libs">
-      <UniqueIdentifier>{3d596bf9-35e2-444f-99a3-561631dba76a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\_add_libs">
-      <UniqueIdentifier>{936a096f-ce0c-4fef-bcc4-11a1e57a2d9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ch12">
-      <UniqueIdentifier>{b7962742-e968-4156-8442-6d4bf1627688}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ch13">
-      <UniqueIdentifier>{14d8d5c2-f383-4c4e-9b00-b2c0b065dddc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ch14">
-      <UniqueIdentifier>{d209ff28-f734-47dc-92a4-46be8ab3050e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ch15">
-      <UniqueIdentifier>{f098caab-c506-4f2d-a410-3b774fcd848b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ch15">
-      <UniqueIdentifier>{deb9d854-6d33-47de-9bdd-b865ec3042ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ch16">
-      <UniqueIdentifier>{cfd5e493-1ec5-46ee-a281-674d61ae7dd8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\ch16_e06">
       <UniqueIdentifier>{d47d23cc-46fa-485a-a42b-56f130129884}</UniqueIdentifier>
     </Filter>
@@ -51,68 +27,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_Appendix_D_test\test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_add_libs\PPP2Code\Graph.cpp">
-      <Filter>Source Files\_add_libs</Filter>
-    </ClCompile>
-    <ClCompile Include="_add_libs\PPP2Code\Window.cpp">
-      <Filter>Source Files\_add_libs</Filter>
-    </ClCompile>
-    <ClCompile Include="_add_libs\PPP2Code\Gui.cpp">
-      <Filter>Source Files\_add_libs</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\example_12.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\drill_12.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch12\excercise_12.cpp">
-      <Filter>Source Files\ch12</Filter>
-    </ClCompile>
-    <ClCompile Include="ch13\excercise_13.cpp">
-      <Filter>Source Files\ch13</Filter>
-    </ClCompile>
-    <ClCompile Include="ch13\drill_13.cpp">
-      <Filter>Source Files\ch13</Filter>
-    </ClCompile>
-    <ClCompile Include="ch13\example_13.cpp">
-      <Filter>Source Files\ch13</Filter>
-    </ClCompile>
-    <ClCompile Include="ch14\drill_14.cpp">
-      <Filter>Source Files\ch14</Filter>
-    </ClCompile>
-    <ClCompile Include="ch14\excercise_14.cpp">
-      <Filter>Source Files\ch14</Filter>
-    </ClCompile>
-    <ClCompile Include="ch14\sample_14.cpp">
-      <Filter>Source Files\ch14</Filter>
-    </ClCompile>
-    <ClCompile Include="ch15\drill_15.cpp">
-      <Filter>Source Files\ch15</Filter>
-    </ClCompile>
-    <ClCompile Include="ch15\excercise_15.cpp">
-      <Filter>Source Files\ch15</Filter>
-    </ClCompile>
-    <ClCompile Include="ch15\sample_15.cpp">
-      <Filter>Source Files\ch15</Filter>
-    </ClCompile>
-    <ClCompile Include="ch15\ch15_e05.cpp">
-      <Filter>Source Files\ch15</Filter>
-    </ClCompile>
-    <ClCompile Include="ch16\ch16_sample.cpp">
-      <Filter>Source Files\ch16</Filter>
-    </ClCompile>
-    <ClCompile Include="ch16\ch16_drill.cpp">
-      <Filter>Source Files\ch16</Filter>
-    </ClCompile>
-    <ClCompile Include="ch16\ch16_excercise.cpp">
-      <Filter>Source Files\ch16</Filter>
     </ClCompile>
     <ClCompile Include="ch17\ch17_drill.cpp">
       <Filter>Source Files\ch17</Filter>
@@ -141,57 +57,9 @@
     <ClCompile Include="ch19\ch19_excercise.cpp">
       <Filter>Source Files\ch19</Filter>
     </ClCompile>
-    <ClCompile Include="scratch_book.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_Appendix_D_test\test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ch12\ch12.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_add_libs\PPP2Code\Graph.h">
-      <Filter>Header Files\_add_libs</Filter>
-    </ClInclude>
-    <ClInclude Include="_add_libs\PPP2Code\Window.h">
-      <Filter>Header Files\_add_libs</Filter>
-    </ClInclude>
-    <ClInclude Include="_add_libs\PPP2Code\Gui.h">
-      <Filter>Header Files\_add_libs</Filter>
-    </ClInclude>
-    <ClInclude Include="_add_libs\PPP2Code\Simple_window.h">
-      <Filter>Header Files\_add_libs</Filter>
-    </ClInclude>
-    <ClInclude Include="_add_libs\PPP2Code\Point.h">
-      <Filter>Header Files\_add_libs</Filter>
-    </ClInclude>
-    <ClInclude Include="_add_libs\PPP2Code\fltk.h">
-      <Filter>Header Files\_add_libs</Filter>
-    </ClInclude>
-    <ClInclude Include="ch13\ch13.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ch14\ch14.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ch15\ch15_drill.h">
-      <Filter>Header Files\ch15</Filter>
-    </ClInclude>
-    <ClInclude Include="ch15\ch15_sample.h">
-      <Filter>Header Files\ch15</Filter>
-    </ClInclude>
-    <ClInclude Include="ch15\ch15_excercise.h">
-      <Filter>Header Files\ch15</Filter>
-    </ClInclude>
-    <ClInclude Include="ch15\ch15.h">
-      <Filter>Header Files\ch15</Filter>
-    </ClInclude>
-    <ClInclude Include="ch16\ch16.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ch17\ch17.h">
@@ -201,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ch19\ch19.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scratch_book.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
