@@ -774,7 +774,7 @@ namespace ch19
 			//struct God
 			//{
 			//	string	name, mythology, vehicle, weapon;
-
+			//
 			//	God () {}
 			//	God (string n, string m, string v ="", string w ="") :
 			//		name {n},
@@ -783,7 +783,7 @@ namespace ch19
 			//		weapon {w}
 			//	{}
 			//};
-
+			//
 			//ostream & operator << (ostream & os, God & g)
 			//{
 			//	os
@@ -805,13 +805,15 @@ namespace ch19
 					succ {s}
 				{}
 			};
-			template <typename T> Link <T> * insert (Link <T> * p, Link <T> * n);
-			template <typename T> ostream & operator << (ostream & os, Link <T> & l)
-			{
-				os
-					<< l -> value;
-				return os;
-			}
+			template <typename T> Link <T> 
+				* insert (Link <T> * p, Link <T> * n);
+			//template <typename T> 
+			//	ostream & operator << (ostream & os, Link <T> & l)
+			//{
+			//	os
+			//		<< (* l).value);
+			//	return os;
+			//}
 
 			int main();
 		}

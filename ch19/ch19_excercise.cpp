@@ -96,23 +96,40 @@ namespace ch19
 				return next;
 			}
 
+			template <typename T>
+				void print_all (Link <T> * l)
+			{
+				Link <T>
+					* current = l;
+				while (true)
+				{
+					cout 
+						<< current -> value << '\n';
+					if (current -> succ == nullptr)
+						break;
+					current = (current -> succ);
+				}
+			}
+
 			int main ()
 			{
 				Link <string>
 					l1 ("one"),
 					l2 ("two"),
 					l3 ("three"),
-					* l = &l1;	// setting this definition before insert forces it to be '*' to keep it uptodate
+					* l = & l1;	// setting this definition before insert forces it to be '*' to keep it uptodate
 				insert (insert (& l1, & l2), & l3);
 
-				while (1)
-				{
-					cout 
-						<< l -> value << '\n';
-					if (l -> succ == nullptr)
-						break;
-					l = (l -> succ);
-				}
+				//while (1)
+				//{
+				//	cout 
+				//		<< l/* -> value */<< '\n';
+				//	if (l -> succ == nullptr)
+				//		break;
+				//	l = (l -> succ);
+				//}
+
+				print_all (l);
 
 				return 0;
 			}
