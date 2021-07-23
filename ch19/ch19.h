@@ -771,17 +771,47 @@ namespace ch19
 
 		namespace e04
 		{
-			struct Link
+			//struct God
+			//{
+			//	string	name, mythology, vehicle, weapon;
+
+			//	God () {}
+			//	God (string n, string m, string v ="", string w ="") :
+			//		name {n},
+			//		mythology {m},
+			//		vehicle {v},
+			//		weapon {w}
+			//	{}
+			//};
+
+			//ostream & operator << (ostream & os, God & g)
+			//{
+			//	os
+			//		<< g.name << ", "
+			//		<< g.mythology << ", "
+			//		<< g.vehicle << ", "
+			//		<< g.weapon << '\n';
+			//	return os;
+			//}
+
+			template <typename T>
+				struct Link
 			{
-				string value;
+				T value;
 				Link * prev, * succ;
-				Link (const string & v, Link * p = nullptr, Link * s = nullptr) :
+				Link (const T & v, Link * p = nullptr, Link * s = nullptr) :
 					value {v},
 					prev {p},
 					succ {s}
 				{}
 			};
-			Link * insert (Link * p, Link * n);
+			template <typename T> Link <T> * insert (Link <T> * p, Link <T> * n);
+			template <typename T> ostream & operator << (ostream & os, Link <T> & l)
+			{
+				os
+					<< l -> value;
+				return os;
+			}
 
 			int main();
 		}

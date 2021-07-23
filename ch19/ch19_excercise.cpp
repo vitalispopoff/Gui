@@ -81,20 +81,41 @@ namespace ch19
 
 		namespace e04
 		{
-			Link * insert (Link * p, Link * n)
+			template <typename T>
+				Link <T> * insert (Link <T> * prev, Link <T> * next)
 			{
-				if (n == nullptr)
-					return p;
-				if (p == nullptr)
-					return n;
-				n -> succ = p;
-				if (p -> prev)
-					p -> prev -> succ = n;
-				n -> prev = p -> prev;
-				p -> prev = n;
-				return n;
+				if (prev == nullptr)
+					return next;
+				if (next == nullptr)
+					return prev;
+				prev -> succ = next;
+				if (next -> prev)
+					next -> prev -> succ = prev;
+				prev -> prev = next -> prev;
+				next -> prev = prev;
+				return next;
 			}
 
+			int main ()
+			{
+				Link <string>
+					l1 ("one"),
+					l2 ("two"),
+					l3 ("three"),
+					* l = &l1;	// setting this definition before insert forces it to be '*' to keep it uptodate
+				insert (insert (& l1, & l2), & l3);
+
+				while (1)
+				{
+					cout 
+						<< l -> value << '\n';
+					if (l -> succ == nullptr)
+						break;
+					l = (l -> succ);
+				}
+
+				return 0;
+			}
 
 		}
 	}
