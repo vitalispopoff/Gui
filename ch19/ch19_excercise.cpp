@@ -82,18 +82,18 @@ namespace ch19
 		namespace e04
 		{
 			template <typename T>
-				Link <T> * insert (Link <T> * prev, Link <T> * next)
+				Link <T> * insert (Link <T> * l1, Link <T> * l2)
 			{
-				if (prev == nullptr)
-					return next;
-				if (next == nullptr)
-					return prev;
-				prev -> succ = next;
-				if (next -> prev)
-					next -> prev -> succ = prev;
-				prev -> prev = next -> prev;
-				next -> prev = prev;
-				return next;
+				if (l1 == nullptr)
+					return l2;
+				if (l2 == nullptr)
+					return l1;
+				l1 -> succ = l2;
+				if (l2 -> prev)
+					l2 -> prev -> succ = l1;
+				l1 -> prev = l2 -> prev;
+				l2 -> prev = l1;
+				return l2;
 			}
 
 			template <typename T>
