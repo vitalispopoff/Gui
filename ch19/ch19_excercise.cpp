@@ -82,18 +82,45 @@ namespace ch19
 		namespace e04
 		{
 			template <typename T>
-				Link <T> * insert (Link <T> * l1, Link <T> * l2)
+				Link <T> * insert (Link <T> * delivery, Link <T> * target)	/// puts delivery in front of target
 			{
-				if (l1 == nullptr)
-					return l2;
-				if (l2 == nullptr)
-					return l1;
-				l1 -> succ = l2;
-				if (l2 -> prev)
-					l2 -> prev -> succ = l1;
-				l1 -> prev = l2 -> prev;
-				l2 -> prev = l1;
-				return l2;
+				if (delivery == nullptr)
+					return target;
+				if (target == nullptr)
+					return delivery;
+				delivery -> succ = target;
+				if (target -> prev)
+					target -> prev -> succ = delivery;
+				delivery -> prev = target -> prev;
+				target -> prev = delivery;
+				return target;
+			}
+			template <typename T>
+				Link <T> * add (Link <T> * delivery, Link <T> * target)	/// puts delivery after the target; insert() mirrored 
+			{
+				if (delivery == nullptr)
+					return target;
+				if (target == nullptr)
+					return delivery;
+				delivery -> prev = target;
+				if (target -> succ)
+					target -> succ -> prev = delivery;
+				delivery -> succ = target -> succ;
+				target -> succ = delivery;				
+				return delivery;
+			}
+			template <typename T>
+				Link <T> * find_first (Link <T> * l)
+			{
+				Link <T> * result = l;
+				while (true)
+				{
+					if (result -> prev)
+						result = result -> prev;
+					else
+						return result;
+				}
+				return result;
 			}
 
 			template <typename T>
@@ -130,8 +157,10 @@ namespace ch19
 					g2 (God ("Ianus", God::Mythology::ROMAN)),
 					g3 (God ("Tryg³aw", God::Mythology::SLAVIC)),
 					g4 (God ("Odin", God::Mythology::NORDIC, "Sleipner", "Gungnir"));
-				insert (insert (insert (& g1, & g2), & g3), & g4);
-				print_all (& g1);
+				
+				
+				print_all (find_first (add (& g4, add (& g3, insert (& g1, & g2))))); // is this a lisp vibe?
+
 
 				return 0;
 			}
@@ -140,7 +169,7 @@ namespace ch19
 	}
 }
 
-/// first reading round
+/// first reading round below
 
 //#include "ch19.h"
 //

@@ -778,7 +778,8 @@ namespace ch19
 					GREEK,
 					ROMAN,
 					SLAVIC,
-					NORDIC
+					NORDIC,
+					NONE
 				};
 				string mythology_to_string (Mythology m)
 				{
@@ -802,7 +803,9 @@ namespace ch19
 				Mythology 
 					mythology;
 			
-				God () {}
+				God () : 
+					mythology {Mythology::NONE} 
+				{}
 				God (string n, Mythology m, string v ="", string w ="") :
 					name {n},
 					mythology {m},
@@ -817,7 +820,7 @@ namespace ch19
 					<< g.name << ", "
 					<< g.mythology_to_string (g.mythology) << ", "
 					<< g.vehicle << ", "
-					<< g.weapon << '\n';
+					<< g.weapon;
 				return os;
 			}
 
@@ -832,8 +835,36 @@ namespace ch19
 					succ {s}
 				{}
 			};
-			template <typename T> Link <T> 
-				* insert (Link <T> * p, Link <T> * n);
+			/// <summary>
+			/// puts the first input in-front of the second input
+			/// returns the latter
+			/// </summary>
+			/// <typeparam name="T"></typeparam>
+			/// <param name=""></param>
+			/// <param name=""></param>
+			/// <returns></returns>
+			template <typename T> 
+				Link <T> * insert (Link <T> *, Link <T> *);
+			/// <summary>
+			/// puts the first input after the second input
+			/// returns the latter
+			/// </summary>
+			/// <typeparam name="T"></typeparam>
+			/// <param name=""></param>
+			/// <param name=""></param>
+			/// <returns></returns>
+			template <typename T> 
+				Link <T> * add (Link <T> *, Link <T> *);
+			/// <summary>
+			/// finds first object in the structure
+			/// </summary>
+			/// <typeparam name="T"></typeparam>
+			/// <param name=""></param>
+			/// <returns></returns>
+			template <typename T>
+				Link <T> * find_first (Link <T> *);
+			template <typename T>
+				Link <T> * remove (Link <T> *);
 
 
 			int main();
