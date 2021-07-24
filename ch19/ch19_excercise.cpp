@@ -122,6 +122,18 @@ namespace ch19
 				}
 				return result;
 			}
+			template <typename T>
+				Link <T> * remove (Link <T> * l)
+			{
+				if (!(l -> prev) && !(l -> succ))
+					return l;
+				if (l -> prev)
+					l -> prev -> succ = l -> succ;
+				if (l -> succ)
+					l -> succ -> prev = l -> prev;
+				l -> prev = l -> succ = nullptr;
+				return l;
+			}
 
 			template <typename T>
 				void print_all (Link <T> * l)
@@ -131,14 +143,16 @@ namespace ch19
 				while (true)
 				{
 					cout 
-						<< current -> value << '\n';
+						<< current -> value;
 					if (current -> succ == nullptr)
 						break;
+					cout
+						<< '\n';
 					current = (current -> succ);
 				}
 			}
 
-			int main_1 ()
+			void main_1 ()
 			{
 				Link <string>
 					l1 ("one"),
@@ -147,24 +161,55 @@ namespace ch19
 					* l = & l1;	// setting this definition before insert forces it to be '*' to keep it uptodate
 				insert (insert (& l1, & l2), & l3);
 				print_all (l);
-				return 0;
 			}
 
-			int main ()
+			void main_2 ()
 			{
 				Link <God>
 					g1 (God ("Zeus", God::Mythology::GREEK, "", "lightning")),
 					g2 (God ("Ianus", God::Mythology::ROMAN)),
 					g3 (God ("Tryg³aw", God::Mythology::SLAVIC)),
 					g4 (God ("Odin", God::Mythology::NORDIC, "Sleipner", "Gungnir"));
-				
-				
+								
 				print_all (find_first (add (& g4, add (& g3, insert (& g1, & g2))))); // is this a lisp vibe?
+				cout
+					<< "\n----\n"
+					<< (remove (& g3) -> value)
+					<< "\n----\n";
+				
+				print_all (find_first (& g4));
+				cout
+					<< "\n----\n";
+			}
 
+			int main ()
+			{
+				return 0;
+			}
+		}
+
+		namespace e05
+		{
+			Int operator + (Int & i1, Int & i2)
+			{
+				return Int (i1.get() + i2.get());
+			}
+			Int operator - (Int & i1, Int & i2)
+			{
+				return Int (i1.get() - i2.get());
+			}
+
+			int main()
+			{
+				Int 
+					i1 {1},
+					i2 {2},
+					i3 {i1 - i2};
+				cout
+					<< i3.get();
 
 				return 0;
 			}
-
 		}
 	}
 }

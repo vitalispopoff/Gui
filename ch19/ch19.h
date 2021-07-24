@@ -842,7 +842,7 @@ namespace ch19
 			/// <typeparam name="T"></typeparam>
 			/// <param name=""></param>
 			/// <param name=""></param>
-			/// <returns></returns>
+			/// <returns>latter in structure</returns>
 			template <typename T> 
 				Link <T> * insert (Link <T> *, Link <T> *);
 			/// <summary>
@@ -852,7 +852,7 @@ namespace ch19
 			/// <typeparam name="T"></typeparam>
 			/// <param name=""></param>
 			/// <param name=""></param>
-			/// <returns></returns>
+			/// <returns>latter in structure</returns>
 			template <typename T> 
 				Link <T> * add (Link <T> *, Link <T> *);
 			/// <summary>
@@ -860,16 +860,44 @@ namespace ch19
 			/// </summary>
 			/// <typeparam name="T"></typeparam>
 			/// <param name=""></param>
-			/// <returns></returns>
+			/// <returns>first in the structure</returns>
 			template <typename T>
 				Link <T> * find_first (Link <T> *);
+			/// <summary>
+			/// removes l from the structure
+			/// </summary>
+			/// <typeparam name="T"></typeparam>
+			/// <param name=""></param>
+			/// <returns>* l</returns>
 			template <typename T>
 				Link <T> * remove (Link <T> *);
+			
 
 
 			int main();
 		}
 
+		namespace e05
+		{
+			class Int
+			{
+				int val;
+				
+				public :				
+				Int () : val{0} {}
+				Int (int i) : val {i} {}
+				int get() {return val;}
+				int set(int i) {val = i;}
+			};
+			Int operator + (Int &, Int &);
+			Int operator - (Int &, Int &);
+			Int operator * (Int &, Int &);
+			Int operator / (Int &, Int &);
+			ostream & operator << (ostream &, Int &);
+			istream & operator >> (istream &, Int &);
+
+			int main();
+		}
 	}
 }
 
