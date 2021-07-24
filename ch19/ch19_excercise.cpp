@@ -111,7 +111,7 @@ namespace ch19
 				}
 			}
 
-			int main ()
+			int main_1 ()
 			{
 				Link <string>
 					l1 ("one"),
@@ -119,17 +119,19 @@ namespace ch19
 					l3 ("three"),
 					* l = & l1;	// setting this definition before insert forces it to be '*' to keep it uptodate
 				insert (insert (& l1, & l2), & l3);
-
-				//while (1)
-				//{
-				//	cout 
-				//		<< l/* -> value */<< '\n';
-				//	if (l -> succ == nullptr)
-				//		break;
-				//	l = (l -> succ);
-				//}
-
 				print_all (l);
+				return 0;
+			}
+
+			int main ()
+			{
+				Link <God>
+					g1 (God ("Zeus", God::Mythology::GREEK, "", "lightning")),
+					g2 (God ("Ianus", God::Mythology::ROMAN)),
+					g3 (God ("Tryg³aw", God::Mythology::SLAVIC)),
+					g4 (God ("Odin", God::Mythology::NORDIC, "Sleipner", "Gungnir"));
+				insert (insert (insert (& g1, & g2), & g3), & g4);
+				print_all (& g1);
 
 				return 0;
 			}

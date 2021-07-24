@@ -771,28 +771,55 @@ namespace ch19
 
 		namespace e04
 		{
-			//struct God
-			//{
-			//	string	name, mythology, vehicle, weapon;
-			//
-			//	God () {}
-			//	God (string n, string m, string v ="", string w ="") :
-			//		name {n},
-			//		mythology {m},
-			//		vehicle {v},
-			//		weapon {w}
-			//	{}
-			//};
-			//
-			//ostream & operator << (ostream & os, God & g)
-			//{
-			//	os
-			//		<< g.name << ", "
-			//		<< g.mythology << ", "
-			//		<< g.vehicle << ", "
-			//		<< g.weapon << '\n';
-			//	return os;
-			//}
+			struct God
+			{
+				enum class Mythology
+				{
+					GREEK,
+					ROMAN,
+					SLAVIC,
+					NORDIC
+				};
+				string mythology_to_string (Mythology m)
+				{
+					switch (m)
+					{
+						case Mythology::GREEK :
+							return "greek"; break;
+						case Mythology::ROMAN :
+							return "roman"; break;
+						case Mythology::SLAVIC :
+							return "slavic"; break;
+						case Mythology::NORDIC :
+							return "nordic"; break;
+						default :
+							return "";
+					}
+				}
+
+				string	
+					name, vehicle, weapon;
+				Mythology 
+					mythology;
+			
+				God () {}
+				God (string n, Mythology m, string v ="", string w ="") :
+					name {n},
+					mythology {m},
+					vehicle {v},
+					weapon {w}
+				{}
+			};
+
+			inline ostream & operator << (ostream & os, God & g) // declared inline to avoid LINK2005, LINK1169
+			{
+				os
+					<< g.name << ", "
+					<< g.mythology_to_string (g.mythology) << ", "
+					<< g.vehicle << ", "
+					<< g.weapon << '\n';
+				return os;
+			}
 
 			template <typename T>
 				struct Link
@@ -807,13 +834,7 @@ namespace ch19
 			};
 			template <typename T> Link <T> 
 				* insert (Link <T> * p, Link <T> * n);
-			//template <typename T> 
-			//	ostream & operator << (ostream & os, Link <T> & l)
-			//{
-			//	os
-			//		<< (* l).value);
-			//	return os;
-			//}
+
 
 			int main();
 		}
