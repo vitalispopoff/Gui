@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <typeinfo> // for the e06 just in case
 
 namespace ch19
 {
@@ -895,6 +896,82 @@ namespace ch19
 			Int operator / (Int &, Int &);
 			ostream & operator << (ostream &, Int &);
 			istream & operator >> (istream &, Int &);
+
+			int main();
+		}
+
+		namespace e06
+		{
+			template <typename T> class Number
+			{
+				T val;
+			public :
+				Number () : val {T {0}} 
+				{}
+				Number (T t) : val {t}
+				{}
+				T get() {return val;}
+				T set(T t) {val = t;}
+				string type() {return typeid (val).name();}
+			};
+			template <typename T>
+				Number <T> operator + (Number <T> &, Number <T> &);
+			template <typename T>
+				Number <T> operator - (Number <T> &, Number <T> &);
+			template <typename T>
+				Number <T> operator * (Number <T> &, Number <T> &);
+			template <typename T>
+				Number <T> operator / (Number <T> &, Number <T> &);
+			template <typename T>
+				Number <T> operator % (Number <T> &, Number <T> &);
+			template <typename T>
+				ostream & operator << (ostream & os, Number <T> & n)
+			{
+				os 
+					<< n.get();
+				return os;
+			}
+			int main();
+		}
+
+		namespace e07
+		{
+			template <typename T> 
+				class Number
+			{
+				T val;
+			public :
+				Number () : val {T {0}} 
+				{}
+				Number (T t) : val {t}
+				{}
+				T get() {return val;}
+				void set(T t) {val = t;}
+				string type() {return typeid (val).name();}
+			};
+			template <typename T>
+				void operator += (Number <T> & t1, Number <T> & t2)
+			{
+				t1.set(t1.get() + t2.get());
+				//return t1;
+			}
+			template <typename T>
+				Number <T> operator * (Number <T> & t1, Number <T> & t2)
+			{
+				return Number <T> {t1.get() * t2.get()};
+			}
+			template <typename T>
+				ostream & operator << (ostream & os, Number <T> & n)
+			{
+				os << n.get();
+				return os;
+			}
+			int main();
+		}
+
+		namespace e08
+		{
+
 
 			int main();
 		}

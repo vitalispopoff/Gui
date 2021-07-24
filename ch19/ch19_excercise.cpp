@@ -2,6 +2,9 @@
 
 #include <vector>
 #include <iostream>
+#include <typeinfo> // for the e06 just in case
+#include <cstdint> // for the e06
+#include <string> // for the e06
 
 namespace ch19
 {
@@ -243,8 +246,97 @@ namespace ch19
 
 		namespace e06
 		{
+			template <typename T>
+				Number <T> operator + (Number <T> & t1, Number <T> & t2)
+			{
+				return Number<T> {t1.get() + t2.get()};
+			}
+			template <typename T>
+				Number <T> operator - (Number <T> & t1, Number <T> & t2)
+			{
+				return Number<T> {t1.get() - t2.get()};
+			}
+			template <typename T>
+				Number <T> operator * (Number <T> & t1, Number <T> & t2)
+			{
+				return Number<T> {t1.get() * t2.get()};
+			}
+			template <typename T> 
+				Number <T> operator / (Number <T> & t1, Number <T> & t2)
+			{
+				if (t2.get() == 0)
+				{
+					cerr << "Dividing by zero. Zero returned instead";
+					return Number <T> {0};
+				}
+				return Number <T> {t1.get() / t2.get()};
+			}
+			template <typename T>
+				Number <T> operator % (Number <T> & t1, Number <T> & t2)
+			{
+				if (t2.get() == 0)
+					return t1;	// because why not?
+				T result = t1.get() - floor (t1.get() / t2.get());
+				return Number <T> {result};
+			}
 
+			int main()
+			{
+				Number<double>
+					i1 {3.141592628},
+					i2 {1.618},
+					i3 {i1 % i2};
+				cout 
+					<< i3;				
+				return 0;
+			}
+		}
 
+		namespace e07
+		{
+			template <typename T>
+				Number <T> add_vectors (vector <Number <T>> & v, vector <Number <T>> & u)
+			{
+				Number <T> result {0};
+
+				for (int i = 0; i < (int) v.size() || i < (int) u.size(); ++i)
+				{
+					result.set(result.get() + (v [i] * u [i]).get());
+				}
+				return result;
+			}
+
+			void main_1()
+			{
+				vector <Number <int>>
+					v = {Number <int> {0}, Number <int> {1}, Number <int> {2}},
+					u = {Number <int> {1}, Number <int> {-1}, Number <int> {-2}};
+
+				cout << (Number <int> &) add_vectors (v, u);
+			}
+			void main_2()
+			{
+				vector <Number <double>>
+					v = {Number <double> {0.1}, Number <double> {1.89}, Number <double> {2.7143}},
+					u = {Number <double> {1.6}, Number <double> {-1.618}, Number <double> {-2.001}};
+
+				cout << (Number <double> &) add_vectors (v, u);
+			}
+			int main()
+			{
+				//main_1();
+				main_2();
+				return 0;
+			}
+		}
+
+		namespace e08
+		{
+
+			int main()
+			{
+				return 0;
+			}
 		}
 	}
 }
