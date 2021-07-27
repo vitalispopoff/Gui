@@ -28,12 +28,16 @@
     <ClCompile Include="ch19\ch19_drill.cpp" />
     <ClCompile Include="ch19\ch19_excercise.cpp" />
     <ClCompile Include="ch19\ch19_sample.cpp" />
+    <ClCompile Include="ch20\ch20_drill.cpp" />
+    <ClCompile Include="ch20\ch20_excercise.cpp" />
+    <ClCompile Include="ch20\ch20_sample.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ch17\ch17.h" />
     <ClInclude Include="ch18\ch18.h" />
     <ClInclude Include="ch19\ch19.h" />
+    <ClInclude Include="ch20\ch20.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

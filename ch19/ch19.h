@@ -971,7 +971,16 @@ namespace ch19
 
 		namespace e08
 		{
+			template <typename T>
+				class allocator
+			{
+				public :
+				T * allocate (int n);
+				void deallocate (T * p, int n);
 
+				//void construct (T * p, const T & v);
+				//void destroy (T * p);
+			};
 
 			int main();
 		}

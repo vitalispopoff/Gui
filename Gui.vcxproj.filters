@@ -25,6 +25,9 @@
     <Filter Include="Source Files\ch19">
       <UniqueIdentifier>{1e7e0432-25f6-454e-bdd0-82495317098d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ch20">
+      <UniqueIdentifier>{5daa71f3-1ae2-48e7-a3cb-6425b2db3084}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +60,15 @@
     <ClCompile Include="ch19\ch19_excercise.cpp">
       <Filter>Source Files\ch19</Filter>
     </ClCompile>
+    <ClCompile Include="ch20\ch20_drill.cpp">
+      <Filter>Source Files\ch20</Filter>
+    </ClCompile>
+    <ClCompile Include="ch20\ch20_excercise.cpp">
+      <Filter>Source Files\ch20</Filter>
+    </ClCompile>
+    <ClCompile Include="ch20\ch20_sample.cpp">
+      <Filter>Source Files\ch20</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -69,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ch19\ch19.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ch20\ch20.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

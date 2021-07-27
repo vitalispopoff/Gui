@@ -332,9 +332,56 @@ namespace ch19
 
 		namespace e08
 		{
+			template <typename T>
+				T * allocator <T>::allocate (int n)
+			{
+				return malloc (n * sizeof (T));
+			}
+			template <typename T>
+				void allocator <T>::deallocate (T * p, int n)
+			{
+				free (p);
+			}
+
+			template <typename T>
+				void call_out (T * ptr)
+			{
+				cout 
+				<< ptr <<'\t' << * ptr << '\n';
+			};
+
+			void main_1()
+			{
+				int 
+					* i = (int *) malloc (sizeof (int));
+				call_out (i);
+				i = new (i) int (1);
+				call_out (i);
+				free (i);
+				call_out (i);				
+			}
+
+			void main_2()
+			{
+				int
+					size {2},
+					* p = (int *) malloc (sizeof (int) * size);
+				p = new (p) int[size] {2, -1};
+
+				for (int i = 0; i < size; ++i)
+					cout << p[i] << ", ";
+				cout << '\n';
+
+				free (p);
+
+				//for (int i = 0; i < size; ++i) cout << p[i] << ", "; /// wrn C6001
+				cout << '\n';
+			}
 
 			int main()
 			{
+				//main_1();
+				main_2();
 				return 0;
 			}
 		}
