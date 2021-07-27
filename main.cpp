@@ -8,7 +8,8 @@ int main()
 {	
 	try
 	{
-		return ch20::sample::s01::main();
+		//return ch20::sample::s01::main();
+		return ch20::sample::try_this_02::main();
 
 	}
 	catch (exception & e)
