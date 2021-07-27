@@ -26,6 +26,12 @@ namespace ch20
 		{
 			int main();
 		}
+
+		namespace try_this_03
+		{
+			int main();
+		}
+
 	}
 
 }
