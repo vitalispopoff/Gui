@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -17,5 +18,13 @@ namespace ch20
 
 			int main();
 		}
+	}
+
+	namespace try_this_01 {}
+
+	/// 20.1.2
+	namespace s02
+	{
+		
 	}
 }
