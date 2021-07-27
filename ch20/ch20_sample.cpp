@@ -161,18 +161,50 @@ namespace ch20
 			{
 				for (; f1 < e1; ++f1)
 					cout
-						<< * f1;
+						<< * f1 << '\t';
+				cout
+					<< '\n';
+			}
+
+			void set (int * f1, int * e1, int val)
+			{
+				for (; f1 < e1; ++f1)
+					* f1 = val;
+			}
+
+			void copy (int * f1, int * e1, int * f2)
+			{
+				for (; f1 < e1; ++f1, ++f2)
+					* f2 = * f1;
+			}
+
+			const int 
+				len {3};
+
+			void main_0()
+			{
+				int 
+					arr [len] = {};
+
+				cout << arr << '\n';
+				//print (b, e);
+				print (arr, & arr[len]);
+
+				cout << arr << '\n';
 			}
 
 			int main()
 			{
-				const int len {1};
-				int 
-					arr [len] = {},
-					* b = arr,
-					* e = & arr[len];
+				int
+					arr1 [len],
+					arr2 [len];
 
-				print (b, e);
+				set (arr1, &arr1[len], -1);
+
+				print (arr1, & arr1[len]);
+				copy (arr1, & arr1[len], arr2);
+
+				print (arr2, & arr2[len]);
 
 				return 0;
 			}
