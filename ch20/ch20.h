@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 
 using namespace std;
 
@@ -27,11 +28,24 @@ namespace ch20
 			int main();
 		}
 
+		namespace s04 {}
+
 		namespace try_this_03
 		{
 			int main();
 		}
 
+		namespace try_this_04
+		{
+			int main();
+		}
+	}
+
+	namespace drill
+	{
+		void d00 ();
+
+		int main ();
 	}
 
 }
